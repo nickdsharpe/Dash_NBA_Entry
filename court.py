@@ -2,10 +2,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 from dash import html, dcc
 
+
 def draw_plotly_court(fig, fig_width=400, margins=10):
 
     import numpy as np
-        
+
     # From: https://community.plot.ly/t/arc-shape-with-path/7205/5
     def ellipse_arc(x_center=0.0, y_center=0.0, a=10.5, b=10.5, start_angle=0.0, end_angle=2 * np.pi, N=200, closed=False):
         t = np.linspace(start_angle, end_angle, N)
@@ -101,7 +102,8 @@ def draw_plotly_court(fig, fig_width=400, margins=10):
                  path=ellipse_arc(a=40, b=40, start_angle=0, end_angle=np.pi),
                  line=dict(color=main_line_col, width=1), layer='below'),
             dict(type="path",
-                 path=ellipse_arc(a=237.5, b=237.5, start_angle=0.386283101, end_angle=np.pi - 0.386283101),
+                 path=ellipse_arc(
+                     a=237.5, b=237.5, start_angle=0.386283101, end_angle=np.pi - 0.386283101),
                  line=dict(color=main_line_col, width=1), layer='below'),
             dict(
                 type="line", x0=-220, y0=-52.5, x1=-220, y1=threept_break_y,
@@ -158,7 +160,8 @@ def draw_plotly_court(fig, fig_width=400, margins=10):
             ),
 
             dict(type="path",
-                 path=ellipse_arc(y_center=417.5, a=60, b=60, start_angle=-0, end_angle=-np.pi),
+                 path=ellipse_arc(y_center=417.5, a=60, b=60,
+                                  start_angle=-0, end_angle=-np.pi),
                  line=dict(color=main_line_col, width=1), layer='below'),
 
         ]
@@ -166,5 +169,7 @@ def draw_plotly_court(fig, fig_width=400, margins=10):
     return dcc.Graph(
         figure=fig,
         config=dict(displayModeBar=False),
-        style={'width': f'{fig_width}px', 'height': f'{fig_height}px'}
-    )
+        style={'width': f'{fig_width}px',
+               'height': f'{fig_height}px'},
+        id='court-graph'
+    ),
