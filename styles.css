@@ -11,3 +11,16 @@
     display: flex;
     align-items: center;
 }
+
+.switch-shooter-container {
+    width: 400px;
+    display: flex;
+    align-items: center;
+}
+
+.court-toggle-container {
+    display: flex;
+    align-items: center;
+    width: 1000px;
+}
+
