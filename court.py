@@ -170,9 +170,9 @@ def draw_plotly_court(fig, fig_width=400, margins=10):
     fig.update_layout(clickmode='event+select')
 
     return dcc.Graph(
-        figure=fig,
-        config={'displayModeBar': False},
-        style={'width': f'{fig_width}px',
-               'height': f'{fig_height}px'},
-        id='court-graph'
-    ),
+                figure=fig,
+                config={'displayModeBar': False},
+                style={'width': f'{fig_width}px',
+                        'height': f'{fig_height}px'},
+                id='court-graph'
+            ),
