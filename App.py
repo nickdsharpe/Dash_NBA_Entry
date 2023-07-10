@@ -1,14 +1,18 @@
 import dash
-from dash import html
+from dash import html, dcc
 from dash.dependencies import Input, Output
 import dash_daq as daq
-from entry_from import ToggleSwitch, PlayerDropdown, PlayTypeDropdown, ShooterHeader
+from entry_from import ToggleSwitch, PlayerDropdown, PlayTypeDropdown, ShooterHeader, ShotTypeDropdown, MakePlayerDictionaries, RecordShotButton
+from update_player_df import UpdatePlayerDF
 from court import draw_plotly_court
 import plotly.express as px
 import plotly.graph_objects as go
+import pandas as pd
 
+player_dfs = MakePlayerDictionaries()
+shot = {}
+shot_df = pd.DataFrame(columns=['player', 'play_type', 'shot_type', 'make_miss'])
 fig = go.Figure()
-
 # Dash app
 app = dash.Dash(__name__)
 
@@ -19,10 +23,12 @@ app.layout = html.Div(
         html.Div(draw_plotly_court(fig), id='court-plot'),
         html.Div(id='click-coordinates'),
         ToggleSwitch(),
-        ShooterHeader(),
+        #ShooterHeader(),
         PlayerDropdown(),
         PlayTypeDropdown(),
-        html.Div(id='shot-switch-result')
+        ShotTypeDropdown(),
+        html.Div(id='shot-switch-result'),
+        RecordShotButton(),
     ]
 )
 
@@ -34,8 +40,12 @@ app.layout = html.Div(
 # Make or Miss Toggle switch logic
 def update_shot_result(value):
     if value:
+        shot['result'] = 0
+        print(shot)
         return "Miss"
     else:
+        shot['result'] = 1
+        print(shot)
         return "Make"
 
 # Player Dropdown callback
@@ -45,7 +55,9 @@ def update_shot_result(value):
 )
 # Player Dropdown logic
 def update_player(value):
-    return f'You have selected {value}'
+    shot['player'] = value
+    print(shot)
+    return value
 
 # Play-Type Dropdown callback
 @app.callback(
@@ -54,17 +66,20 @@ def update_player(value):
 )
 # Play-Type Dropdown logic
 def update_play_type(value):
+    shot['play_type'] = value
+    print(shot)
     return f'You have selected {value}'
 
-# Callback to draw the court plot
+# Shot-Type Dropdown callback
 @app.callback(
-    Output('court-plot', 'children'),
-    Input('shot-switch', 'value')
+    Output('shot-type-dropdown-output-container', 'children'),
+    Input('shot-type-dropdown', 'value')
 )
-def draw_court(value):
-    fig = go.Figure()
-    court_plot = draw_plotly_court(fig)
-    return court_plot
+# Shot-Type Dropdown logic
+def update_shot_type(value):
+    shot['shot_type'] = value
+    print(shot)
+    return f'You have selected {value}'
 
 # Track click events
 @app.callback(
@@ -78,6 +93,17 @@ def record_coordinates(clickData):
         return f'Shot coordinates: ({x}, {y})'
     else:
         return ''
+    
+# Record shot callback
+@app.callback(
+    Output("record-shot-output", "children"),
+    [Input("record-shot-button", "n_clicks")]
+)
+def record_shot(value):
+    if shot['player'] is not None:
+        updated_player_df = UpdatePlayerDF(shot)
+        print(updated_player_df)
+        return f'Recorded shot'
 
 # Run the app
 if __name__ == '__main__':
