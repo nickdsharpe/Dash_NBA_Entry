@@ -27,6 +27,8 @@ app.layout = html.Div(
 )
 
 # Make or Miss Toggle callback
+
+
 @app.callback(
     Output("shot-switch-result", "children"),
     [Input("shot-switch", "value")]
@@ -39,6 +41,8 @@ def update_shot_result(value):
         return "Make"
 
 # Player Dropdown callback
+
+
 @app.callback(
     Output('player-dropdown-output-container', 'children'),
     Input('player-dropdown', 'value')
@@ -48,6 +52,8 @@ def update_player(value):
     return f'You have selected {value}'
 
 # Play-Type Dropdown callback
+
+
 @app.callback(
     Output('play-type-dropdown-output-container', 'children'),
     Input('play-type-dropdown', 'value')
@@ -57,6 +63,8 @@ def update_play_type(value):
     return f'You have selected {value}'
 
 # Callback to draw the court plot
+
+
 @app.callback(
     Output('court-plot', 'children'),
     Input('shot-switch', 'value')
@@ -67,17 +75,21 @@ def draw_court(value):
     return court_plot
 
 # Track click events
+
+
 @app.callback(
     Output('click-coordinates', 'children'),
     Input('court-graph', 'clickData')
 )
 def record_coordinates(clickData):
+    print('Click registered')
     if clickData is not None:
         x = clickData['points'][0]['x']
         y = clickData['points'][0]['y']
         return f'Shot coordinates: ({x}, {y})'
     else:
         return ''
+
 
 # Run the app
 if __name__ == '__main__':
