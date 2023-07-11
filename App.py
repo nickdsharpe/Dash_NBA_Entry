@@ -41,11 +41,9 @@ app.layout = html.Div(
 def update_shot_result(value):
     if value:
         shot['result'] = 0
-        print(shot)
         return "Miss"
     else:
         shot['result'] = 1
-        print(shot)
         return "Make"
 
 # Player Dropdown callback
@@ -56,7 +54,6 @@ def update_shot_result(value):
 # Player Dropdown logic
 def update_player(value):
     shot['player'] = value
-    print(shot)
     return value
 
 # Play-Type Dropdown callback
@@ -67,7 +64,6 @@ def update_player(value):
 # Play-Type Dropdown logic
 def update_play_type(value):
     shot['play_type'] = value
-    print(shot)
     return f'You have selected {value}'
 
 # Shot-Type Dropdown callback
@@ -78,7 +74,6 @@ def update_play_type(value):
 # Shot-Type Dropdown logic
 def update_shot_type(value):
     shot['shot_type'] = value
-    print(shot)
     return f'You have selected {value}'
 
 # Track click events
