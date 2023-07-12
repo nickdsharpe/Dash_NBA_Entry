@@ -18,16 +18,24 @@ def ShooterHeader():
                                   'marginTop': '5px'})
     ])
 
-def ToggleSwitch():
+def ShotChecklist():
     return html.Div([
-                    daq.ToggleSwitch(
-                        id="shot-switch", 
-                        value=False, size=50,
-                        label='Make | Miss',
-                        labelPosition='bottom',
-                        style= {'display': 'flex', 'alignItems': 'center', 'marginLeft': '40px', 'marginBottom': '10px'}
-                        ),
-                    ], className='shot-switch-container')
+        dcc.Checklist(
+            ['Make', 'Miss', 'Free Throws', 'Turnover'],
+            inline=True,
+            id='shot-checklist',
+            style={'padding': 5},
+            inputStyle={"marginRight": 5, 'marginLeft': 20}
+        ), 
+    ])
+
+def FreeThrows():
+    return html.Div([
+        dcc.Input(
+            id='free-throw-input',
+            placeholder='Free Throws Made'
+        )
+    ])
 
 def PlayerDropdown():
     return html.Div([
