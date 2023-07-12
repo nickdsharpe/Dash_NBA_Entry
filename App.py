@@ -34,8 +34,6 @@ app.layout = html.Div(
 )
 
 # Make or Miss Toggle callback
-
-
 @app.callback(
     Output("shot-switch-result", "children"),
     [Input("shot-switch", "value")]
@@ -50,8 +48,6 @@ def update_shot_result(value):
         return "Make"
 
 # Player Dropdown callback
-
-
 @app.callback(
     Output('player-dropdown-output-container', 'children'),
     Input('player-dropdown', 'value')
@@ -62,8 +58,6 @@ def update_player(value):
     return value
 
 # Play-Type Dropdown callback
-
-
 @app.callback(
     Output('play-type-dropdown-output-container', 'children'),
     Input('play-type-dropdown', 'value')
@@ -74,8 +68,6 @@ def update_play_type(value):
     return f'You have selected {value}'
 
 # Shot-Type Dropdown callback
-
-
 @app.callback(
     Output('shot-type-dropdown-output-container', 'children'),
     Input('shot-type-dropdown', 'value')
@@ -86,8 +78,6 @@ def update_shot_type(value):
     return f'You have selected {value}'
 
 # Track click events
-
-
 @app.callback(
     Output('click-coordinates', 'children'),
     Input('court-graph', 'clickData')
@@ -102,8 +92,6 @@ def record_coordinates(clickData):
         return ''
 
 # Record shot callback
-
-
 @app.callback(
     Output("record-shot-output", "children"),
     [Input("record-shot-button", "n_clicks")]
