@@ -5,6 +5,7 @@ import dash_daq as daq
 from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, ShotTypeDropdown, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrows
 from update_player_df import UpdatePlayerDF
 from court import draw_plotly_court
+from set_value import set_value
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
@@ -32,7 +33,6 @@ app.layout = html.Div(
         PlayTypeDropdown(),
         ShotTypeDropdown(),
         RecordShotButton(),
-        html.Div(id='clear-components-output'),
     ]
 )
 
@@ -120,6 +120,16 @@ def record_shot(value):
         print(updated_player_df)
         return f'Recorded shot'
 
+# Clear values in dropdowns and checklist when record shot button is pressed
+@app.callback(
+    Output("player-dropdown", "value"),
+    Output('shot-type-dropdown', 'value'),
+    Output('play-type-dropdown', 'value'),
+    [Input("record-shot-button", "n_clicks")]
+)
+def clear_components(value):
+    if value is not None:
+        return ''
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=True)
