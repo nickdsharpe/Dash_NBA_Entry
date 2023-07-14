@@ -115,21 +115,26 @@ def record_coordinates(clickData):
     [Input("record-shot-button", "n_clicks")]
 )
 def record_shot(value):
-    if shot['player'] is not None:
+    if 'player' in shot and shot['player'] and shot['play_type'] and shot['result'] and shot['shot_type']:
         updated_player_df = UpdatePlayerDF(shot)
         print(updated_player_df)
         return f'Recorded shot'
+    else:
+        return None
 
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(
-    Output("player-dropdown", "value"),
+    Output("shot-checklist", 'value'),
+    Output("player-dropdown", 'value'),
     Output('shot-type-dropdown', 'value'),
     Output('play-type-dropdown', 'value'),
     [Input("record-shot-button", "n_clicks")]
 )
 def clear_components(value):
     if value is not None:
-        return ''
+        return [[],'','','']
+    else:
+        return [], None, None, None
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=True)
