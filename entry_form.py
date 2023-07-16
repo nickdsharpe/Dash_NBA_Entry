@@ -1,9 +1,7 @@
 from dash import dcc, html
-from dash.dependencies import Input, Output
-from dash.development.base_component import Component
+import dash_bootstrap_components as dbc
 import dash_daq as daq
 import pandas as pd
-import json
 
 empty = pd.read_csv('empty.csv')
 
@@ -43,7 +41,7 @@ def PlayerDropdown():
                         placeholder='Select a player',
                         id='player-dropdown',
                         clearable=True,
-                        style= {'minWidth': '300px', 'display': 'flex', 'alignItems': 'center', 'marginLeft': '20px'}),
+                        style= {'display': 'flex', 'alignItems': 'center', 'minWidth': 300}),
                     html.Div(id='player-dropdown-output-container')
                     ])
 

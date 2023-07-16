@@ -5,7 +5,6 @@ import dash_daq as daq
 from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, ShotTypeDropdown, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrows
 from update_player_df import UpdatePlayerDF
 from court import draw_plotly_court
-from set_value import set_value
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
@@ -101,10 +100,11 @@ def update_shot_type(value):
     Input('court-graph', 'clickData')
 )
 def record_coordinates(clickData):
-    print('Click registered')
     if clickData is not None:
         x = clickData['points'][0]['x']
         y = clickData['points'][0]['y']
+        shot['x'] = x
+        shot['y'] = y
         return f'Shot coordinates: ({x}, {y})'
     else:
         return ''
@@ -115,7 +115,8 @@ def record_coordinates(clickData):
     [Input("record-shot-button", "n_clicks")]
 )
 def record_shot(value):
-    if 'player' in shot and shot['player'] and shot['play_type'] and shot['result'] and shot['shot_type']:
+    if ('player' in shot) and ('play_type' in shot) and ('result' in shot) and ('shot_type' in shot):
+        print(shot)
         updated_player_df = UpdatePlayerDF(shot)
         print(updated_player_df)
         return f'Recorded shot'
@@ -132,9 +133,10 @@ def record_shot(value):
 )
 def clear_components(value):
     if value is not None:
-        return [[],'','','']
+        return [[], '', '', '']
     else:
         return [], None, None, None
+
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=True)

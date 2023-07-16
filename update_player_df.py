@@ -7,7 +7,8 @@ mapping = {'PNR Ball Handler': 'PNR BH', 'PNR Screener': 'PNR SC', 'DHO Ball Han
 
 players = ['Jokic', 'Murray', 'Gordon', 'MPJ', 'KCP', 'Braun']
 empty = pd.read_csv('empty.csv', index_col='Shot Type')
-team_data = {player: empty for player in players}
+team_data = {player: empty.copy() for player in players}
+
 
 def UpdatePlayerDF(shot):
     player_df = team_data[shot['player']]
@@ -35,10 +36,12 @@ def UpdatePlayerDF(shot):
     if shot['result'] == 11:
         if shot['shot_type'] == '2pt Free Throws':
             player_df.loc[['shoot2FTA'], [shot['play_type']]] += 2
-            player_df.loc[['shoot2FTM'], [shot['play_type']]] += int(shot['ftm'])
+            player_df.loc[['shoot2FTM'], [
+                shot['play_type']]] += int(shot['ftm'])
         elif shot['shot_type'] == '3pt Free Throws':
             player_df.loc[['shoot3FTA'], [shot['play_type']]] += 3
-            player_df.loc[['shoot3FTM'], [shot['play_type']]] += int(shot['ftm'])
+            player_df.loc[['shoot3FTM'], [
+                shot['play_type']]] += int(shot['ftm'])
 
     # Handle Turnovers
     if shot['result'] == 20:
@@ -47,4 +50,5 @@ def UpdatePlayerDF(shot):
         elif shot['shot_type'] == '3pt FG':
             player_df.loc[['shoot3TO'], [shot['play_type']]] += 1
 
+    team_data[shot['player']] = player_df
     return player_df
