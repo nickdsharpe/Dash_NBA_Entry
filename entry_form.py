@@ -41,7 +41,7 @@ def PlayerDropdown():
                         placeholder='Select a player',
                         id='player-dropdown',
                         clearable=True,
-                        style= {'display': 'flex', 'alignItems': 'center', 'minWidth': 300}),
+                        style= {'alignItems': 'center', 'maxWidth': 300, 'marginLeft': '20px'}),
                     html.Div(id='player-dropdown-output-container')
                     ])
 
@@ -51,7 +51,7 @@ def PlayTypeDropdown():
                         placeholder='Select a play type',
                         id='play-type-dropdown',
                         clearable=True,
-                        style= {'minWidth': '300px', 'display': 'flex', 'alignItems': 'center', 'marginLeft': '20px'}),
+                        style= {'maxWidth': '300px','alignItems': 'center', 'marginLeft': '20px'}),
                     html.Div(id='play-type-dropdown-output-container')
                     ])
     
@@ -61,7 +61,7 @@ def ShotTypeDropdown():
                         placeholder='Select a shot type',
                         id='shot-type-dropdown',
                         clearable=True,
-                        style= {'minWidth': '300px', 'display': 'flex', 'alignItems': 'center', 'marginLeft': '20px'}),
+                        style= {'maxWidth': '300px','alignItems': 'center', 'marginLeft': '20px'}),
                     html.Div(id='shot-type-dropdown-output-container')
                     ])
 
