@@ -2,12 +2,15 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
 import dash_daq as daq
-from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, ShotTypeDropdown, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrows
+import dash_bootstrap_components as dbc
+from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, ShotTypeDropdown, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrowInput
 from update_player_df import UpdatePlayerDF
 from court import draw_plotly_court
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
+
+prev_clicked_point = None
 
 player_dfs = MakePlayerDictionaries()
 shot = {}
@@ -15,23 +18,22 @@ shot_df = pd.DataFrame(
     columns=['player', 'play_type', 'shot_type', 'make_miss'])
 fig = go.Figure()
 # Dash app
-app = dash.Dash(__name__)
+app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
 # Layout
 app.layout = html.Div(
     children=[
-        html.H2("PPP Entry Form"),
+        html.H2("PPP Entry Form", style={'textAlign': 'center', 'marginTop': 10}),
         html.Div(draw_plotly_court(fig), id='court-plot'),
-        html.Div(id='click-coordinates'),
         ShotChecklist(),
         html.Div(id='shot-checklist-result'),
-        FreeThrows(),
         html.Div(id='free-throw-result'),
-        # ShooterHeader(),
+        ShooterHeader(),
         PlayerDropdown(),
         PlayTypeDropdown(),
         ShotTypeDropdown(),
         RecordShotButton(),
+        html.Div(id='click-coordinates'),
     ]
 )
 
@@ -50,7 +52,7 @@ def update_shot_result(value):
         return
     elif value == ['Free Throws']:
         shot['result'] = 11
-        return
+        return FreeThrowInput()
     elif value == ['Turnover']:
         shot['result'] = 20
         return
@@ -60,7 +62,7 @@ def update_shot_result(value):
     Output("free-throw-result", "children"),
     Input("free-throw-input", "value"),
 )
-def update_output(value):
+def updateFreeThrows(value):
     shot['ftm'] = value
     return
 
@@ -105,9 +107,38 @@ def record_coordinates(clickData):
         y = clickData['points'][0]['y']
         shot['x'] = x
         shot['y'] = y
-        return f'Shot coordinates: ({x}, {y})'
+        return None
     else:
-        return ''
+        return None
+    
+# Callback to handle click events and update the scatter trace with markers
+@app.callback(
+    Output('court-graph', 'figure'),
+    Input('court-graph', 'clickData'),
+    State('court-graph', 'figure'),
+    prevent_initial_call=True
+)
+def add_marker(clickData, figure):
+    if clickData and 'points' in clickData and len(clickData['points']) > 0:
+        x = clickData['points'][0]['x']
+        y = clickData['points'][0]['y']
+
+        # Create a new marker trace
+        new_marker_trace = go.Scatter(
+            x=[x],
+            y=[y],
+            mode="markers",
+            marker=dict(
+                color='red',  # You can change the color of the marker here
+                size=10,
+            ),
+        )
+
+        # Add the new marker trace to the figure
+        figure['data'].append(new_marker_trace)
+
+        return figure
+    return dash.no_update  # Return dash.no_update to prevent triggering other callbacks
 
 # Record shot callback
 @app.callback(

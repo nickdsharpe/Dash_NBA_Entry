@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 from dash import html, dcc
 
 
-def draw_plotly_court(fig, fig_width=400, margins=10):
+def draw_plotly_court(fig, fig_width=400, margins=0):
 
     import numpy as np
 
@@ -20,7 +20,7 @@ def draw_plotly_court(fig, fig_width=400, margins=10):
         return path
 
     fig_height = fig_width * (470 + 2 * margins) / (500 + 2 * margins)
-    fig.update_layout(width=fig_width, height=fig_height)
+    fig.update_layout(width=fig_width, height=fig_height, showlegend=False)
 
     # Set axes ranges
     fig.update_xaxes(range=[-250 - margins, 250 + margins])
@@ -168,8 +168,8 @@ def draw_plotly_court(fig, fig_width=400, margins=10):
     )
     # Create a list of all possible coordinates (x, y) for scatter points
     scatter_points = []
-    for x in range(-250, 250, 4):
-        for y in range(-52, 418, 4):
+    for x in range(-249, 250, 4):
+        for y in range(-51, 418, 4):
             scatter_points.append((x, y))
 
     # Add a new scatter trace for all the points
@@ -190,6 +190,7 @@ def draw_plotly_court(fig, fig_width=400, margins=10):
         figure=fig,
         config={'displayModeBar': False},
         style={'width': f'{fig_width}px',
-               'height': f'{fig_height}px'},
+               'height': f'{fig_height}px',
+                'marginLeft': 30},
         id='court-graph'
     ),
