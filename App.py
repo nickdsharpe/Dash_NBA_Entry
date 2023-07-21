@@ -16,8 +16,6 @@ with open('initial_state.json', "r") as file:
 
 player_dfs = MakePlayerDictionaries()
 shot = {}
-shot_df = pd.DataFrame(
-    columns=['player', 'play_type', 'shot_type', 'make_miss'])
 fig = go.Figure()
 # Dash app
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
@@ -119,16 +117,16 @@ def record_coordinates(clickData):
     Output('court-graph', 'figure'),
     Input('court-graph', 'clickData'),
     Input("clear-shot-button", "n_clicks"),
+    [Input("record-shot-button", "n_clicks")],
     State('court-graph', 'figure'),
     prevent_initial_call=True,
     allow_duplicate=True
 )
-def add_marker(clickData, n_clicks, figure):
+def add_marker(clickData, n_clicks, rec_n_clicks, figure):
     ctx = dash.callback_context
     
     # If the clear button is clicked, remove the marker trace
-    if ctx.triggered[0]['prop_id'] == "clear-shot-button.n_clicks":
-        figure['data'] = [trace for trace in figure['data'] if trace['mode'] != 'markers']
+    if (ctx.triggered[0]['prop_id'] == "clear-shot-button.n_clicks") or (ctx.triggered[0]['prop_id'] == "record-shot-button.n_clicks"):
         figure['data'] = initial_state
     else:
         if clickData:
@@ -174,19 +172,19 @@ def record_shot(value):
         return None
 
 # Clear values in dropdowns and checklist when record shot button is pressed
-@app.callback(
+@app.callback(    
     Output("shot-checklist", 'value'),
     Output("player-dropdown", 'value'),
     Output('shot-type-dropdown', 'value'),
     Output('play-type-dropdown', 'value'),
-    [Input("record-shot-button", "n_clicks")]
+    [Input("record-shot-button", "n_clicks")],
 )
 def clear_components(value):
     if value is not None:
         return [[], '', '', '']
     else:
         return [], None, None, None
-
+    
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=True)
