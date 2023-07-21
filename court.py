@@ -182,8 +182,8 @@ def draw_scatter_trace(fig):
     
     # Create a list of all possible coordinates (x, y) for scatter points
     scatter_points = []
-    for x in range(-249, 250, 4):
-        for y in range(-51, 418, 4):
+    for x in range(-249, 250, 5):
+        for y in range(-51, 418, 5):
             scatter_points.append((x, y))
 
     # Add a new scatter trace for all the points
@@ -193,7 +193,7 @@ def draw_scatter_trace(fig):
             y=[point[1] for point in scatter_points],
             mode="markers",
             marker=dict(
-                opacity=1,
+                opacity=0,
                 size=2,
             ),
             hoverinfo='none'

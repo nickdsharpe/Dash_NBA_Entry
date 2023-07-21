@@ -11,7 +11,8 @@ import plotly.graph_objects as go
 import pandas as pd
 import json
 
-prev_clicked_point = None
+with open('initial_state.json', "r") as file:
+    initial_state = json.load(file)
 
 player_dfs = MakePlayerDictionaries()
 shot = {}
@@ -124,10 +125,11 @@ def record_coordinates(clickData):
 )
 def add_marker(clickData, n_clicks, figure):
     ctx = dash.callback_context
-
+    
     # If the clear button is clicked, remove the marker trace
     if ctx.triggered[0]['prop_id'] == "clear-shot-button.n_clicks":
         figure['data'] = [trace for trace in figure['data'] if trace['mode'] != 'markers']
+        figure['data'] = initial_state
     else:
         if clickData:
             x = clickData['points'][0]['x']
