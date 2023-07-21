@@ -11,7 +11,7 @@ play_types = ['PNR Ball Handler', 'PNR Screener', 'DHO Ball Handler', 'DHO Scree
 shot_types = ['2pt FG', '3pt FG', '2pt Free Throws', '3pt Free Throws', '2pt And-1', '3pt And-1']
 
 def ShooterHeader():
-    return html.Div("Shooter", style={'marginLeft': 185,'fontSize': 25, 'paddingBottom': 8})
+    return html.Div("Shooter", style={'marginLeft': 185,'fontSize': 20, 'paddingBottom': 8})
 
 def ShotChecklist():
      return html.Div([
@@ -120,5 +120,14 @@ def RecordShotButton():
                     html.Button("Record Shot", id="record-shot-button",
                                 style={'borderRadius': '5px', 'marginLeft': 180, 'marginTop': 10, 'padding': '0px 7px'}),
                     html.Div(id="record-shot-output")
+                ]
+            )
+
+def ClearLocationDataButton():
+    return html.Div(
+                children=[
+                    html.Button("Clear Shot", id="clear-shot-button",
+                                style={'borderRadius': '5px', 'marginLeft': 180, 'marginTop': 10, 'padding': '0px 7px'}),
+                    html.Div(id="clear-shot-output")
                 ]
             )

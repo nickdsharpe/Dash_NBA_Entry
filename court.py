@@ -166,6 +166,20 @@ def draw_plotly_court(fig, fig_width=400, margins=0):
 
         ]
     )
+    
+    draw_scatter_trace(fig)
+
+    return dcc.Graph(
+        figure=fig,
+        config={'displayModeBar': False},
+        style={'width': f'{fig_width}px',
+               'height': f'{fig_height}px',
+                'marginLeft': 30},
+        id='court-graph'
+    ),
+
+def draw_scatter_trace(fig):
+    
     # Create a list of all possible coordinates (x, y) for scatter points
     scatter_points = []
     for x in range(-249, 250, 4):
@@ -179,18 +193,11 @@ def draw_plotly_court(fig, fig_width=400, margins=0):
             y=[point[1] for point in scatter_points],
             mode="markers",
             marker=dict(
-                opacity=0,
+                opacity=1,
                 size=2,
             ),
             hoverinfo='none'
         )
     )
-
-    return dcc.Graph(
-        figure=fig,
-        config={'displayModeBar': False},
-        style={'width': f'{fig_width}px',
-               'height': f'{fig_height}px',
-                'marginLeft': 30},
-        id='court-graph'
-    ),
+    
+    return fig

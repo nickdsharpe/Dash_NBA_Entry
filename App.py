@@ -3,12 +3,13 @@ from dash import html, dcc
 from dash.dependencies import Input, Output, State
 import dash_daq as daq
 import dash_bootstrap_components as dbc
-from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, ShotTypeDropdown, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrowInput
+from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, ShotTypeDropdown, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrowInput, ClearLocationDataButton
 from update_player_df import UpdatePlayerDF
-from court import draw_plotly_court
+from court import draw_plotly_court, draw_scatter_trace
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
+import json
 
 prev_clicked_point = None
 
@@ -25,6 +26,7 @@ app.layout = html.Div(
     children=[
         html.H2("PPP Entry Form", style={'textAlign': 'center', 'marginTop': 10}),
         html.Div(draw_plotly_court(fig), id='court-plot'),
+        ClearLocationDataButton(),
         ShotChecklist(),
         html.Div(id='shot-checklist-result'),
         html.Div(id='free-throw-result'),
@@ -115,35 +117,50 @@ def record_coordinates(clickData):
 @app.callback(
     Output('court-graph', 'figure'),
     Input('court-graph', 'clickData'),
+    Input("clear-shot-button", "n_clicks"),
     State('court-graph', 'figure'),
-    prevent_initial_call=True
+    prevent_initial_call=True,
+    allow_duplicate=True
 )
-def add_marker(clickData, figure):
-    if clickData and 'points' in clickData and len(clickData['points']) > 0:
-        x = clickData['points'][0]['x']
-        y = clickData['points'][0]['y']
+def add_marker(clickData, n_clicks, figure):
+    ctx = dash.callback_context
 
-        # Create a new marker trace
-        new_marker_trace = go.Scatter(
-            x=[x],
-            y=[y],
-            mode="markers",
-            marker=dict(
-                color='red',  # You can change the color of the marker here
-                size=10,
-            ),
-        )
+    # If the clear button is clicked, remove the marker trace
+    if ctx.triggered[0]['prop_id'] == "clear-shot-button.n_clicks":
+        figure['data'] = [trace for trace in figure['data'] if trace['mode'] != 'markers']
+    else:
+        if clickData:
+            x = clickData['points'][0]['x']
+            y = clickData['points'][0]['y']
 
-        # Add the new marker trace to the figure
-        figure['data'].append(new_marker_trace)
+            # Remove all marker traces from the figure
+            figure['data'] = [trace for trace in figure['data'] if trace['mode'] != 'markers']
 
-        return figure
-    return dash.no_update  # Return dash.no_update to prevent triggering other callbacks
+            # Create a new marker trace
+            new_marker_trace = go.Scatter(
+                x=[x],
+                y=[y],
+                mode="markers",
+                marker=dict(
+                    color='rgb(2, 196, 222)',
+                    size=15,
+                    opacity=0.8,
+                    symbol='x'
+                ),
+            )
+
+            # Add the new marker trace to the figure
+            figure['data'].append(new_marker_trace)
+
+            # Update the layout to enable click events again
+            figure['layout']['clickmode'] = 'event+select'
+
+    return figure
 
 # Record shot callback
 @app.callback(
     Output("record-shot-output", "children"),
-    [Input("record-shot-button", "n_clicks")]
+    [Input("record-shot-button", "n_clicks")],
 )
 def record_shot(value):
     if ('player' in shot) and ('play_type' in shot) and ('result' in shot) and ('shot_type' in shot):
