@@ -3,7 +3,7 @@ from dash import html, dcc
 from dash.dependencies import Input, Output, State
 import dash_daq as daq
 import dash_bootstrap_components as dbc
-from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, ShotTypeDropdown, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrowInput, ClearLocationDataButton
+from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, ShotTypeDropdown, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrowInput, ClearLocationDataButton, PassingPlayerDropdown
 from update_player_df import UpdatePlayerDF
 from court import draw_plotly_court, draw_scatter_trace
 import plotly.express as px
@@ -15,24 +15,26 @@ with open('initial_state.json', "r") as file:
     initial_state = json.load(file)
 
 player_dfs = MakePlayerDictionaries()
-shot = {}
+shot, passer = {}, {}
 fig = go.Figure()
 # Dash app
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
 # Layout
-app.layout = html.Div(
+app.layout = html.Div( id='team-one-container',
     children=[
         html.H2("PPP Entry Form", style={'textAlign': 'center', 'marginTop': 10}),
+        ShotChecklist(),
         html.Div(draw_plotly_court(fig), id='court-plot'),
         ClearLocationDataButton(),
-        ShotChecklist(),
+        ShooterHeader(),
+        html.Hr(id='shooter-break'),
         html.Div(id='shot-checklist-result'),
         html.Div(id='free-throw-result'),
-        ShooterHeader(),
         PlayerDropdown(),
         PlayTypeDropdown(),
         ShotTypeDropdown(),
+        html.Div(id='passing-player-dropdown-container'),
         RecordShotButton(),
         html.Div(id='click-coordinates'),
     ]
@@ -142,11 +144,12 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
                 y=[y],
                 mode="markers",
                 marker=dict(
-                    color='rgb(2, 196, 222)',
+                    color='rgb(159, 82, 255)',
                     size=15,
                     opacity=0.8,
-                    symbol='x'
+                    symbol='x',
                 ),
+                hoverinfo='none'
             )
 
             # Add the new marker trace to the figure
@@ -157,10 +160,21 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
 
     return figure
 
+# Passing player dropdwon callback
+@app.callback(
+        Output('passing-player-dropdown-container', 'children'),
+        Input('creation-checklist', 'value'),
+        prevent_initial_call=True
+)
+def passingPlayerDropdown(value):
+    if value:
+        return PassingPlayerDropdown()
+
 # Record shot callback
 @app.callback(
     Output("record-shot-output", "children"),
     [Input("record-shot-button", "n_clicks")],
+    prevent_initial_call=True,
 )
 def record_shot(value):
     if ('player' in shot) and ('play_type' in shot) and ('result' in shot) and ('shot_type' in shot):

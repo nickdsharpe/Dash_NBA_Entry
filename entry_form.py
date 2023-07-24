@@ -11,7 +11,15 @@ play_types = ['PNR Ball Handler', 'PNR Screener', 'DHO Ball Handler', 'DHO Scree
 shot_types = ['2pt FG', '3pt FG', '2pt Free Throws', '3pt Free Throws', '2pt And-1', '3pt And-1']
 
 def ShooterHeader():
-    return html.Div("Shooter", style={'marginLeft': 185,'fontSize': 20, 'paddingBottom': 8})
+    return html.Div(children=[
+        html.Div("Shooter", id='shooter-header'),
+        dcc.Checklist(
+            ['Shot Created?'],
+            inline=True,
+            id='creation-checklist',
+            inputStyle={"marginRight": 5},
+        )],
+        style={'display': 'flex', 'alignItems': 'center'})
 
 def ShotChecklist():
      return html.Div([
@@ -19,19 +27,23 @@ def ShotChecklist():
             ['Make', 'Miss', 'Free Throws', 'Turnover'],
             inline=True,
             id='shot-checklist',
-            style={'marginBottom': 15, 'marginLeft': 25, 'fontSize': 18},
-            inputStyle={"marginRight": 5, 'marginLeft': 20}
+            inputStyle={"marginRight": 5, 'marginLeft': 20},
         )
     ])
 
 def FreeThrowInput():
-    return html.Div([
-        dcc.Input(
-        id='free-throw-input',
-        placeholder='Free Throws Made',
-        type='number'
-        )
-    ])
+    return html.Div(
+        children=[
+            html.Div("Free Throws:", style={'verticalAlign': 'middle', 'display': 'inline-block', 'fontSize': 18, 'marginLeft': 45, 'paddingBottom': 13}),
+            dcc.Input(
+            id='free-throw-input',
+            placeholder='Free throws made',
+            type='number',
+            min=0,
+            max=3
+            )
+        ],
+        style={'display': 'flex', 'alignItems': 'center'})
 
 
 def PlayerDropdown():
@@ -46,7 +58,7 @@ def PlayerDropdown():
                         placeholder='Select a player',
                         id='player-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 320, 'marginBottom': 5, 'flexGrow': 1}
+                        style={'alignItems': 'center', 'maxWidth': 300, 'marginBottom': 5, 'flexGrow': 1}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
@@ -73,7 +85,7 @@ def PlayTypeDropdown():
                         placeholder='Select a play type',
                         id='play-type-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 295, 'marginBottom': 5, 'flexGrow': 1}
+                        style={'alignItems': 'center', 'maxWidth': 272, 'marginBottom': 5, 'flexGrow': 1}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
@@ -100,7 +112,7 @@ def ShotTypeDropdown():
                         placeholder='Select a shot type',
                         id='shot-type-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 291, 'marginBottom': 5, 'flexGrow': 1}
+                        style={'alignItems': 'center', 'maxWidth': 270, 'marginBottom': 5, 'flexGrow': 1}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
@@ -110,6 +122,25 @@ def ShotTypeDropdown():
         className='shot-type-dropdown-container'
     )
 
+def PassingPlayerDropdown():
+    return html.Div(
+        children=[
+            html.Div(
+                children=[
+                    html.Div("Player:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
+                                               'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 13}),
+                    dcc.Dropdown(
+                        players,
+                        placeholder='Select a player',
+                        id='passing-player-dropdown',
+                        clearable=True,
+                        style={'alignItems': 'center', 'maxWidth': 300, 'marginBottom': 5, 'flexGrow': 1}
+                    ),
+                ],
+                style={'display': 'flex', 'alignItems': 'center'}
+            ),
+        ])
+
 def MakePlayerDictionaries():
     player_dfs = {player: empty for player in players}
     return player_dfs
@@ -118,7 +149,7 @@ def RecordShotButton():
     return html.Div(
                 children=[
                     html.Button("Record Shot", id="record-shot-button",
-                                style={'borderRadius': '5px', 'marginLeft': 180, 'marginTop': 10, 'padding': '0px 7px'}),
+                                style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 10, 'padding': '0px 7px'}),
                     html.Div(id="record-shot-output")
                 ]
             )
@@ -126,8 +157,7 @@ def RecordShotButton():
 def ClearLocationDataButton():
     return html.Div(
                 children=[
-                    html.Button("Clear Shot", id="clear-shot-button",
-                                style={'borderRadius': '5px', 'marginLeft': 180, 'marginTop': 10, 'padding': '0px 7px'}),
+                    html.Button("Clear Shot", id="clear-shot-button",),
                     html.Div(id="clear-shot-output")
                 ]
             )
