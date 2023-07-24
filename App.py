@@ -3,9 +3,9 @@ from dash import html, dcc
 from dash.dependencies import Input, Output, State
 import dash_daq as daq
 import dash_bootstrap_components as dbc
-from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, ShotTypeDropdown, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrowInput, ClearLocationDataButton, PassingPlayerDropdown
+from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrowInput, ClearLocationDataButton, PassingPlayerDropdown, PasserHeader, PassingPlayTypeDropdown
 from update_player_df import UpdatePlayerDF
-from court import draw_plotly_court, draw_scatter_trace
+from court import draw_plotly_court, draw_scatter_trace, is_inside_three_point_line
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
@@ -24,19 +24,18 @@ app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_e
 app.layout = html.Div( id='team-one-container',
     children=[
         html.H2("PPP Entry Form", style={'textAlign': 'center', 'marginTop': 10}),
-        ShotChecklist(),
-        html.Div(draw_plotly_court(fig), id='court-plot'),
         ClearLocationDataButton(),
+        html.Div(draw_plotly_court(fig), id='court-plot'),
+        ShotChecklist(),
         ShooterHeader(),
-        html.Hr(id='shooter-break'),
         html.Div(id='shot-checklist-result'),
         html.Div(id='free-throw-result'),
         PlayerDropdown(),
         PlayTypeDropdown(),
-        ShotTypeDropdown(),
         html.Div(id='passing-player-dropdown-container'),
         RecordShotButton(),
         html.Div(id='click-coordinates'),
+        html.Div(id='output-message')
     ]
 )
 
@@ -87,16 +86,6 @@ def update_player(value):
 # Play-Type Dropdown logic
 def update_play_type(value):
     shot['play_type'] = value
-    return
-
-# Shot-Type Dropdown callback
-@app.callback(
-    Output('shot-type-dropdown-output-container', 'children'),
-    Input('shot-type-dropdown', 'value')
-)
-# Shot-Type Dropdown logic
-def update_shot_type(value):
-    shot['shot_type'] = value
     return
 
 # Track click events
@@ -160,7 +149,7 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
 
     return figure
 
-# Passing player dropdwon callback
+# Passing Player Dropdowns
 @app.callback(
         Output('passing-player-dropdown-container', 'children'),
         Input('creation-checklist', 'value'),
@@ -168,7 +157,7 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
 )
 def passingPlayerDropdown(value):
     if value:
-        return PassingPlayerDropdown()
+        return PasserHeader() ,PassingPlayerDropdown(), PassingPlayTypeDropdown()
 
 # Record shot callback
 @app.callback(
@@ -177,27 +166,41 @@ def passingPlayerDropdown(value):
     prevent_initial_call=True,
 )
 def record_shot(value):
-    if ('player' in shot) and ('play_type' in shot) and ('result' in shot) and ('shot_type' in shot):
-        print(shot)
-        updated_player_df = UpdatePlayerDF(shot)
-        print(updated_player_df)
-        return f'Recorded shot'
+    try:
+        if 'player' and 'play_type' and 'x' and 'y' and 'shot_type' and 'result' in shot:
+            print(shot)
+            updated_player_df = UpdatePlayerDF(shot)
+            print(updated_player_df)
+            return
+    except:
+        return 'Data Incomplete.'
+    
+# Define the callback to handle the click event
+@app.callback(
+        Output('output-message', 'children'), 
+        Input('court-graph', 'clickData'),
+        prevent_initial_call=True
+    )
+def handle_click(click_data):
+    if is_inside_three_point_line(click_data):
+        shot['shot_type'] = '2pt FG'
+        return
     else:
-        return None
+        shot['shot_type'] = '3pt FG'
+        return
 
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    
     Output("shot-checklist", 'value'),
     Output("player-dropdown", 'value'),
-    Output('shot-type-dropdown', 'value'),
     Output('play-type-dropdown', 'value'),
     [Input("record-shot-button", "n_clicks")],
 )
 def clear_components(value):
     if value is not None:
-        return [[], '', '', '']
+        return [[], '', '']
     else:
-        return [], None, None, None
+        return [], None, None
     
 # Run the app
 if __name__ == '__main__':

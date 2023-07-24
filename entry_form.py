@@ -94,33 +94,6 @@ def PlayTypeDropdown():
         ],
         className='play-type-dropdown-container'
     )
-    
-def ShotTypeDropdown():
-    return html.Div(
-        children=[
-            html.Div(
-                children=[
-                    html.Div(
-                        "Shot Type:",
-                        style={
-                            'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
-                            'fontSize': 18, 'paddingBottom': 13
-                        }
-                    ),
-                    dcc.Dropdown(
-                        shot_types,
-                        placeholder='Select a shot type',
-                        id='shot-type-dropdown',
-                        clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 270, 'marginBottom': 5, 'flexGrow': 1}
-                    ),
-                ],
-                style={'display': 'flex', 'alignItems': 'center'}
-            ),
-            html.Div(id='shot-type-dropdown-output-container')
-        ],
-        className='shot-type-dropdown-container'
-    )
 
 def PassingPlayerDropdown():
     return html.Div(
@@ -141,9 +114,38 @@ def PassingPlayerDropdown():
             ),
         ])
 
+def PassingPlayTypeDropdown():
+    return html.Div(
+        children=[
+            html.Div(
+                children=[
+                    html.Div(
+                        "Play Type:",
+                        style={
+                            'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
+                            'fontSize': 18, 'paddingBottom': 13
+                        }
+                    ),
+                    dcc.Dropdown(
+                        play_types,
+                        placeholder='Select a play type',
+                        id='passing-play-type-dropdown',
+                        clearable=True,
+                        style={'alignItems': 'center', 'maxWidth': 272, 'marginBottom': 5, 'flexGrow': 1}
+                    ),
+                ],
+                style={'display': 'flex', 'alignItems': 'center'}
+            )])
+
 def MakePlayerDictionaries():
     player_dfs = {player: empty for player in players}
     return player_dfs
+
+def PasserHeader():
+    return html.Div(children=[
+        html.Hr(id='creator-header-break'),
+        html.Div("Creator", id='creator-header')])
+        
 
 def RecordShotButton():
     return html.Div(

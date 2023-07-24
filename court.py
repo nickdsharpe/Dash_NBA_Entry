@@ -1,7 +1,7 @@
 import plotly.express as px
 import plotly.graph_objects as go
 from dash import html, dcc
-
+import numpy as np
 
 def draw_plotly_court(fig, fig_width=400, margins=0):
 
@@ -75,7 +75,7 @@ def draw_plotly_court(fig, fig_width=400, margins=0):
             dict(
                 type="circle", x0=-60, y0=77.5, x1=60, y1=197.5, xref="x", yref="y",
                 line=dict(color=main_line_col, width=1),
-                # fillcolor='#dddddd',
+                #fillcolor='#dddddd',
                 layer='below'
             ),
             dict(
@@ -101,10 +101,13 @@ def draw_plotly_court(fig, fig_width=400, margins=0):
             dict(type="path",
                  path=ellipse_arc(a=40, b=40, start_angle=0, end_angle=np.pi),
                  line=dict(color=main_line_col, width=1), layer='below'),
+                 
+            # THREE POINT ARC
             dict(type="path",
                  path=ellipse_arc(
                      a=237.5, b=237.5, start_angle=0.386283101, end_angle=np.pi - 0.386283101),
                  line=dict(color=main_line_col, width=1), layer='below'),
+
             dict(
                 type="line", x0=-220, y0=-52.5, x1=-220, y1=threept_break_y,
                 line=dict(color=three_line_col, width=1), layer='below'
@@ -201,3 +204,23 @@ def draw_scatter_trace(fig):
     )
     
     return fig
+
+def is_inside_three_point_line(click_data):
+    if click_data is None:
+        return False
+
+    # Extract the x and y coordinates of the clicked point
+    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
+
+    # Parameters of the 3-point arc ellipse
+    x_center, y_center = 0, 0
+    a, b = 237.5, 237.5
+
+    # Check if the x value is within the range [-220, 220]
+    is_within_x_range = -220 <= x <= 220
+
+    # Equation of the ellipse: ((x-x_center)/a)**2 + ((y-y_center)/b)**2 = 1
+    # Check if the clicked point satisfies the ellipse equation
+    is_inside_ellipse = (((x - x_center) / a) ** 2 + ((y - y_center) / b) ** 2) <= 1
+
+    return is_within_x_range and is_inside_ellipse
