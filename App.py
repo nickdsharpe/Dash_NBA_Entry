@@ -47,15 +47,19 @@ app.layout = html.Div( id='team-one-container',
 def update_shot_result(value):
     if value == ['Miss']:
         shot['result'] = 0
+        passer['result'] = 0
         return
     elif value == ['Make']:
         shot['result'] = 1
+        passer['result'] = 1
         return
     elif value == ['Free Throws']:
         shot['result'] = 11
+        passer['result'] = 11
         return FreeThrowInput()
     elif value == ['Turnover']:
         shot['result'] = 20
+        passer['result'] = 20
         return
 
 # Free Throws made callback
@@ -65,6 +69,7 @@ def update_shot_result(value):
 )
 def updateFreeThrows(value):
     shot['ftm'] = value
+    passer['ftm'] = value
     return
 
 # Player Dropdown callback
@@ -95,7 +100,9 @@ def record_coordinates(clickData):
         x = clickData['points'][0]['x']
         y = clickData['points'][0]['y']
         shot['x'] = x
+        passer['x'] = x
         shot['y'] = y
+        passer['y'] = y
         return None
     else:
         return None
@@ -130,9 +137,9 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
                 y=[y],
                 mode="markers",
                 marker=dict(
-                    color='rgb(159, 82, 255)',
-                    size=15,
-                    opacity=0.8,
+                    color='#a136ff',
+                    size=18,
+                    opacity=0.9,
                     symbol='x',
                 ),
                 hoverinfo='none'
@@ -146,7 +153,7 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
 
     return figure
 
-# Define the callback to handle the click event
+# Callback to handle shot type
 @app.callback(
         Output('output-message', 'children'), 
         Input('court-graph', 'clickData'),
@@ -155,12 +162,14 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
 def handle_click(click_data):
     if is_inside_three_point_line(click_data):
         shot['shot_type'] = '2pt FG'
-        return
+        passer['shot_type'] = '2pt FG'
+        return 'Inside'
     else:
         shot['shot_type'] = '3pt FG'
-        return
+        passer['shot_type'] = '3pt FG'
+        return 'Outside'
 
-# Passing Player Dropdowns
+# Callback to display Creation dropdowns
 @app.callback(
         Output('passing-player-dropdown-container', 'children'),
         Input('creation-checklist', 'value'),
@@ -169,6 +178,28 @@ def handle_click(click_data):
 def passingPlayerDropdown(value):
     if value:
         return PasserHeader() ,PassingPlayerDropdown(), PassingPlayTypeDropdown()
+
+# Record Creator player dropdown
+@app.callback(
+        Output('passing-player-dropdown-output-container', 'children'),
+        Input('passing-player-dropdown', 'value'),
+        prevent_initial_call=True
+)
+def update_passing_player(value):
+    if value:
+        passer['player'] = value
+    return None
+
+# Record Creator Play Type dropdown
+@app.callback(
+        Output('passing-play-type-dropdown-output-container', 'children'),
+        Input('passing-play-type-dropdown', 'value'),
+        prevent_initial_call=True
+)
+def update_passing_player(value):
+    if value:
+        passer['play_type'] = value
+    return None
 
 # Record shot callback
 @app.callback(
@@ -180,8 +211,10 @@ def record_shot(value):
     try:
         if 'player' and 'play_type' and 'x' and 'y' and 'shot_type' and 'result' in shot:
             print(shot)
-            updated_player_df = UpdatePlayerDF(shot)
-            print(updated_player_df)
+            updated_shooter_df = UpdatePlayerDF(shot)
+            updated_passer_df = UpdatePlayerDF(passer)
+            print('Shooter:', updated_shooter_df)
+            print('Creator', updated_passer_df)
             return
     except:
         return 'Data Incomplete.'

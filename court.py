@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 from dash import html, dcc
 import numpy as np
 
-def draw_plotly_court(fig, fig_width=400, margins=0):
+def draw_plotly_court(fig, fig_width=450, margins=0):
 
     import numpy as np
 
@@ -27,14 +27,14 @@ def draw_plotly_court(fig, fig_width=400, margins=0):
     fig.update_yaxes(range=[-52.5 - margins, 417.5 + margins])
 
     threept_break_y = 89.47765084
-    three_line_col = "#ffffff"
-    main_line_col = "#ffffff"
+    three_line_col = "#000000"
+    main_line_col = "#000000"
 
     fig.update_layout(
         # Line Horizontal
         margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="#242424",
-        plot_bgcolor="#242424",
+        paper_bgcolor="rgb(52, 52, 52)",
+        plot_bgcolor="#f2f2f2",
         yaxis=dict(
             scaleanchor="x",
             scaleratio=1,
@@ -177,7 +177,7 @@ def draw_plotly_court(fig, fig_width=400, margins=0):
         config={'displayModeBar': False},
         style={'width': f'{fig_width}px',
                'height': f'{fig_height}px',
-                'marginLeft': 30},
+                'marginLeft': 5},
         id='court-graph'
     ),
 

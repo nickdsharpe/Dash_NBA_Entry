@@ -58,7 +58,6 @@ def PlayerDropdown():
                         placeholder='Select a player',
                         id='player-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 300, 'marginBottom': 5, 'flexGrow': 1, 'backgroundColor': '#242424'}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
@@ -75,6 +74,7 @@ def PlayTypeDropdown():
                 children=[
                     html.Div(
                         "Play Type:",
+                        id='play-type-label',
                         style={
                             'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
                             'fontSize': 18, 'paddingBottom': 13
@@ -85,7 +85,6 @@ def PlayTypeDropdown():
                         placeholder='Select a play type',
                         id='play-type-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 272, 'marginBottom': 5, 'flexGrow': 1, 'backgroundColor': '#242424'}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
@@ -94,6 +93,11 @@ def PlayTypeDropdown():
         ],
         className='play-type-dropdown-container'
     )
+
+def PasserHeader():
+    return html.Div(children=[
+        html.Hr(id='creator-header-break'),
+        html.Div("Creator", id='creator-header')])
 
 def PassingPlayerDropdown():
     return html.Div(
@@ -107,11 +111,11 @@ def PassingPlayerDropdown():
                         placeholder='Select a player',
                         id='passing-player-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 300, 'marginBottom': 5, 'flexGrow': 1, 'backgroundColor': '#242424'}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
             ),
+            html.Div(id='passing-player-dropdown-output-container')
         ])
 
 def PassingPlayTypeDropdown():
@@ -131,21 +135,15 @@ def PassingPlayTypeDropdown():
                         placeholder='Select a play type',
                         id='passing-play-type-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 272, 'marginBottom': 5, 'flexGrow': 1, 'backgroundColor': '#242424'}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
-            )])
+            ),
+            html.Div(id='passing-play-type-dropdown-output-container')])
 
 def MakePlayerDictionaries():
     player_dfs = {player: empty for player in players}
     return player_dfs
-
-def PasserHeader():
-    return html.Div(children=[
-        html.Hr(id='creator-header-break'),
-        html.Div("Creator", id='creator-header')])
-        
 
 def RecordShotButton():
     return html.Div(
