@@ -4,12 +4,13 @@
     cursor: pointer;
     border: 0px;
     border-radius: 5px;
-    background-color: black;
-    color: white;
+    background-color: #329c95;
+    color: black;
     text-transform: uppercase;
     font-size: 15px;
     margin-left: 45px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
+    font-weight: bold;
   }
 
   #record-shot-button {
@@ -18,15 +19,16 @@
     cursor: pointer;
     border: 0px;
     border-radius: 5px;
-    background-color: black;
-    color: white;
+    background-color: #329c95;
+    color: black;
     text-transform: uppercase;
-    font-size: 15px
+    font-size: 15px;
+    font-weight: bold;
   }
   
   #shot-checklist {
-    margin-bottom: 10px;
-    margin-left: 21px;
+    margin-bottom: 20px;
+    margin-left: 20px;
     font-size: 18px;
     margin-top: 0px;
   }
@@ -71,9 +73,11 @@
   
   body {
     font-family: 'Avantgarde', Gothic L, TeX Gyre Adventor, URW , sans-serif;
+    background-color: rgb(36, 36, 36);
+    color: #ffffff;
   }
   
   #team-one-container {
-    margin-left: 30px;
-    margin-top: 20px;
+    margin-left: 100px;
+    margin-top: 30px;
   }

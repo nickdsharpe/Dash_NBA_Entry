@@ -34,7 +34,7 @@ def ShotChecklist():
 def FreeThrowInput():
     return html.Div(
         children=[
-            html.Div("Free Throws:", style={'verticalAlign': 'middle', 'display': 'inline-block', 'fontSize': 18, 'marginLeft': 45, 'paddingBottom': 13}),
+            html.Div("Free Throws:", style={'verticalAlign': 'middle', 'display': 'inline-block', 'fontSize': 18, 'marginLeft': 45, 'paddingBottom': 13, 'backgroundColor': '#242424'}),
             dcc.Input(
             id='free-throw-input',
             placeholder='Free throws made',
@@ -58,7 +58,7 @@ def PlayerDropdown():
                         placeholder='Select a player',
                         id='player-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 300, 'marginBottom': 5, 'flexGrow': 1}
+                        style={'alignItems': 'center', 'maxWidth': 300, 'marginBottom': 5, 'flexGrow': 1, 'backgroundColor': '#242424'}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
@@ -85,7 +85,7 @@ def PlayTypeDropdown():
                         placeholder='Select a play type',
                         id='play-type-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 272, 'marginBottom': 5, 'flexGrow': 1}
+                        style={'alignItems': 'center', 'maxWidth': 272, 'marginBottom': 5, 'flexGrow': 1, 'backgroundColor': '#242424'}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
@@ -107,7 +107,7 @@ def PassingPlayerDropdown():
                         placeholder='Select a player',
                         id='passing-player-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 300, 'marginBottom': 5, 'flexGrow': 1}
+                        style={'alignItems': 'center', 'maxWidth': 300, 'marginBottom': 5, 'flexGrow': 1, 'backgroundColor': '#242424'}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
@@ -123,7 +123,7 @@ def PassingPlayTypeDropdown():
                         "Play Type:",
                         style={
                             'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
-                            'fontSize': 18, 'paddingBottom': 13
+                            'fontSize': 18, 'paddingBottom': 13,
                         }
                     ),
                     dcc.Dropdown(
@@ -131,7 +131,7 @@ def PassingPlayTypeDropdown():
                         placeholder='Select a play type',
                         id='passing-play-type-dropdown',
                         clearable=True,
-                        style={'alignItems': 'center', 'maxWidth': 272, 'marginBottom': 5, 'flexGrow': 1}
+                        style={'alignItems': 'center', 'maxWidth': 272, 'marginBottom': 5, 'flexGrow': 1, 'backgroundColor': '#242424'}
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}

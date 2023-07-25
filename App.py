@@ -24,8 +24,8 @@ app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_e
 app.layout = html.Div( id='team-one-container',
     children=[
         html.H2("PPP Entry Form", style={'textAlign': 'center', 'marginTop': 10}),
-        ClearLocationDataButton(),
         html.Div(draw_plotly_court(fig), id='court-plot'),
+        ClearLocationDataButton(),
         ShotChecklist(),
         ShooterHeader(),
         html.Div(id='shot-checklist-result'),
@@ -44,7 +44,6 @@ app.layout = html.Div( id='team-one-container',
     Output("shot-checklist-result", "children"),
     [Input("shot-checklist", "value")]
 )
-#  Make | Miss | Free Throws | Turnover checklist logic
 def update_shot_result(value):
     if value == ['Miss']:
         shot['result'] = 0
@@ -73,7 +72,6 @@ def updateFreeThrows(value):
     Output('player-dropdown-output-container', 'children'),
     Input('player-dropdown', 'value')
 )
-# Player Dropdown logic
 def update_player(value):
     shot['player'] = value
     return
@@ -83,7 +81,6 @@ def update_player(value):
     Output('play-type-dropdown-output-container', 'children'),
     Input('play-type-dropdown', 'value')
 )
-# Play-Type Dropdown logic
 def update_play_type(value):
     shot['play_type'] = value
     return
@@ -149,6 +146,20 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
 
     return figure
 
+# Define the callback to handle the click event
+@app.callback(
+        Output('output-message', 'children'), 
+        Input('court-graph', 'clickData'),
+        prevent_initial_call=True
+    )
+def handle_click(click_data):
+    if is_inside_three_point_line(click_data):
+        shot['shot_type'] = '2pt FG'
+        return
+    else:
+        shot['shot_type'] = '3pt FG'
+        return
+
 # Passing Player Dropdowns
 @app.callback(
         Output('passing-player-dropdown-container', 'children'),
@@ -175,20 +186,6 @@ def record_shot(value):
     except:
         return 'Data Incomplete.'
     
-# Define the callback to handle the click event
-@app.callback(
-        Output('output-message', 'children'), 
-        Input('court-graph', 'clickData'),
-        prevent_initial_call=True
-    )
-def handle_click(click_data):
-    if is_inside_three_point_line(click_data):
-        shot['shot_type'] = '2pt FG'
-        return
-    else:
-        shot['shot_type'] = '3pt FG'
-        return
-
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    
     Output("shot-checklist", 'value'),

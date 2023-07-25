@@ -19,7 +19,7 @@ def draw_plotly_court(fig, fig_width=400, margins=0):
             path += ' Z'
         return path
 
-    fig_height = fig_width * (470 + 2 * margins) / (500 + 2 * margins)
+    fig_height = fig_width * (470 + 2) / (500 + 2)
     fig.update_layout(width=fig_width, height=fig_height, showlegend=False)
 
     # Set axes ranges
@@ -27,14 +27,14 @@ def draw_plotly_court(fig, fig_width=400, margins=0):
     fig.update_yaxes(range=[-52.5 - margins, 417.5 + margins])
 
     threept_break_y = 89.47765084
-    three_line_col = "#777777"
-    main_line_col = "#777777"
+    three_line_col = "#ffffff"
+    main_line_col = "#ffffff"
 
     fig.update_layout(
         # Line Horizontal
         margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="white",
-        plot_bgcolor="white",
+        paper_bgcolor="#242424",
+        plot_bgcolor="#242424",
         yaxis=dict(
             scaleanchor="x",
             scaleratio=1,
