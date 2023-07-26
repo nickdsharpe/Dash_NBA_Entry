@@ -33,7 +33,7 @@ def draw_plotly_court(fig, fig_width=450, margins=0):
     fig.update_layout(
         # Line Horizontal
         margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="rgb(52, 52, 52)",
+        paper_bgcolor="rgb(47, 47, 47)",
         plot_bgcolor="#f2f2f2",
         yaxis=dict(
             scaleanchor="x",

@@ -3,8 +3,8 @@ from dash import html, dcc
 from dash.dependencies import Input, Output, State
 import dash_daq as daq
 import dash_bootstrap_components as dbc
-from entry_form import PlayerDropdown, PlayTypeDropdown, ShooterHeader, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrowInput, ClearLocationDataButton, PassingPlayerDropdown, PasserHeader, PassingPlayTypeDropdown
-from update_player_df import UpdatePlayerDF
+from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrowInput, ClearLocationDataButton, PassingPlayerDropdown, PasserHeader, PassingPlayTypeDropdown
+from update_player_df import UpdateShooterDF, UpdateCreatorDF
 from court import draw_plotly_court, draw_scatter_trace, is_inside_three_point_line
 import plotly.express as px
 import plotly.graph_objects as go
@@ -23,7 +23,6 @@ app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_e
 # Layout
 app.layout = html.Div( id='team-one-container',
     children=[
-        html.H2("PPP Entry Form", style={'textAlign': 'center', 'marginTop': 10}),
         html.Div(draw_plotly_court(fig), id='court-plot'),
         ClearLocationDataButton(),
         ShotChecklist(),
@@ -163,11 +162,11 @@ def handle_click(click_data):
     if is_inside_three_point_line(click_data):
         shot['shot_type'] = '2pt FG'
         passer['shot_type'] = '2pt FG'
-        return 'Inside'
+        return
     else:
         shot['shot_type'] = '3pt FG'
         passer['shot_type'] = '3pt FG'
-        return 'Outside'
+        return
 
 # Callback to display Creation dropdowns
 @app.callback(
@@ -211,8 +210,8 @@ def record_shot(value):
     try:
         if 'player' and 'play_type' and 'x' and 'y' and 'shot_type' and 'result' in shot:
             print(shot)
-            updated_shooter_df = UpdatePlayerDF(shot)
-            updated_passer_df = UpdatePlayerDF(passer)
+            updated_shooter_df = UpdateShooterDF(shot)
+            updated_passer_df = UpdateCreatorDF(passer)
             print('Shooter:', updated_shooter_df)
             print('Creator', updated_passer_df)
             return

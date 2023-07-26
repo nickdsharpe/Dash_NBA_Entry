@@ -57,6 +57,7 @@ def PlayerDropdown():
                         players,
                         placeholder='Select a player',
                         id='player-dropdown',
+                        maxHeight=400,
                         clearable=True,
                     ),
                 ],
@@ -77,13 +78,14 @@ def PlayTypeDropdown():
                         id='play-type-label',
                         style={
                             'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
-                            'fontSize': 18, 'paddingBottom': 13
+                            'fontSize': 18, 'paddingBottom': 10
                         }
                     ),
                     dcc.Dropdown(
                         play_types,
                         placeholder='Select a play type',
                         id='play-type-dropdown',
+                        maxHeight=400,
                         clearable=True,
                     ),
                 ],
@@ -110,6 +112,7 @@ def PassingPlayerDropdown():
                         players,
                         placeholder='Select a player',
                         id='passing-player-dropdown',
+                        maxHeight=400,
                         clearable=True,
                     ),
                 ],
@@ -127,13 +130,14 @@ def PassingPlayTypeDropdown():
                         "Play Type:",
                         style={
                             'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
-                            'fontSize': 18, 'paddingBottom': 13,
+                            'fontSize': 18, 'paddingBottom': 10,
                         }
                     ),
                     dcc.Dropdown(
                         play_types,
                         placeholder='Select a play type',
                         id='passing-play-type-dropdown',
+                        maxHeight=400,
                         clearable=True,
                     ),
                 ],
