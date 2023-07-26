@@ -21,16 +21,16 @@ fig = go.Figure()
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
 # Layout
-app.layout = html.Div( id='team-one-container',
+app.layout = html.Div(id='team-one-container',
     children=[
-        html.Div(draw_plotly_court(fig), id='court-plot'),
+        html.Div(draw_plotly_court(fig), id='team-one-court-plot'),
         ClearLocationDataButton(),
-        ShotChecklist(),
-        ShooterHeader(),
-        html.Div(id='shot-checklist-result'),
+        ShotChecklist('team-one-shot-checklist'),
+        ShooterHeader('team-one'),
+        html.Div(id='team-one-shot-checklist-result'),
         html.Div(id='free-throw-result'),
-        PlayerDropdown(),
-        PlayTypeDropdown(),
+        PlayerDropdown('player-dropdown'),
+        PlayTypeDropdown('play-type-label'),
         html.Div(id='passing-player-dropdown-container'),
         RecordShotButton(),
         html.Div(id='click-coordinates'),
@@ -38,10 +38,10 @@ app.layout = html.Div( id='team-one-container',
     ]
 )
 
-# Make | Miss | Free Throws | Turnover checklist callback
+# Make | Miss | Free Throws | And-1 | Turnover checklist callback
 @app.callback(
-    Output("shot-checklist-result", "children"),
-    [Input("shot-checklist", "value")]
+    Output("team-one-shot-checklist-result", "children"),
+    [Input("team-one-shot-checklist", "value")]
 )
 def update_shot_result(value):
     if value == ['Miss']:
@@ -55,7 +55,11 @@ def update_shot_result(value):
     elif value == ['Free Throws']:
         shot['result'] = 11
         passer['result'] = 11
-        return FreeThrowInput()
+        return FreeThrowInput('free-throw-input')
+    elif value == ['And-1']:
+        shot['result'] = 30
+        passer['result'] = 30
+        return FreeThrowInput('free-throw-input')
     elif value == ['Turnover']:
         shot['result'] = 20
         passer['result'] = 20
@@ -176,7 +180,7 @@ def handle_click(click_data):
 )
 def passingPlayerDropdown(value):
     if value:
-        return PasserHeader() ,PassingPlayerDropdown(), PassingPlayTypeDropdown()
+        return PasserHeader('team-one') ,PassingPlayerDropdown(), PassingPlayTypeDropdown()
 
 # Record Creator player dropdown
 @app.callback(
@@ -220,13 +224,30 @@ def record_shot(value):
     
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    
-    Output("shot-checklist", 'value'),
+    Output("team-one-shot-checklist", 'value'),
     Output("player-dropdown", 'value'),
     Output('play-type-dropdown', 'value'),
     [Input("record-shot-button", "n_clicks")],
+    allow_duplicate=True
 )
 def clear_components(value):
     if value is not None:
+        return [[], '', '']
+    else:
+        return [], None, None
+    
+# Clear values in Creator dropdowns and checklist when record shot button is pressed
+@app.callback(
+    Output('creation-checklist', 'value'),
+    Output("passing-player-dropdown", 'value'),
+    Output('passing-play-type-dropdown', 'value'),
+    [Input("record-shot-button", "n_clicks"),
+     Input('creation-checklist', 'value')],
+     prevent_initial_call=True,
+    allow_duplicate=True
+)
+def clear_components(n_clicks, value):
+    if n_clicks is not None:
         return [[], '', '']
     else:
         return [], None, None
