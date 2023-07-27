@@ -1,4 +1,4 @@
-#clear-shot-button {
+.clear-shot-button {
     width: 370px;
     height: 40px;
     cursor: pointer;
@@ -13,7 +13,7 @@
     font-weight: bold;
   }
 
-  #record-shot-button {
+  .record-shot-button {
     width: 370px;
     height: 40px;
     cursor: pointer;
@@ -42,7 +42,27 @@
     padding-bottom: 8px;
   }
   
-  #player-dropdown {
+  .player-dropdown {
+    align-items: center;
+    width: 300px;
+    margin-bottom: 15px;
+    flex-grow: 1;
+    background-color: #c6c6c6;
+    color: #2c2d2d;
+    border-radius: 5px;
+  }
+  
+  .play-type-dropdown {
+    align-items: center;
+    width: 275px;
+    margin-bottom: 5px;
+    flex-grow: 1;
+    background-color: #c6c6c6;
+    color: #2c2d2d;
+    border-radius: 5px;
+  }
+  
+  .passing-player-dropdown {
     align-items: center;
     max-width: 300px;
     margin-bottom: 15px;
@@ -52,7 +72,7 @@
     border-radius: 5px;
   }
   
-  #play-type-dropdown {
+  .passing-play-type-dropdown {
     align-items: center;
     max-width: 275px;
     margin-bottom: 5px;
@@ -62,27 +82,7 @@
     border-radius: 5px;
   }
   
-  #passing-player-dropdown {
-    align-items: center;
-    max-width: 300px;
-    margin-bottom: 15px;
-    flex-grow: 1;
-    background-color: #c6c6c6;
-    color: #2c2d2d;
-    border-radius: 5px;
-  }
-  
-  #passing-play-type-dropdown {
-    align-items: center;
-    max-width: 275px;
-    margin-bottom: 5px;
-    flex-grow: 1;
-    background-color: #c6c6c6;
-    color: #2c2d2d;
-    border-radius: 5px;
-  }
-  
-  #team-one-shot-checklist {
+  .shot-checklist {
     margin-bottom: 20px;
     margin-left: 0px;
     font-size: 16px;
@@ -116,7 +116,7 @@
     padding-bottom: 2px;
   }
   
-  #creator-header {
+  .creator-header {
     margin-left: 185px;
     font-size: 30px;
     padding-bottom: 10px;
@@ -125,7 +125,7 @@
     color: #4fafa9;
   }
   
-  #creator-header-break {
+  .creator-header-break {
     margin-left: 45px;
     max-width: 370px;
     margin-bottom: 15px;

@@ -12,7 +12,7 @@ shot_types = ['2pt FG', '3pt FG', '2pt Free Throws', '3pt Free Throws', '2pt And
 
 def ShooterHeader(creation_checklist_id):
     return html.Div(children=[
-        html.Div("Shooter", id='team-one-shooter-header'),
+        html.Div("Shooter", id=f'{creation_checklist_id}-shooter-header'),
         dcc.Checklist(
             ['Shot Created?'],
             inline=True,
@@ -27,8 +27,9 @@ def ShotChecklist(checklist_id):
         dcc.Checklist(
             ['Make', 'Miss', 'Free Throws', 'And-1', 'Turnover'],
             inline=True,
-            id=checklist_id,
+            id=f'{checklist_id}-shot-checklist',
             inputStyle={"marginRight": 5, 'marginLeft': 20},
+            className='shot-checklist'
         )
     ])
 
@@ -57,16 +58,16 @@ def PlayerDropdown(player_dropdown_id):
                     dcc.Dropdown(
                         players,
                         placeholder='Select a player',
-                        id=player_dropdown_id,
+                        id=f'{player_dropdown_id}-player-dropdown',
                         maxHeight=400,
                         clearable=True,
+                        className='player-dropdown'
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
             ),
             html.Div(id='player-dropdown-output-container')
-        ],
-        className='player-dropdown-container'
+        ]
     )
 
 def PlayTypeDropdown(play_type_dropdown_id):
@@ -76,7 +77,7 @@ def PlayTypeDropdown(play_type_dropdown_id):
                 children=[
                     html.Div(
                         "Play Type:",
-                        id='play-type-label',
+                        id=f'{play_type_dropdown_id}-play-type-label',
                         style={
                             'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
                             'fontSize': 18, 'paddingBottom': 10
@@ -84,8 +85,9 @@ def PlayTypeDropdown(play_type_dropdown_id):
                     ),
                     dcc.Dropdown(
                         play_types,
+                        className='play-type-dropdown',
                         placeholder='Select a play type',
-                        id=play_type_dropdown_id,
+                        id=f'{play_type_dropdown_id}-play-type-dropdown',
                         maxHeight=400,
                         clearable=True,
                     ),
@@ -99,10 +101,10 @@ def PlayTypeDropdown(play_type_dropdown_id):
 
 def PasserHeader(passer_header_id):
     return html.Div(children=[
-        html.Hr(id=f'{passer_header_id}-creator-header-break'),
-        html.Div("Creator", id=f'{passer_header_id}-creator-header')])
+        html.Hr(id=f'{passer_header_id}-creator-header-break', className='creator-header-break'),
+        html.Div("Creator", id=f'{passer_header_id}-creator-header', className='creator-header')])
 
-def PassingPlayerDropdown():
+def PassingPlayerDropdown(passing_player_dropdown_id):
     return html.Div(
         children=[
             html.Div(
@@ -112,17 +114,18 @@ def PassingPlayerDropdown():
                     dcc.Dropdown(
                         players,
                         placeholder='Select a player',
-                        id='passing-player-dropdown',
+                        id=f'{passing_player_dropdown_id}-passing-player-dropdown',
                         maxHeight=400,
                         clearable=True,
+                        className='passing-player-dropdown'
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
             ),
-            html.Div(id='passing-player-dropdown-output-container')
+            html.Div(id='team-one-passing-player-dropdown-output-container')
         ])
 
-def PassingPlayTypeDropdown():
+def PassingPlayTypeDropdown(passing_play_type_dropdown_id):
     return html.Div(
         children=[
             html.Div(
@@ -137,9 +140,10 @@ def PassingPlayTypeDropdown():
                     dcc.Dropdown(
                         play_types,
                         placeholder='Select a play type',
-                        id='passing-play-type-dropdown',
+                        id=f'{passing_play_type_dropdown_id}-passing-play-type-dropdown',
                         maxHeight=400,
                         clearable=True,
+                        className='passing-play-type-dropdown'
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
@@ -150,19 +154,19 @@ def MakePlayerDictionaries():
     player_dfs = {player: empty for player in players}
     return player_dfs
 
-def RecordShotButton():
+def RecordShotButton(record_shot_id):
     return html.Div(
                 children=[
-                    html.Button("Record Shot", id="record-shot-button",
+                    html.Button("Record Shot", id=f"{record_shot_id}-record-shot-button", className='record-shot-button',
                                 style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 10, 'padding': '0px 7px'}),
                     html.Div(id="record-shot-output")
                 ]
             )
 
-def ClearLocationDataButton():
+def ClearLocationDataButton(clear_location_id):
     return html.Div(
                 children=[
-                    html.Button("Clear Shot", id="clear-shot-button",),
+                    html.Button("Clear Shot", id=f"{clear_location_id}-clear-shot-button", className='clear-shot-button'),
                     html.Div(id="clear-shot-output")
                 ]
             )

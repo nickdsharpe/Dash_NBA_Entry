@@ -24,15 +24,15 @@ app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_e
 app.layout = html.Div(id='team-one-container',
     children=[
         html.Div(draw_plotly_court(fig), id='team-one-court-plot'),
-        ClearLocationDataButton(),
-        ShotChecklist('team-one-shot-checklist'),
+        ClearLocationDataButton('team-one'),
+        ShotChecklist('team-one'),
         ShooterHeader('team-one'),
         html.Div(id='team-one-shot-checklist-result'),
         html.Div(id='free-throw-result'),
-        PlayerDropdown('player-dropdown'),
-        PlayTypeDropdown('play-type-label'),
+        PlayerDropdown('team-one'),
+        PlayTypeDropdown('team-one'),
         html.Div(id='passing-player-dropdown-container'),
-        RecordShotButton(),
+        RecordShotButton('team-one'),
         html.Div(id='click-coordinates'),
         html.Div(id='output-message')
     ]
@@ -78,7 +78,7 @@ def updateFreeThrows(value):
 # Player Dropdown callback
 @app.callback(
     Output('player-dropdown-output-container', 'children'),
-    Input('player-dropdown', 'value')
+    Input('team-one-player-dropdown', 'value')
 )
 def update_player(value):
     shot['player'] = value
@@ -87,7 +87,7 @@ def update_player(value):
 # Play-Type Dropdown callback
 @app.callback(
     Output('play-type-dropdown-output-container', 'children'),
-    Input('play-type-dropdown', 'value')
+    Input('team-one-play-type-dropdown', 'value')
 )
 def update_play_type(value):
     shot['play_type'] = value
@@ -114,8 +114,8 @@ def record_coordinates(clickData):
 @app.callback(
     Output('court-graph', 'figure'),
     Input('court-graph', 'clickData'),
-    Input("clear-shot-button", "n_clicks"),
-    [Input("record-shot-button", "n_clicks")],
+    Input("team-one-clear-shot-button", "n_clicks"),
+    [Input("team-one-record-shot-button", "n_clicks")],
     State('court-graph', 'figure'),
     prevent_initial_call=True,
     allow_duplicate=True
@@ -124,7 +124,7 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
     ctx = dash.callback_context
     
     # If the clear button is clicked, remove the marker trace
-    if (ctx.triggered[0]['prop_id'] == "clear-shot-button.n_clicks") or (ctx.triggered[0]['prop_id'] == "record-shot-button.n_clicks"):
+    if (ctx.triggered[0]['prop_id'] == "team-one-clear-shot-button.n_clicks") or (ctx.triggered[0]['prop_id'] == "team-one-record-shot-button.n_clicks"):
         figure['data'] = initial_state
     else:
         if clickData:
@@ -174,18 +174,18 @@ def handle_click(click_data):
 
 # Callback to display Creation dropdowns
 @app.callback(
-        Output('passing-player-dropdown-container', 'children'),
-        Input('creation-checklist', 'value'),
+        Output('team-one-passing-player-dropdown-container', 'children'),
+        Input('team-one-creation-checklist', 'value'),
         prevent_initial_call=True
 )
 def passingPlayerDropdown(value):
     if value:
-        return PasserHeader('team-one') ,PassingPlayerDropdown(), PassingPlayTypeDropdown()
+        return PasserHeader('team-one') ,PassingPlayerDropdown('team-one'), PassingPlayTypeDropdown('team-one')
 
 # Record Creator player dropdown
 @app.callback(
-        Output('passing-player-dropdown-output-container', 'children'),
-        Input('passing-player-dropdown', 'value'),
+        Output('team-one-passing-player-dropdown-output-container', 'children'),
+        Input('team-one-passing-player-dropdown', 'value'),
         prevent_initial_call=True
 )
 def update_passing_player(value):
@@ -195,8 +195,8 @@ def update_passing_player(value):
 
 # Record Creator Play Type dropdown
 @app.callback(
-        Output('passing-play-type-dropdown-output-container', 'children'),
-        Input('passing-play-type-dropdown', 'value'),
+        Output('team-one-passing-play-type-dropdown-output-container', 'children'),
+        Input('team-one-passing-play-type-dropdown', 'value'),
         prevent_initial_call=True
 )
 def update_passing_player(value):
@@ -206,8 +206,8 @@ def update_passing_player(value):
 
 # Record shot callback
 @app.callback(
-    Output("record-shot-output", "children"),
-    [Input("record-shot-button", "n_clicks")],
+    Output("team-one-record-shot-output", "children"),
+    [Input("team-one-record-shot-button", "n_clicks")],
     prevent_initial_call=True,
 )
 def record_shot(value):
@@ -225,32 +225,17 @@ def record_shot(value):
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    
     Output("team-one-shot-checklist", 'value'),
-    Output("player-dropdown", 'value'),
-    Output('play-type-dropdown', 'value'),
-    [Input("record-shot-button", "n_clicks")],
+    Output("team-one-player-dropdown", 'value'),
+    Output('team-one-play-type-dropdown', 'value'),
+    Output('team-one-creation-checklist', 'value'),
+    [Input("team-one-record-shot-button", "n_clicks")],
     allow_duplicate=True
 )
 def clear_components(value):
     if value is not None:
-        return [[], '', '']
+        return [[], '', '', []]
     else:
-        return [], None, None
-    
-# Clear values in Creator dropdowns and checklist when record shot button is pressed
-@app.callback(
-    Output('creation-checklist', 'value'),
-    Output("passing-player-dropdown", 'value'),
-    Output('passing-play-type-dropdown', 'value'),
-    [Input("record-shot-button", "n_clicks"),
-     Input('creation-checklist', 'value')],
-     prevent_initial_call=True,
-    allow_duplicate=True
-)
-def clear_components(n_clicks, value):
-    if n_clicks is not None:
-        return [[], '', '']
-    else:
-        return [], None, None
+        return [], None, None, []
     
 # Run the app
 if __name__ == '__main__':
