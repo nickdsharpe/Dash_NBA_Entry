@@ -12,7 +12,7 @@ shot_types = ['2pt FG', '3pt FG', '2pt Free Throws', '3pt Free Throws', '2pt And
 
 def ShooterHeader(creation_checklist_id):
     return html.Div(children=[
-        html.Div("Shooter", id=f'{creation_checklist_id}-shooter-header'),
+        html.Div("Shooter", id=f'{creation_checklist_id}-shooter-header', className='shooter-header'),
         dcc.Checklist(
             ['Shot Created?'],
             inline=True,
@@ -38,7 +38,7 @@ def FreeThrowInput(FT_input_id):
         children=[
             html.Div("Free Throws:", id='free-throw-label'),
             dcc.Input(
-            id=FT_input_id,
+            id=f'{FT_input_id}-free-throw-input',
             placeholder='Free throws made',
             type='number',
             min=0,
@@ -122,7 +122,7 @@ def PassingPlayerDropdown(passing_player_dropdown_id):
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
             ),
-            html.Div(id='team-one-passing-player-dropdown-output-container')
+            html.Div(id=f'{passing_player_dropdown_id}-passing-player-dropdown-output-container')
         ])
 
 def PassingPlayTypeDropdown(passing_play_type_dropdown_id):
@@ -148,7 +148,7 @@ def PassingPlayTypeDropdown(passing_play_type_dropdown_id):
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
             ),
-            html.Div(id='passing-play-type-dropdown-output-container')])
+            html.Div(id=f'{passing_play_type_dropdown_id}-passing-play-type-dropdown-output-container')])
 
 def MakePlayerDictionaries():
     player_dfs = {player: empty for player in players}
@@ -159,7 +159,7 @@ def RecordShotButton(record_shot_id):
                 children=[
                     html.Button("Record Shot", id=f"{record_shot_id}-record-shot-button", className='record-shot-button',
                                 style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 10, 'padding': '0px 7px'}),
-                    html.Div(id="record-shot-output")
+                    html.Div(id=f"{record_shot_id}-record-shot-output")
                 ]
             )
 

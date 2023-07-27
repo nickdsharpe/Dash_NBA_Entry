@@ -21,21 +21,41 @@ fig = go.Figure()
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
 # Layout
-app.layout = html.Div(id='team-one-container',
+app.layout = html.Div( id='main-container',
     children=[
-        html.Div(draw_plotly_court(fig), id='team-one-court-plot'),
-        ClearLocationDataButton('team-one'),
-        ShotChecklist('team-one'),
-        ShooterHeader('team-one'),
-        html.Div(id='team-one-shot-checklist-result'),
-        html.Div(id='free-throw-result'),
-        PlayerDropdown('team-one'),
-        PlayTypeDropdown('team-one'),
-        html.Div(id='passing-player-dropdown-container'),
-        RecordShotButton('team-one'),
-        html.Div(id='click-coordinates'),
-        html.Div(id='output-message')
-    ]
+        html.Div(id='team-one-container',
+            children=[
+                html.Div(draw_plotly_court(fig, 'team-one'), id='team-one-court-plot'),
+                ClearLocationDataButton('team-one'),
+                ShotChecklist('team-one'),
+                ShooterHeader('team-one'),
+                html.Div(id='team-one-shot-checklist-result'),
+                html.Div(id='team-one-free-throw-result'),
+                PlayerDropdown('team-one'),
+                PlayTypeDropdown('team-one'),
+                html.Div(id='team-one-creation-inputs-container'),
+                RecordShotButton('team-one'),
+                html.Div(id='team-one-click-coordinates'),
+                html.Div(id='team-one-output-message')
+            ]
+        ),
+        html.Div(id='team-two-container',
+            children=[
+                html.Div(draw_plotly_court(fig, 'team-two'), id='team-two-court-plot'),
+                ClearLocationDataButton('team-two'),
+                ShotChecklist('team-two'),
+                ShooterHeader('team-two'),
+                html.Div(id='team-two-shot-checklist-result'),
+                html.Div(id='team-two-free-throw-result'),
+                PlayerDropdown('team-two'),
+                PlayTypeDropdown('team-two'),
+                html.Div(id='team-two-creation-inputs-container'),
+                RecordShotButton('team-two'),
+                html.Div(id='team-two-click-coordinates'),
+                html.Div(id='team-two-output-message')
+            ]
+        )
+    ], style={'display': 'flex'}
 )
 
 # Make | Miss | Free Throws | And-1 | Turnover checklist callback
@@ -67,8 +87,8 @@ def update_shot_result(value):
 
 # Free Throws made callback
 @app.callback(
-    Output("free-throw-result", "children"),
-    Input("free-throw-input", "value"),
+    Output("team-one-free-throw-result", "children"),
+    Input("team-one-free-throw-input", "value"),
 )
 def updateFreeThrows(value):
     shot['ftm'] = value
@@ -95,8 +115,8 @@ def update_play_type(value):
 
 # Track click events
 @app.callback(
-    Output('click-coordinates', 'children'),
-    Input('court-graph', 'clickData')
+    Output('team-one-click-coordinates', 'children'),
+    Input('team-one-court-graph', 'clickData')
 )
 def record_coordinates(clickData):
     if clickData is not None:
@@ -112,11 +132,11 @@ def record_coordinates(clickData):
     
 # Callback to handle click events and update the scatter trace with markers
 @app.callback(
-    Output('court-graph', 'figure'),
-    Input('court-graph', 'clickData'),
+    Output('team-one-court-graph', 'figure'),
+    Input('team-one-court-graph', 'clickData'),
     Input("team-one-clear-shot-button", "n_clicks"),
     [Input("team-one-record-shot-button", "n_clicks")],
-    State('court-graph', 'figure'),
+    State('team-one-court-graph', 'figure'),
     prevent_initial_call=True,
     allow_duplicate=True
 )
@@ -140,7 +160,7 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
                 y=[y],
                 mode="markers",
                 marker=dict(
-                    color='#a136ff',
+                    color='#4fafa9',
                     size=18,
                     opacity=0.9,
                     symbol='x',
@@ -158,8 +178,8 @@ def add_marker(clickData, n_clicks, rec_n_clicks, figure):
 
 # Callback to handle shot type
 @app.callback(
-        Output('output-message', 'children'), 
-        Input('court-graph', 'clickData'),
+        Output('team-one-output-message', 'children'), 
+        Input('team-one-court-graph', 'clickData'),
         prevent_initial_call=True
     )
 def handle_click(click_data):
@@ -174,11 +194,10 @@ def handle_click(click_data):
 
 # Callback to display Creation dropdowns
 @app.callback(
-        Output('team-one-passing-player-dropdown-container', 'children'),
-        Input('team-one-creation-checklist', 'value'),
-        prevent_initial_call=True
+        Output('team-one-creation-inputs-container', 'children'),
+        Input('team-one-creation-checklist', 'value')
 )
-def passingPlayerDropdown(value):
+def passingPlayerInputs(value):
     if value:
         return PasserHeader('team-one') ,PassingPlayerDropdown('team-one'), PassingPlayTypeDropdown('team-one')
 
