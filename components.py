@@ -39,6 +39,7 @@ def FreeThrowInput(FT_input_id):
             html.Div("Free Throws:", id='free-throw-label'),
             dcc.Input(
             id=f'{FT_input_id}-free-throw-input',
+            className='free-throw-input',
             placeholder='Free throws made',
             type='number',
             min=0,

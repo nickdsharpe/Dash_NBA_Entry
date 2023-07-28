@@ -19,10 +19,11 @@
   #team-two-clear-shot-button {
     margin-left: 45px;
     margin-bottom: 10px;
-    background-color: #a136ff;
+    background-color: #b465f7;
   }
 
   .record-shot-button {
+    margin-top: 5px;
     width: 370px;
     height: 40px;
     cursor: pointer;
@@ -40,17 +41,19 @@
   }
   
   #team-two-record-shot-button {
-    background-color: #a136ff;
+    background-color: #b465f7;
   }
   
-  #free-throw-input {
-    vertical-align: middle;
-    display: inline-block;
-    font-size: 18px;
-    margin-left: 60px;
-    padding-bottom: 13px;
-    color: #c6c6c6;
-    
+  #team-one-free-throw-input {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding-left: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 5px;
+    width: 253px;
+    border: 1px solid #c6c6c6;
+    background-color: #2c2d2d;
   }
   
   #free-throw-label {
@@ -102,23 +105,12 @@
   .shot-checklist {
     margin-bottom: 20px;
     margin-left: 0px;
-    font-size: 16px;
-    margin-top: 5px;
-  }
-  
-  #free-throw-input {
-    margin-left: 10px;
-    margin-bottom: 10px;
-    padding-left: 8px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 5px;
-    width: 250px;
-    border: 1px solid #c6c6c6;
-    background-color: #2c2d2d;
+    font-size: 18px;
+    margin-top: 10px;
   }
   
   .shooter-header {
+    margin-top: 10px;
     margin-left: 175px;
     font-size: 30px;
     padding-bottom: 10px;
@@ -132,7 +124,7 @@
   }
   
   #team-two-shooter-header {
-    color: #a136ff;
+    color: #b465f7;
   }
   
   .creation-checklist {

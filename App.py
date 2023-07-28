@@ -21,7 +21,7 @@ fig = go.Figure()
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
 # Layout
-app.layout = html.Div( id='main-container',
+app.layout = html.Div(id='main-container',
     children=[
         html.Div(id='team-one-container',
             children=[
@@ -75,11 +75,11 @@ def update_shot_result(value):
     elif value == ['Free Throws']:
         shot['result'] = 11
         passer['result'] = 11
-        return FreeThrowInput('free-throw-input')
+        return FreeThrowInput('team-one')
     elif value == ['And-1']:
         shot['result'] = 30
         passer['result'] = 30
-        return FreeThrowInput('free-throw-input')
+        return FreeThrowInput('team-one')
     elif value == ['Turnover']:
         shot['result'] = 20
         passer['result'] = 20
@@ -255,7 +255,7 @@ def clear_components(value):
         return [[], '', '', []]
     else:
         return [], None, None, []
-    
+
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=True)
