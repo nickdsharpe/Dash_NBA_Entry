@@ -3,7 +3,7 @@ import dash_daq as daq
 import pandas as pd
 from dash_bootstrap_components import Modal, ModalHeader, ModalBody, ModalFooter, Button
 
-empty = pd.read_csv('empty.csv')
+empty = pd.read_csv('assets/empty.csv')
 
 players = ['Jokic', 'Murray', 'Gordon', 'MPJ', 'KCP', 'Braun']
 play_types = ['PNR Ball Handler', 'PNR Screener', 'DHO Ball Handler', 'DHO Screener', 'Isolation', 'Transition', 'Attacking Closeouts',
@@ -36,7 +36,7 @@ def ShotChecklist(checklist_id):
 def FreeThrowInput(FT_input_id):
     return html.Div(
         children=[
-            html.Div("Free Throws:", id='free-throw-label'),
+            html.Div("Free Throws:", id=f'{FT_input_id}-free-throw-label', className='free-throw-label'),
             dcc.Input(
             id=f'{FT_input_id}-free-throw-input',
             className='free-throw-input',
@@ -60,14 +60,14 @@ def PlayerDropdown(player_dropdown_id):
                         players,
                         placeholder='Select a player',
                         id=f'{player_dropdown_id}-player-dropdown',
-                        maxHeight=400,
+                        maxHeight=200,
                         clearable=True,
                         className='player-dropdown'
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
             ),
-            html.Div(id='player-dropdown-output-container')
+            html.Div(id=f'{player_dropdown_id}-player-dropdown-output-container')
         ]
     )
 
@@ -89,13 +89,13 @@ def PlayTypeDropdown(play_type_dropdown_id):
                         className='play-type-dropdown',
                         placeholder='Select a play type',
                         id=f'{play_type_dropdown_id}-play-type-dropdown',
-                        maxHeight=400,
+                        maxHeight=200,
                         clearable=True,
                     ),
                 ],
                 style={'display': 'flex', 'alignItems': 'center'}
             ),
-            html.Div(id='play-type-dropdown-output-container')
+            html.Div(id=f'{play_type_dropdown_id}-play-type-dropdown-output-container')
         ],
         className='play-type-dropdown-container'
     )
@@ -168,6 +168,6 @@ def ClearLocationDataButton(clear_location_id):
     return html.Div(
                 children=[
                     html.Button("Clear Shot", id=f"{clear_location_id}-clear-shot-button", className='clear-shot-button'),
-                    html.Div(id="clear-shot-output")
+                    html.Div(id=f"{clear_location_id}-clear-shot-output")
                 ]
             )

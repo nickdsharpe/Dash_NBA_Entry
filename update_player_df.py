@@ -6,7 +6,7 @@ mapping = {'PNR Ball Handler': 'PNR BH', 'PNR Screener': 'PNR SC', 'DHO Ball Han
            'Cutting': 'CUT', 'Offensive Rebounds': 'OREB'}
 
 players = ['Jokic', 'Murray', 'Gordon', 'MPJ', 'KCP', 'Braun']
-empty = pd.read_csv('empty.csv', index_col='Shot Type')
+empty = pd.read_csv('assets/empty.csv', index_col='Shot Type')
 team_data = {player: empty.copy() for player in players}
 
 

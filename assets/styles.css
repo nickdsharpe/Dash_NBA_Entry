@@ -44,7 +44,7 @@
     background-color: #b465f7;
   }
   
-  #team-one-free-throw-input {
+  .free-throw-input {
     margin-left: 10px;
     margin-bottom: 10px;
     padding-left: 8px;
@@ -56,7 +56,7 @@
     background-color: #2c2d2d;
   }
   
-  #free-throw-label {
+  .free-throw-label {
     margin-left: 45px;
     font-size: 18px;
     padding-bottom: 8px;
@@ -129,7 +129,7 @@
   
   .creation-checklist {
     margin-left: 20px;
-    padding-bottom: 2px;
+    padding-bottom: 0px;
   }
   
   .creator-header {
@@ -138,8 +138,16 @@
     padding-bottom: 10px;
     font-weight: bold;
     font-variant: normal;
+  }
+  
+  #team-one-creator-header {
     color: #4fafa9;
   }
+  
+  #team-two-creator-header {
+    color: #b465f7;
+  }
+  
   
   .creator-header-break {
     margin-left: 45px;
