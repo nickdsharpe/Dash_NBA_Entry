@@ -1,7 +1,6 @@
 from maindash import app
-import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.shooter_dropdown, callbacks.shooter_play_type, callbacks.record_coordinates, callbacks.shot_type
+import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.shooter_dropdown, callbacks.shooter_play_type, callbacks.record_coordinates, callbacks.shot_type, callbacks.creator_dropdowns
 import dash
-from dash import html, dcc
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 from components import MakePlayerDictionaries, PassingPlayerDropdown, PasserHeader, PassingPlayTypeDropdown
@@ -17,52 +16,39 @@ app.layout = make_layout()
 
 # Callback to display Creation dropdowns
 @app.callback(
-        Output('team-one-creation-inputs-container', 'children'),
-        Input('team-one-creation-checklist', 'value')
+        Output('team-one-creation-inputs-container', 'style'),
+        Input('team-one-creation-checklist', 'value'),
+        prevent_initial_call=True
 )
 def teamOne_CreatorInputs(value):
     if value:
-        return PasserHeader('team-one') ,PassingPlayerDropdown('team-one'), PassingPlayTypeDropdown('team-one')
-
-# Record Creator player dropdown
-@app.callback(
-        Output('team-one-passing-player-dropdown-output-container', 'children'),
-        Input('team-one-passing-player-dropdown', 'value'),
-        prevent_initial_call=True
-)
-def teamOne_UpdateCreatorPlayer(value):
-    if value:
-        passer['player'] = value
-    return None
-
-# Record Creator Play Type dropdown
-@app.callback(
-        Output('team-one-passing-play-type-dropdown-output-container', 'children'),
-        Input('team-one-passing-play-type-dropdown', 'value'),
-        prevent_initial_call=True
-)
-def teamOne_UpdateCreatorPlayType(value):
-    if value:
-        passer['play_type'] = value
-    return None
+        return {'display': 'block'}
+    else:
+        return {'display': 'none'}
 
 # Record shot callback
 @app.callback(
     Output("team-one-record-shot-output", "children"),
-    [Input("team-one-record-shot-button", "n_clicks")],
+    [Input("team-one-record-shot-button", "n_clicks"),
+     Input('store-data', 'data')],
     prevent_initial_call=True,
 )
-def teamOne_RecordShot(value):
-    try:
-        if 'player' and 'play_type' and 'x' and 'y' and 'shot_type' and 'result' in shot:
-            print(shot)
-            updated_shooter_df = UpdateShooterDF(shot)
-            updated_passer_df = UpdateCreatorDF(passer)
+def teamOne_RecordShot(n_clicks, data):
+    updated_data = data.copy()
+    shooter = updated_data['team-one-shooter']
+    creator = updated_data['team-one-creator']
+    
+    if n_clicks is not None:
+        try:
+            print(shooter)
+            updated_shooter_df = UpdateShooterDF(shooter)
+            updated_creator_df = UpdateCreatorDF(creator)
             print('Shooter:', updated_shooter_df)
-            print('Creator', updated_passer_df)
-            return
-    except:
-        return 'Data Incomplete.'
+            print('Creator', updated_creator_df)
+            return 'Shot Recorded'
+        except:
+            return 'Data Incomplete.'
+    return 
     
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    
@@ -83,34 +69,15 @@ def teamOne_ClearComponents(value):
 
 # Callback to display Creation dropdowns
 @app.callback(
-        Output('team-two-creation-inputs-container', 'children'),
-        Input('team-two-creation-checklist', 'value')
+        Output('team-two-creation-inputs-container', 'style'),
+        Input('team-two-creation-checklist', 'value'),
+        prevent_initial_call=True
 )
 def teamTwo_CreatorInputs(value):
     if value:
-        return PasserHeader('team-two') ,PassingPlayerDropdown('team-two'), PassingPlayTypeDropdown('team-two')
-
-# Record Creator player dropdown
-@app.callback(
-        Output('team-two-passing-player-dropdown-output-container', 'children'),
-        Input('team-two-passing-player-dropdown', 'value'),
-        prevent_initial_call=True
-)
-def teamTwo_CreatorPlayer(value):
-    if value:
-        passer['player'] = value
-    return None
-
-# Record Creator Play Type dropdown
-@app.callback(
-        Output('team-two-passing-play-type-dropdown-output-container', 'children'),
-        Input('team-two-passing-play-type-dropdown', 'value'),
-        prevent_initial_call=True
-)
-def teamTwo_CreatorPlayType(value):
-    if value:
-        passer['play_type'] = value
-    return None
+        return {'display': 'block'}
+    else:
+        return {'display': 'none'}
 
 # Record shot callback
 @app.callback(

@@ -116,7 +116,7 @@ def PassingPlayerDropdown(passing_player_dropdown_id):
                         players,
                         placeholder='Select a player',
                         id=f'{passing_player_dropdown_id}-passing-player-dropdown',
-                        maxHeight=400,
+                        maxHeight=200,
                         clearable=True,
                         className='passing-player-dropdown'
                     ),
@@ -142,7 +142,7 @@ def PassingPlayTypeDropdown(passing_play_type_dropdown_id):
                         play_types,
                         placeholder='Select a play type',
                         id=f'{passing_play_type_dropdown_id}-passing-play-type-dropdown',
-                        maxHeight=400,
+                        maxHeight=200,
                         clearable=True,
                         className='passing-play-type-dropdown'
                     ),

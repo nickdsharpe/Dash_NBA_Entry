@@ -2,7 +2,7 @@ from maindash import app
 from dash import html, dcc
 import plotly.graph_objects as go
 from assets.court import draw_plotly_court
-from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput
+from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown
 
 fig = go.Figure()
 
@@ -26,7 +26,11 @@ def make_layout():
                         html.Div(id='team-one-free-throw-result'),
                         PlayerDropdown('team-one'),
                         PlayTypeDropdown('team-one'),
-                        html.Div(id='team-one-creation-inputs-container'),
+                        html.Div(id='team-one-creation-inputs-container', style={'display': 'none'}, children=[
+                            PasserHeader('team-one'),
+                            PassingPlayerDropdown('team-one'), 
+                            PassingPlayTypeDropdown('team-one')
+                        ] ),
                         RecordShotButton('team-one'),
                         html.Div(id='team-one-shot-type')
                     ]
@@ -44,7 +48,11 @@ def make_layout():
                         html.Div(id='team-two-free-throw-result'),
                         PlayerDropdown('team-two'),
                         PlayTypeDropdown('team-two'),
-                        html.Div(id='team-two-creation-inputs-container'),
+                        html.Div(id='team-two-creation-inputs-container', style={'display': 'none'}, children=[
+                            PasserHeader('team-two'),
+                            PassingPlayerDropdown('team-two'), 
+                            PassingPlayTypeDropdown('team-two')
+                        ] ),
                         RecordShotButton('team-two'),
                         html.Div(id='team-two-shot-type')
                     ]

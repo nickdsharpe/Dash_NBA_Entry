@@ -11,9 +11,8 @@ from dash.dependencies import Input, Output
     prevent_initial_call=True
 )
 def team_one_update_shot_result(value, data):
-    
     updated_data = data.copy()
-    print(updated_data)
+    
     shooter = updated_data['team-one-shooter']
     creator = updated_data['team-one-creator']
     if value == ['Miss']:
@@ -48,10 +47,11 @@ def team_one_update_shot_result(value, data):
     prevent_initial_call=True
 )
 def team_two_update_shot_result(value, data):
-    
     updated_data = data.copy()
+    
     shooter = updated_data['team-two-shooter']
     creator = updated_data['team-two-creator']
+    
     if value == ['Miss']:
         shooter['result'] = 0
         creator['result'] = 0
