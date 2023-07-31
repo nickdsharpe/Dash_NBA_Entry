@@ -1,6 +1,5 @@
 from maindash import app
 from dash.dependencies import Input, Output
-from components import FreeThrowInput
 
 ## TEAM ONE ###
 # Make | Miss | Free Throws | And-1 | Turnover checklist callback

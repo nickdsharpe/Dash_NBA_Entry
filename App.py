@@ -4,9 +4,8 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
-from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, MakePlayerDictionaries, RecordShotButton, ShotChecklist, FreeThrowInput, ClearLocationDataButton, PassingPlayerDropdown, PasserHeader, PassingPlayTypeDropdown
+from components import MakePlayerDictionaries, PassingPlayerDropdown, PasserHeader, PassingPlayTypeDropdown
 from update_player_df import UpdateShooterDF, UpdateCreatorDF
-from assets.court import is_inside_three_point_line
 from layout import make_layout
 
 player_dfs = MakePlayerDictionaries()
