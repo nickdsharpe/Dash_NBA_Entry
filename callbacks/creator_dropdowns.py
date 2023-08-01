@@ -1,4 +1,5 @@
 from maindash import app
+import dash
 from dash.dependencies import Input, Output
 
 # Record Creator player dropdown
@@ -10,17 +11,26 @@ from dash.dependencies import Input, Output
         prevent_initial_call=True
 )
 def teamOne_UpdateCreatorPlayer(team_one_value, team_two_value, data):
+    
     updated_data = data.copy()
     team_one_creator = updated_data['team-one-creator']
     team_two_creator = updated_data['team-two-creator']
+
+    ctx = dash.callback_context
+    triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
     
-    if team_one_value:
-        team_one_creator['player'] = team_one_value
-        return updated_data
-    
-    if team_two_value:
-        team_two_creator['player'] = team_two_value
-        return updated_data
+    if triggered_input_id == "team-one-passing-player-dropdown":
+
+        if team_one_value:
+            team_one_creator['player'] = team_one_value
+            return updated_data
+        
+    elif triggered_input_id == "team-two-passing-player-dropdown":
+        
+        if team_two_value:
+            team_two_creator['player'] = team_two_value
+            return updated_data
+        
     return updated_data
 
 # Record Creator Play Type dropdown

@@ -4,16 +4,12 @@ from dash.dependencies import Input, Output
 from assets.court import is_inside_three_point_line
 
 @app.callback(
-    [
         Output('team-one-shot-type', 'children'),
         Output('team-two-shot-type', 'children'),
-        Output('store-data', 'data', allow_duplicate=True)
-    ],
-    [
+        Output('store-data', 'data', allow_duplicate=True),
         Input('team-one-court-graph', 'clickData'),
         Input('team-two-court-graph', 'clickData'),
-        Input('store-data', 'data')
-    ],
+        Input('store-data', 'data'),
     prevent_initial_call=True
 )
 def handle_shot_type(click_data_team_one, click_data_team_two, data):

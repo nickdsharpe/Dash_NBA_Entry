@@ -29,8 +29,9 @@ def teamOne_CreatorInputs(value):
 # Record shot callback
 @app.callback(
     Output("team-one-record-shot-output", "children"),
-    [Input("team-one-record-shot-button", "n_clicks"),
-     Input('store-data', 'data')],
+    Output('store-data', 'data', allow_duplicate=True),
+    Input("team-one-record-shot-button", "n_clicks"),
+    Input('store-data', 'data'),
     prevent_initial_call=True,
 )
 def teamOne_RecordShot(n_clicks, data):
@@ -38,32 +39,37 @@ def teamOne_RecordShot(n_clicks, data):
     shooter = updated_data['team-one-shooter']
     creator = updated_data['team-one-creator']
     
-    if n_clicks is not None:
+    ctx = dash.callback_context
+    triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if triggered_input_id == "team-one-record-shot-button":
         try:
-            print(shooter)
             updated_shooter_df = UpdateShooterDF(shooter)
             updated_creator_df = UpdateCreatorDF(creator)
             print('Shooter:', updated_shooter_df)
             print('Creator', updated_creator_df)
-            return 'Shot Recorded'
+            updated_data = {'team-one-shooter' : {}, 'team-one-creator': {}, 'team-two-shooter' : {}, 'team-two-creator': {}}
+            return 'Shot Recorded', updated_data
         except:
-            return 'Data Incomplete.'
-    return 
+            return 'Data Incomplete.', updated_data
+    return '', updated_data
     
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    
     Output("team-one-shot-checklist", 'value'),
     Output("team-one-player-dropdown", 'value'),
     Output('team-one-play-type-dropdown', 'value'),
+    Output('team-one-passing-player-dropdown', 'value'),
+    Output('team-one-passing-play-type-dropdown', 'value'),
     Output('team-one-creation-checklist', 'value'),
     [Input("team-one-record-shot-button", "n_clicks")],
-    allow_duplicate=True
+    prevent_initial_call=True
 )
-def teamOne_ClearComponents(value):
-    if value is not None:
-        return [[], '', '', []]
+def teamOne_ClearComponents(n_clicks):
+    if n_clicks is not None:
+        return [[], '', '', '', '', []]
     else:
-        return [], None, None, []
+        return [], None, None, None, None, []
 
 '''TEAM-TWO CALLBACKS'''    
 
@@ -82,20 +88,30 @@ def teamTwo_CreatorInputs(value):
 # Record shot callback
 @app.callback(
     Output("team-two-record-shot-output", "children"),
-    [Input("team-two-record-shot-button", "n_clicks")],
+    Output('store-data', 'data', allow_duplicate=True),
+    Input("team-two-record-shot-button", "n_clicks"),
+    Input('store-data', 'data'),
     prevent_initial_call=True,
 )
-def teamTwo_RecordShot(value):
-    try:
-        if 'player' and 'play_type' and 'x' and 'y' and 'shot_type' and 'result' in shot:
-            print(shot)
-            updated_shooter_df = UpdateShooterDF(shot)
-            updated_passer_df = UpdateCreatorDF(passer)
+def teamTwo_RecordShot(n_clicks, data):
+    updated_data = data.copy()
+    shooter = updated_data['team-two-shooter']
+    creator = updated_data['team-two-creator']
+    
+    ctx = dash.callback_context
+    triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
+
+    if triggered_input_id == "team-two-record-shot-button":
+        try:
+            updated_shooter_df = UpdateShooterDF(shooter)
+            updated_creator_df = UpdateCreatorDF(creator)
             print('Shooter:', updated_shooter_df)
-            print('Creator', updated_passer_df)
-            return
-    except:
-        return 'Data Incomplete.'
+            print('Creator', updated_creator_df)
+            updated_data = {'team-one-shooter' : {}, 'team-one-creator': {}, 'team-two-shooter' : {}, 'team-two-creator': {}}
+            return 'Shot Recorded', updated_data
+        except:
+            return 'Data Incomplete.', updated_data
+    return '', updated_data
     
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    
