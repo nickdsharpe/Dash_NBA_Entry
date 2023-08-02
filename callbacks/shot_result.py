@@ -25,7 +25,6 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
     
     if triggered_input_id == "team-one-shot-checklist":
         
-        print('Shot result recorded')
         if team_one_value == ['Miss']:
             team_one['shooter'] = 0
             team_one['creator'] = 0
@@ -35,6 +34,7 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
             print('Shot Result Receorded')
             team_one['shooter'] = 1
             team_one['creator'] = 1
+            print(updated_data)
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         elif team_one_value == ['Free Throws']:
@@ -54,16 +54,17 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
         
     if triggered_input_id == "team-two-shot-checklist":
         
-        print('Shot result recorded')
         if team_two_value == ['Miss']:
             team_two['shooter'] = 0
             team_two['creator'] = 0
+          
             return {'display': 'none'}, {'display': 'none'},  updated_data
         
         elif team_two_value == ['Make']:
             print('Shot Result Receorded')
             team_two['shooter'] = 1
             team_two['creator'] = 1
+            print(updated_data)
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         elif team_two_value == ['Free Throws']:

@@ -70,7 +70,7 @@ def make_layout():
                 dcc.Store(id='team-two', data=ovr_game_data, storage_type='session'),
                 dcc.Store(id='shot-type', data=shot_type, storage_type='session'),
                 dcc.Store(id='shot-result', data=shot_result, storage_type='session'),
-                dcc.Store(id='shooter-play-type', data=play_type, storage_type='session'),
+                dcc.Store(id='play-type', data=play_type, storage_type='session'),
                 dcc.Store(id='player', data=player, storage_type='session'),
                 dcc.Store(id='shot-coordinates', data=shot_coordinates, storage_type='session'),
                 dcc.Store(id='free-throws', data=free_throws, storage_type='session'),

@@ -11,17 +11,12 @@ from assets.court import is_inside_three_point_line
         Output('shot-type', 'data'),
         
         Input('team-one-court-graph', 'clickData'),
-         Input('team-two-court-graph', 'clickData'),
+        Input('team-two-court-graph', 'clickData'),
         Input('shot-type', 'data'),
     prevent_initial_call=True
 )
 def handle_shot_type(team_one_clickData, team_two_clickData, data):
     updated_data = data.copy()
-    
-    if team_one_clickData is None:
-        return no_update, no_update, no_update
-    if team_two_clickData is None:
-        return no_update, no_update, no_update
     
     team_one = updated_data['team-one']
     team_two = updated_data['team-two']

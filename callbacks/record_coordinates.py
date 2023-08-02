@@ -42,6 +42,8 @@ def teamOne_RecordCoordinates(team_one_value, team_two_value, data):
         team_two['x'] = x
         team_two['y'] = y
         
+        print(updated_data)
+        
         return updated_data
     
     return updated_data

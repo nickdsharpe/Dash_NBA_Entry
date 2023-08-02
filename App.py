@@ -1,5 +1,5 @@
 from maindash import app
-import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.creator_dropdowns
+import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.player_and_play_type
 import dash
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
