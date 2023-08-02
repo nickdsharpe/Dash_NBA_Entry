@@ -1,30 +1,57 @@
 from maindash import app
+import dash
 from dash.dependencies import Input, Output
 
 # Team One Play Type Dropdown callback
 @app.callback(
     Output('team-one-play-type-dropdown-output-container', 'children'),
-    Output('store-data', 'data', allow_duplicate=True,),
+    Output('team-one', 'data', allow_duplicate=True,),
+    
     Input('team-one-play-type-dropdown', 'value'),
-    Input('store-data', 'data'),
+    Input('team-one', 'data'),
     prevent_initial_call=True
 )
-def teamOne_UpdateShooterPlayType(value, data):
+def UpdateShooterPlayType(value, data):
     updated_data = data.copy()
-    shooter = updated_data['team-one-shooter']
-    shooter['play_type'] = value
+    
+    shooter = updated_data['shooter']
+    
+    ctx = dash.callback_context
+    triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
+    
+    if triggered_input_id == "team-one-play-type-dropdown":
+        
+        print('Play Type Selected')
+        shooter['play_type'] = value
+        return '', updated_data
+
+    
     return '', updated_data
 
-# Team Tne Play Type Dropdown callback
+
+
+# Team Two Play Type Dropdown callback
 @app.callback(
     Output('team-two-play-type-dropdown-output-container', 'children'),
-    Output('store-data', 'data', allow_duplicate=True,),
+    Output('team-two', 'data', allow_duplicate=True,),
+    
     Input('team-two-play-type-dropdown', 'value'),
-    Input('store-data', 'data'),
+    Input('team-two', 'data'),
     prevent_initial_call=True
 )
-def teamTwo_UpdateShooterPlayType(value, data):
+def UpdateShooterPlayType(value, data):
     updated_data = data.copy()
-    shooter = updated_data['team-two-shooter']
-    shooter['play_type'] = value
+    
+    shooter = updated_data['shooter']
+    
+    ctx = dash.callback_context
+    triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
+    
+    if triggered_input_id == "team-two-play-type-dropdown":
+        
+        print('Play Type Selected')
+        shooter['play_type'] = value
+        return '', updated_data
+
+    
     return '', updated_data

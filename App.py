@@ -41,6 +41,7 @@ def teamOne_RecordShot(n_clicks, data):
     
     ctx = dash.callback_context
     triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
+    print('Record Shot Pressed')
 
     if triggered_input_id == "team-one-record-shot-button":
         try:

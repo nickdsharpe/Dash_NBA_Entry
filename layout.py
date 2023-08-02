@@ -6,6 +6,8 @@ from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordSh
 
 fig = go.Figure()
 
+team_one = {'shooter' : {}, 'creator': {}}
+team_two = {'shooter' : {}, 'creator': {}}
 ovr_game_data = {'team-one-shooter' : {}, 'team-one-creator': {}, 'team-two-shooter' : {}, 'team-two-creator': {}}
 
 # Create a store to save the dictionaries
@@ -57,7 +59,8 @@ def make_layout():
                         html.Div(id='team-two-shot-type')
                     ]
                 ),
-                dcc.Store(id='store-data', data=ovr_game_data, storage_type='session')
+                dcc.Store(id='team-one', data=ovr_game_data, storage_type='session'),
+                dcc.Store(id='team-two', data=ovr_game_data, storage_type='session')
             ], style={'display': 'flex'}
         )
 

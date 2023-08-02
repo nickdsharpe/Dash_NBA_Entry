@@ -29,3 +29,5 @@ def teamOne_UpdateFreeThrows(team_one_value, team_two_value,  data):
         team_two_shooter['ftm'] = team_two_value
         team_two_creator['ftm'] = team_two_value
         return updated_data
+    
+    return updated_data
