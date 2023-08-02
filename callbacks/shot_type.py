@@ -1,77 +1,71 @@
 from maindash import app
 import dash
 from dash import no_update
-from dash_extensions.enrich import Dash, Input, State, Output, html, dcc
+from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 from assets.court import is_inside_three_point_line
 
 @app.callback(
         Output('team-one-shot-type', 'children'),
-        Output('team-one', 'data'),
+        Output('team-two-shot-type', 'children'),
+        Output('shot-type', 'data'),
         
         Input('team-one-court-graph', 'clickData'),
-        Input('team-one', 'data'),
+         Input('team-two-court-graph', 'clickData'),
+        Input('shot-type', 'data'),
     prevent_initial_call=True
 )
-def handle_shot_type(clickData, data):
+def handle_shot_type(team_one_clickData, team_two_clickData, data):
     updated_data = data.copy()
     
-    if clickData is None:
-        return no_update, no_update
+    if team_one_clickData is None:
+        return no_update, no_update, no_update
+    if team_two_clickData is None:
+        return no_update, no_update, no_update
+    
+    team_one = updated_data['team-one']
+    team_two = updated_data['team-two']
 
     # Team One
     if dash.callback_context.triggered_id == 'team-one-court-graph.clickData':
-        shooter = updated_data['shooter']
-        creator = updated_data['creator']
-        if is_inside_three_point_line(clickData):
-            print('Shot Type Recorded')
-            shooter['shot_type'] = '2pt FG'
-            creator['shot_type'] = '2pt FG'
+        
+        if is_inside_three_point_line(team_one_clickData):
+            
+            team_one['shooter'] = '2pt FG'
+            team_one['creator'] = '2pt FG'
+            print('Shot Type Recorded', team_one['shooter'])
+            
             shot_type = '2pt FG'
+            
         else:
-            print('Shot Type Recorded')
-            shooter['shot_type'] = '3pt FG'
-            creator['shot_type'] = '3pt FG'
+    
+            team_one['shooter'] = '3pt FG'
+            team_one['creator'] = '3pt FG'
+            print('Shot Type Recorded', team_one['shooter'])
+            
             shot_type = '3pt FG'
         
-        return shot_type, updated_data
+        return shot_type, no_update, updated_data
     
-    return no_update, no_update
-
-
-
-
-@app.callback(
-        Output('team-two-shot-type', 'children'),
-        Output('team-two', 'data'),
+    # Team Two
+    if dash.callback_context.triggered_id == 'team-two-court-graph.clickData':
         
-        Input('team-two-court-graph', 'clickData'),
-        Input('team-two', 'data'),
-    prevent_initial_call=True
-)
-def handle_shot_type(clickData, data):
-    updated_data = data.copy()
-    
-    if clickData is None:
-        return no_update, no_update
-
-    # Team two
-    if dash.callback_context.triggered[0]['prop_id'] == 'team-two-court-graph.clickData':
-        shooter = updated_data['shooter']
-        creator = updated_data['creator']
-        if is_inside_three_point_line(clickData):
-            print('Shot Type Recorded')
-            shooter['shot_type'] = '2pt FG'
-            creator['shot_type'] = '2pt FG'
+        if is_inside_three_point_line(team_two_clickData):
+            
+            team_two['shooter'] = '2pt FG'
+            team_two['creator'] = '2pt FG'
+            print('Shot Type Recorded', team_two['shooter'])
+            
             shot_type = '2pt FG'
+            
         else:
-            print('Shot Type Recorded')
-            shooter['shot_type'] = '3pt FG'
-            creator['shot_type'] = '3pt FG'
+    
+            team_two['shooter'] = '3pt FG'
+            team_two['creator'] = '3pt FG'
+            print('Shot Type Recorded', team_two['shooter'])
+            
             shot_type = '3pt FG'
         
-        return shot_type, updated_data
+        return no_update, shot_type, updated_data
     
-    return no_update, no_update
-
-    
+    return no_update, no_update, no_update

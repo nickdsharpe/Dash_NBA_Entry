@@ -8,9 +8,16 @@ fig = go.Figure()
 
 team_one = {'shooter' : {}, 'creator': {}}
 team_two = {'shooter' : {}, 'creator': {}}
+
+shot_type = {'team-one': {}, 'team-two': {}}
+shot_result = {'team-one': {}, 'team-two': {}}
+play_type = {'team-one': {}, 'team-two': {}}
+player = {'team-one': {}, 'team-two': {}}
+shot_coordinates = {'team-one': {}, 'team-two': {}}
+free_throws = {'team-one': {}, 'team-two': {}}
+
 ovr_game_data = {'team-one-shooter' : {}, 'team-one-creator': {}, 'team-two-shooter' : {}, 'team-two-creator': {}}
 
-# Create a store to save the dictionaries
 app.config.suppress_callback_exceptions = True
 
 def make_layout():
@@ -60,7 +67,13 @@ def make_layout():
                     ]
                 ),
                 dcc.Store(id='team-one', data=ovr_game_data, storage_type='session'),
-                dcc.Store(id='team-two', data=ovr_game_data, storage_type='session')
+                dcc.Store(id='team-two', data=ovr_game_data, storage_type='session'),
+                dcc.Store(id='shot-type', data=shot_type, storage_type='session'),
+                dcc.Store(id='shot-result', data=shot_result, storage_type='session'),
+                dcc.Store(id='shooter-play-type', data=play_type, storage_type='session'),
+                dcc.Store(id='player', data=player, storage_type='session'),
+                dcc.Store(id='shot-coordinates', data=shot_coordinates, storage_type='session'),
+                dcc.Store(id='free-throws', data=free_throws, storage_type='session'),
             ], style={'display': 'flex'}
         )
 

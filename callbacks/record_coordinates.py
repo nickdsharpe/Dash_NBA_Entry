@@ -4,63 +4,43 @@ from dash.dependencies import Input, Output
 
 # Team One Track click events
 @app.callback(
-    Output('team-one', 'data'),
+    Output('shot-coordinates', 'data'),
     
     Input('team-one-court-graph', 'clickData'),
-    Input('team-one', 'data'),
+    Input('team-two-court-graph', 'clickData'),
+    Input('shot-coordinates', 'data'),
     prevent_initial_call=True
 )
-def teamOne_RecordCoordinates(value, data):
+def teamOne_RecordCoordinates(team_one_value, team_two_value, data):
     updated_data = data.copy()
     
-    shooter = updated_data['shooter']
-    creator = updated_data['creator']
+    team_one = updated_data['team-one']
+    team_two = updated_data['team-two']
     
     ctx = dash.callback_context
     triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
     
     if triggered_input_id == "team-one-court-graph":
         
-        x = data['points'][0]['x']
-        y = data['points'][0]['y']
+        x = team_one_value['points'][0]['x']
+        y = team_one_value['points'][0]['y']
         
-        shooter['x'] = x
-        creator['x'] = x
-        shooter['y'] = y
-        creator['y'] = y
+        print('Shot Coordinates Recorded')
+        
+        team_one['x'] = x
+        team_one['y'] = y
+        
+        print(updated_data)
         
         return updated_data
     
-    return updated_data
-
-
-
-# Team Two Track click events
-@app.callback(
-    Output('team-two', 'data'),
-    
-    Input('team-two-court-graph', 'clickData'),
-    Input('team-two', 'data'),
-    prevent_initial_call=True
-)
-def teamtwo_RecordCoordinates(value, data):
-    updated_data = data.copy()
-    
-    shooter = updated_data['shooter']
-    creator = updated_data['creator']
-    
-    ctx = dash.callback_context
-    triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
-    
     if triggered_input_id == "team-two-court-graph":
         
-        x = data['points'][0]['x']
-        y = data['points'][0]['y']
+        x = team_two_value['points'][0]['x']
+        y = team_two_value['points'][0]['y']
         
-        shooter['x'] = x
-        creator['x'] = x
-        shooter['y'] = y
-        creator['y'] = y
+        team_two['x'] = x
+        team_two['y'] = y
         
         return updated_data
     

@@ -1,5 +1,5 @@
 from maindash import app
-import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.shooter_dropdown, callbacks.shooter_play_type, callbacks.record_coordinates, callbacks.shot_type, callbacks.creator_dropdowns
+import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.creator_dropdowns
 import dash
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
@@ -29,9 +29,7 @@ def teamOne_CreatorInputs(value):
 # Record shot callback
 @app.callback(
     Output("team-one-record-shot-output", "children"),
-    Output('store-data', 'data', allow_duplicate=True),
     Input("team-one-record-shot-button", "n_clicks"),
-    Input('store-data', 'data'),
     prevent_initial_call=True,
 )
 def teamOne_RecordShot(n_clicks, data):
@@ -57,7 +55,7 @@ def teamOne_RecordShot(n_clicks, data):
     
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    
-    Output("team-one-shot-checklist", 'value'),
+    Output("team-one-shot-checklist", 'value', allow_duplicate=True),
     Output("team-one-player-dropdown", 'value'),
     Output('team-one-play-type-dropdown', 'value'),
     Output('team-one-passing-player-dropdown', 'value'),
@@ -89,9 +87,7 @@ def teamTwo_CreatorInputs(value):
 # Record shot callback
 @app.callback(
     Output("team-two-record-shot-output", "children"),
-    Output('store-data', 'data', allow_duplicate=True),
     Input("team-two-record-shot-button", "n_clicks"),
-    Input('store-data', 'data'),
     prevent_initial_call=True,
 )
 def teamTwo_RecordShot(n_clicks, data):
@@ -116,7 +112,7 @@ def teamTwo_RecordShot(n_clicks, data):
     
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    
-    Output("team-two-shot-checklist", 'value'),
+    Output("team-two-shot-checklist", 'value', allow_duplicate=True),
     Output("team-two-player-dropdown", 'value'),
     Output('team-two-play-type-dropdown', 'value'),
     Output('team-two-creation-checklist', 'value'),
