@@ -1,5 +1,5 @@
 from maindash import app
-import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.player_and_play_type
+import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.player_and_play_type, callbacks.record_shot
 import dash
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
@@ -25,33 +25,6 @@ def teamOne_CreatorInputs(value):
         return {'display': 'block'}
     else:
         return {'display': 'none'}
-
-# Record shot callback
-@app.callback(
-    Output("team-one-record-shot-output", "children"),
-    Input("team-one-record-shot-button", "n_clicks"),
-    prevent_initial_call=True,
-)
-def teamOne_RecordShot(n_clicks, data):
-    updated_data = data.copy()
-    shooter = updated_data['team-one-shooter']
-    creator = updated_data['team-one-creator']
-    
-    ctx = dash.callback_context
-    triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
-    print('Record Shot Pressed')
-
-    if triggered_input_id == "team-one-record-shot-button":
-        try:
-            updated_shooter_df = UpdateShooterDF(shooter)
-            updated_creator_df = UpdateCreatorDF(creator)
-            print('Shooter:', updated_shooter_df)
-            print('Creator', updated_creator_df)
-            updated_data = {'team-one-shooter' : {}, 'team-one-creator': {}, 'team-two-shooter' : {}, 'team-two-creator': {}}
-            return 'Shot Recorded', updated_data
-        except:
-            return 'Data Incomplete.', updated_data
-    return '', updated_data
     
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    
@@ -83,32 +56,6 @@ def teamTwo_CreatorInputs(value):
         return {'display': 'block'}
     else:
         return {'display': 'none'}
-
-# Record shot callback
-@app.callback(
-    Output("team-two-record-shot-output", "children"),
-    Input("team-two-record-shot-button", "n_clicks"),
-    prevent_initial_call=True,
-)
-def teamTwo_RecordShot(n_clicks, data):
-    updated_data = data.copy()
-    shooter = updated_data['team-two-shooter']
-    creator = updated_data['team-two-creator']
-    
-    ctx = dash.callback_context
-    triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
-
-    if triggered_input_id == "team-two-record-shot-button":
-        try:
-            updated_shooter_df = UpdateShooterDF(shooter)
-            updated_creator_df = UpdateCreatorDF(creator)
-            print('Shooter:', updated_shooter_df)
-            print('Creator', updated_creator_df)
-            updated_data = {'team-one-shooter' : {}, 'team-one-creator': {}, 'team-two-shooter' : {}, 'team-two-creator': {}}
-            return 'Shot Recorded', updated_data
-        except:
-            return 'Data Incomplete.', updated_data
-    return '', updated_data
     
 # Clear values in dropdowns and checklist when record shot button is pressed
 @app.callback(    

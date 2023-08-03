@@ -34,14 +34,14 @@ def UpdateShooterDF(shot):
 
     # Handle Free Throws
     if shot['result'] == 11:
-        if shot['shot_type'] == '2pt Free Throws':
+        if shot['shot_type'] == '2pt FG':
             player_df.loc[['shoot2FTA'], [shot['play_type']]] += 2
             player_df.loc[['shoot2FTM'], [
-                shot['play_type']]] += int(shot['ftm'])
-        elif shot['shot_type'] == '3pt Free Throws':
+                shot['play_type']]] += int(shot['free_throws'])
+        elif shot['shot_type'] == '3pt FG':
             player_df.loc[['shoot3FTA'], [shot['play_type']]] += 3
             player_df.loc[['shoot3FTM'], [
-                shot['play_type']]] += int(shot['ftm'])
+                shot['play_type']]] += int(shot['free_throws'])
             
     # Handle And-1
     if shot['result'] == 30:
@@ -50,13 +50,13 @@ def UpdateShooterDF(shot):
             player_df.loc[['shoot2FGM'], [shot['play_type']]] += 1
             player_df.loc[['shoot2FTA'], [shot['play_type']]] += 1
             player_df.loc[['shoot2FTM'], [
-                shot['play_type']]] += int(shot['ftm'])
+                shot['play_type']]] += int(shot['free_throws'])
         elif shot['shot_type'] == '3pt FG':
             player_df.loc[['shoot3FGA'], [shot['play_type']]] += 1
             player_df.loc[['shoot3FGM'], [shot['play_type']]] += 1
             player_df.loc[['shoot3FTA'], [shot['play_type']]] += 1
             player_df.loc[['shoot3FTM'], [
-                shot['play_type']]] += int(shot['ftm'])
+                shot['play_type']]] += int(shot['free_throws'])
 
     # Handle Turnovers
     if shot['result'] == 20:
@@ -92,14 +92,29 @@ def UpdateCreatorDF(shot):
 
     # Handle Free Throws
     if shot['result'] == 11:
-        if shot['shot_type'] == '2pt Free Throws':
+        if shot['shot_type'] == '2pt FG':
             player_df.loc[['pass2FTA'], [shot['play_type']]] += 2
             player_df.loc[['pass2FTM'], [
-                shot['play_type']]] += int(shot['ftm'])
-        elif shot['shot_type'] == '3pt Free Throws':
+                shot['play_type']]] += int(shot['free_throws'])
+        elif shot['shot_type'] == '3pt FG':
             player_df.loc[['pass3FTA'], [shot['play_type']]] += 3
             player_df.loc[['pass3FTM'], [
-                shot['play_type']]] += int(shot['ftm'])
+                shot['play_type']]] += int(shot['free_throws'])
+            
+    # Handle And-1
+    if shot['result'] == 30:
+        if shot['shot_type'] == '2pt FG':
+            player_df.loc[['pass2FGA'], [shot['play_type']]] += 1
+            player_df.loc[['pass2FGM'], [shot['play_type']]] += 1
+            player_df.loc[['pass2FTA'], [shot['play_type']]] += 1
+            player_df.loc[['pass2FTM'], [
+                shot['play_type']]] += int(shot['free_throws'])
+        elif shot['shot_type'] == '3pt FG':
+            player_df.loc[['pass3FGA'], [shot['play_type']]] += 1
+            player_df.loc[['pass3FGM'], [shot['play_type']]] += 1
+            player_df.loc[['pass3FTA'], [shot['play_type']]] += 1
+            player_df.loc[['pass3FTM'], [
+                shot['play_type']]] += int(shot['free_throws'])
 
     # Handle Turnovers
     if shot['result'] == 20:
