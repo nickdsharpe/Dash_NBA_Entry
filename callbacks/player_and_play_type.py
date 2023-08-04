@@ -16,7 +16,7 @@ from dash.dependencies import Input, Output
 def teamOne_UpdateCreatorPlayer(team_one_shooter, team_two_shooter, team_one_creator, team_two_creator, data):
     
     updated_data = data.copy()
-    
+ 
     team_one = updated_data['team-one']
     team_two = updated_data['team-two']
 

@@ -8,6 +8,12 @@ from update_player_df import UpdateShooterDF, UpdateCreatorDF
 @app.callback(
     Output("team-one-record-shot-output", "children"),
     Output("team-two-record-shot-output", "children"),
+    Output('shot-type', 'data', allow_duplicate=True),
+    Output('shot-result', 'data', allow_duplicate=True),
+    Output('play-type', 'data', allow_duplicate=True),
+    Output('player', 'data', allow_duplicate=True),
+    Output('shot-coordinates', 'data', allow_duplicate=True),
+    Output('free-throws', 'data', allow_duplicate=True),
     
     Input("team-one-record-shot-button", "n_clicks"),
     Input("team-two-record-shot-button", "n_clicks"),
@@ -22,6 +28,8 @@ from update_player_df import UpdateShooterDF, UpdateCreatorDF
     prevent_initial_call=True,
 )
 def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, creation_checklist, shot_type, shot_result, play_type, player, shot_coordinates, free_throws):
+    
+    cleared = {'team-one': {}, 'team-two': {}}
 
     shot_type = shot_type.copy()
     shot_result = shot_result.copy()
@@ -53,8 +61,14 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, creation_checklist,
                 updated_shooter_df = UpdateShooterDF(team_one_shooter)
                 print(updated_shooter_df)
                 
+                team_one_n_clicks = None
+                
+                return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared
+                
             except:
-                print('Data Incomplete')
+                return 'Data Incomplete', None, shot_type, shot_result, play_type, player, shot_coordinates, free_throws
+            
+            '''
 
         if creation_checklist:
             print('Creator Reached')
@@ -68,6 +82,8 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, creation_checklist,
                 print('creator', team_one_creator)
                 updated_creator_df = UpdateCreatorDF(team_one_creator)
                 print(updated_creator_df)
+                
+                return 'Shot Recorded', None
             
             except:
                 try:
@@ -80,7 +96,12 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, creation_checklist,
                     updated_creator_df = UpdateCreatorDF(team_one_creator)
                     print(updated_creator_df)
                     
+                    return 'Shot Recorded', None
+                    
                 except:
                     print('Data Incomplete')
+        else:
+            return 'Shot Recorded', None
+            '''
     
-    return None, None
+    return None, None, shot_type, shot_result, play_type, player, shot_coordinates, free_throws
