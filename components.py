@@ -208,4 +208,4 @@ def TeamSelector(team_id):
             ),
             html.Div(id=f'{team_id}-team-dropdown-output-container')
         ]
-    )
+    )   
