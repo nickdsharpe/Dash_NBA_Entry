@@ -5,7 +5,9 @@ from dash_bootstrap_components import Modal, ModalHeader, ModalBody, ModalFooter
 
 empty = pd.read_csv('assets/empty.csv')
 
-players = ['Jokic', 'Murray', 'Gordon', 'MPJ', 'KCP', 'Braun']
+team_two_players = ['Butler', 'Adebayo', 'Herro', 'Lowry', 'Martin', 'D. Robinson', 'Love', 'Highsmith', 'Richardson', 'Jovic', 'Bryant', 'O. Robinson', 'Jaquez Jr.']
+team_one_players = ['Jokic', 'Murray', 'Porter Jr.', 'Caldwell-Pope', 'Gordon', 'Braun', 'Watson', 'Jackson', 'Jordan', 'Cancar', 'Nnaji']
+
 play_types = ['PNR Ball Handler', 'PNR Screener', 'DHO Ball Handler', 'DHO Screener', 'Isolation', 'Transition', 'Attacking Closeouts',
              'Catch & Shoot', 'Off-Ball Screens', 'Cutting', 'Offensive Rebounds']
 shot_types = ['2pt FG', '3pt FG', '2pt Free Throws', '3pt Free Throws', '2pt And-1', '3pt And-1']
@@ -50,6 +52,12 @@ def FreeThrowInput(FT_input_id):
 
 
 def PlayerDropdown(player_dropdown_id):
+    
+    if player_dropdown_id == 'team-one':
+        players=team_one_players
+    elif player_dropdown_id == 'team-two':
+        players=team_two_players
+        
     return html.Div(
         children=[
             html.Div(
@@ -106,6 +114,12 @@ def PasserHeader(passer_header_id):
         html.Div("Creator", id=f'{passer_header_id}-creator-header', className='creator-header')])
 
 def PassingPlayerDropdown(passing_player_dropdown_id):
+    
+    if passing_player_dropdown_id == 'team-one':
+        players=team_one_players
+    elif passing_player_dropdown_id == 'team-two':
+        players=team_two_players
+        
     return html.Div(
         children=[
             html.Div(
@@ -151,10 +165,6 @@ def PassingPlayTypeDropdown(passing_play_type_dropdown_id):
             ),
             html.Div(id=f'{passing_play_type_dropdown_id}-passing-play-type-dropdown-output-container')])
 
-def MakePlayerDictionaries():
-    player_dfs = {player: empty for player in players}
-    return player_dfs
-
 def RecordShotButton(record_shot_id):
     return html.Div(
                 children=[
@@ -171,3 +181,31 @@ def ClearLocationDataButton(clear_location_id):
                     html.Div(id=f"{clear_location_id}-clear-shot-output")
                 ]
             )
+
+def TeamSelector(team_id):
+    
+    if team_id == 'team-one':
+        players=team_one_players
+    elif team_id == 'team-two':
+        players=team_two_players
+        
+    return html.Div(
+        children=[
+            html.Div(
+                children=[
+                    html.Div("Team:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
+                                               'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 0}),
+                    dcc.Dropdown(
+                        players,
+                        placeholder='Select a player',
+                        id=f'{team_id}-team-dropdown',
+                        maxHeight=200,
+                        clearable=True,
+                        className='team-dropdown'
+                    ),
+                ],
+                style={'display': 'flex', 'alignItems': 'center'}
+            ),
+            html.Div(id=f'{team_id}-team-dropdown-output-container')
+        ]
+    )

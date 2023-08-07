@@ -2,12 +2,9 @@ from maindash import app
 from dash import html, dcc
 import plotly.graph_objects as go
 from assets.court import draw_plotly_court
-from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown
+from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown, TeamSelector
 
 fig = go.Figure()
-
-Heat = ['Butler', 'Adebayo', 'Herro', 'Lowry', 'Martin', 'D. Robinson', 'Love', 'Highsmith', 'Richardson', 'Jovic', 'Bryant', 'O. Robinson', 'Jaquez Jr.']
-Nuggets = ['Jokic', 'Murray', 'Porter Jr.', 'Caldwell-Pope', 'Gordon', 'Braun', 'Watson', 'Jackson', 'Jordan', 'Cancar', 'Nnaji']
 
 shot_type = [{}, {}]
 shot_result = [{}, {}]
@@ -16,9 +13,6 @@ player = [{}, {}]
 shot_coordinates = [{}, {}]
 free_throws = [{}, {}]
 
-team_one_PPP_Data = {player: None for player in Nuggets}
-team_two_PPP_Data = {player: None for player in Heat}
-
 app.config.suppress_callback_exceptions = True
 
 def make_layout():
@@ -26,6 +20,7 @@ def make_layout():
             children=[
                 html.Div(id='team-one-container',
                     children=[
+                        TeamSelector('team-one'),
                         html.Div(draw_plotly_court(fig, 'team-one'), id='team-one-court-plot'),
                         ClearLocationDataButton('team-one'),
                         ShotChecklist('team-one'),
@@ -47,6 +42,7 @@ def make_layout():
                 ),
                 html.Div(id='team-two-container',
                     children=[
+                        TeamSelector('team-two'),
                         html.Div(draw_plotly_court(fig, 'team-two'), id='team-two-court-plot'),
                         ClearLocationDataButton('team-two'),
                         ShotChecklist('team-two'),
@@ -74,7 +70,6 @@ def make_layout():
                 dcc.Store(id='shot-coordinates', data=shot_coordinates, storage_type='session'),
                 dcc.Store(id='free-throws', data=free_throws, storage_type='session'),
                 
-                dcc.Store(id='team-one-off-PPP', data=team_one_PPP_Data, storage_type='session'),
-                dcc.Store(id='team-two-off-PPP', data=team_two_PPP_Data, storage_type='session'),
+                dcc.Store(id='players', data=[], storage_type='session')
             ], style={'display': 'flex'}
         )

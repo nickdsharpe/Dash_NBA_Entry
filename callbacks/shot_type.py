@@ -30,7 +30,6 @@ def handle_shot_type(team_one_clickData, team_two_clickData, data):
             
             team_one['shooter'] = '2pt FG'
             team_one['creator'] = '2pt FG'
-            print(updated_data)
             
             shot_type = '2pt FG'
             
@@ -38,7 +37,6 @@ def handle_shot_type(team_one_clickData, team_two_clickData, data):
     
             team_one['shooter'] = '3pt FG'
             team_one['creator'] = '3pt FG'
-            print(updated_data)
             
             shot_type = '3pt FG'
         
@@ -51,7 +49,6 @@ def handle_shot_type(team_one_clickData, team_two_clickData, data):
             
             team_two['shooter'] = '2pt FG'
             team_two['creator'] = '2pt FG'
-            print(updated_data)
             
             shot_type = '2pt FG'
             
@@ -59,7 +56,6 @@ def handle_shot_type(team_one_clickData, team_two_clickData, data):
     
             team_two['shooter'] = '3pt FG'
             team_two['creator'] = '3pt FG'
-            print(updated_data)
             
             shot_type = '3pt FG'
         

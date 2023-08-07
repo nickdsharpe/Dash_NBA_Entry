@@ -22,18 +22,16 @@ def teamOne_UpdateFreeThrows(team_one_value, team_two_value,  data):
     
     if triggered_input_id == "team-one-free-throw-input":
         
-        print('Free Throws Recorded')
         team_one['shooter'] = team_one_value
         team_one['creator'] = team_one_value
-        print(updated_data)
+       
         return updated_data
     
     if triggered_input_id == "team-two-free-throw-input":
         
-        print('Free Throws Recorded')
         team_two['shooter'] = team_two_value
         team_two['creator'] = team_two_value
-        print(updated_data)
+       
         return updated_data
     
     return updated_data

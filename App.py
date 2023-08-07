@@ -1,13 +1,9 @@
 from maindash import app
 import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.player_and_play_type, callbacks.record_shot
-import dash
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
-from components import MakePlayerDictionaries, PassingPlayerDropdown, PasserHeader, PassingPlayTypeDropdown
-from update_player_df import UpdateShooterDF, UpdateCreatorDF
 from layout import make_layout
 
-player_dfs = MakePlayerDictionaries()
 shot, passer = {}, {}
 fig = go.Figure()
 

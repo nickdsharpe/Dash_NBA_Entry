@@ -25,12 +25,8 @@ def teamOne_RecordCoordinates(team_one_value, team_two_value, data):
         x = team_one_value['points'][0]['x']
         y = team_one_value['points'][0]['y']
         
-        print('Shot Coordinates Recorded')
-        
         team_one['x'] = x
         team_one['y'] = y
-        
-        print(updated_data)
         
         return updated_data
     
@@ -41,8 +37,6 @@ def teamOne_RecordCoordinates(team_one_value, team_two_value, data):
         
         team_two['x'] = x
         team_two['y'] = y
-        
-        print(updated_data)
         
         return updated_data
     

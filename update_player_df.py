@@ -7,12 +7,11 @@ mapping = {'PNR Ball Handler': 'PNR BH', 'PNR Screener': 'PNR SC', 'DHO Ball Han
 
 empty = pd.read_csv('assets/empty.csv', index_col='Shot Type')
 
-def UpdateShooterDF(shot, player_data):
-    if player_data is None:
-        player_data = empty.copy()
-        
-    shot['play_type'] = mapping[shot['play_type']]
+def UpdateShooterDF(shot):
+    player_data = empty.copy()
 
+    shot['play_type'] = mapping[shot['play_type']]
+ 
     # Handle shot makes
     if shot['result'] == 1:
         if shot['shot_type'] == '2pt FG':
@@ -63,10 +62,22 @@ def UpdateShooterDF(shot, player_data):
             player_data.loc[['shoot2TO'], [shot['play_type']]] += 1
         elif shot['shot_type'] == '3pt FG':
             player_data.loc[['shoot3TO'], [shot['play_type']]] += 1
+            
+    output_path = f'game_data/{shot["player"]}'
+  
+    try:
+        file = pd.read_csv(output_path, index_col='Shot Type')
 
-    return player_data
+    except(FileNotFoundError):
+        file = empty
+    
+    file = file.add(player_data)
+    file.to_csv(output_path)
 
-def UpdateCreatorDF(shot, player_data):
+    return file
+
+def UpdateCreatorDF(shot):
+    player_data = empty.copy()
 
     shot['play_type'] = mapping[shot['play_type']]
 
@@ -121,4 +132,15 @@ def UpdateCreatorDF(shot, player_data):
         elif shot['shot_type'] == '3pt FG':
             player_data.loc[['pass3TO'], [shot['play_type']]] += 1
 
-    return player_data
+    output_path = f'game_data/{shot["player"]}'
+  
+    try:
+        file = pd.read_csv(output_path, index_col='Shot Type')
+  
+    except(FileNotFoundError):
+        file = empty
+    
+    file = file.add(player_data)
+    file.to_csv(output_path)
+
+    return file

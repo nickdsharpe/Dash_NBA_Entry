@@ -31,10 +31,10 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
             return {'display': 'none'}, {'display': 'none'},  updated_data
         
         elif team_one_value == ['Make']:
-            print('Shot Result Receorded')
+            
             team_one['shooter'] = 1
             team_one['creator'] = 1
-            print(updated_data)
+            
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         elif team_one_value == ['Free Throws']:
@@ -61,10 +61,10 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
             return {'display': 'none'}, {'display': 'none'},  updated_data
         
         elif team_two_value == ['Make']:
-            print('Shot Result Receorded')
+            
             team_two['shooter'] = 1
             team_two['creator'] = 1
-            print(updated_data)
+            
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         elif team_two_value == ['Free Throws']:
