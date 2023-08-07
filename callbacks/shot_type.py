@@ -16,10 +16,10 @@ from assets.court import is_inside_three_point_line
 )
 def handle_shot_type(team_one_clickData, team_two_clickData, data):
     updated_data = data.copy()
-    print('Shot Type reached')
-    team_one = updated_data['team-one']
-    team_two = updated_data['team-two']
     
+    team_one = updated_data[0]
+    team_two = updated_data[1]
+
     ctx = dash.callback_context
     triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
 

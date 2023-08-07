@@ -14,8 +14,8 @@ from dash.dependencies import Input, Output
 def teamOne_UpdateFreeThrows(team_one_value, team_two_value,  data):
     updated_data = data.copy()
     
-    team_one = updated_data['team-one']
-    team_two = updated_data['team-two']
+    team_one = updated_data[0]
+    team_two = updated_data[1]
     
     ctx = dash.callback_context
     triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]

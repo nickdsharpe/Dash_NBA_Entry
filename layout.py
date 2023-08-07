@@ -6,19 +6,23 @@ from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordSh
 
 fig = go.Figure()
 
-shot_type = {'team-one': {}, 'team-two': {}}
-shot_result = {'team-one': {}, 'team-two': {}}
-play_type = {'team-one': {}, 'team-two': {}}
-player = {'team-one': {}, 'team-two': {}}
-shot_coordinates = {'team-one': {}, 'team-two': {}}
-free_throws = {'team-one': {}, 'team-two': {}}
+Heat = ['Butler', 'Adebayo', 'Herro', 'Lowry', 'Martin', 'D. Robinson', 'Love', 'Highsmith', 'Richardson', 'Jovic', 'Bryant', 'O. Robinson', 'Jaquez Jr.']
+Nuggets = ['Jokic', 'Murray', 'Porter Jr.', 'Caldwell-Pope', 'Gordon', 'Braun', 'Watson', 'Jackson', 'Jordan', 'Cancar', 'Nnaji']
 
-ovr_game_data = {'team-one-shooter' : {}, 'team-one-creator': {}, 'team-two-shooter' : {}, 'team-two-creator': {}}
+shot_type = [{}, {}]
+shot_result = [{}, {}]
+play_type = [{}, {}]
+player = [{}, {}]
+shot_coordinates = [{}, {}]
+free_throws = [{}, {}]
+
+team_one_PPP_Data = {player: None for player in Nuggets}
+team_two_PPP_Data = {player: None for player in Heat}
 
 app.config.suppress_callback_exceptions = True
 
 def make_layout():
-    return html.Div(id='main-container',
+    return html.Div(id='main-container',   
             children=[
                 html.Div(id='team-one-container',
                     children=[
@@ -69,6 +73,8 @@ def make_layout():
                 dcc.Store(id='player', data=player, storage_type='session'),
                 dcc.Store(id='shot-coordinates', data=shot_coordinates, storage_type='session'),
                 dcc.Store(id='free-throws', data=free_throws, storage_type='session'),
+                
+                dcc.Store(id='team-one-off-PPP', data=team_one_PPP_Data, storage_type='session'),
+                dcc.Store(id='team-two-off-PPP', data=team_two_PPP_Data, storage_type='session'),
             ], style={'display': 'flex'}
         )
-
