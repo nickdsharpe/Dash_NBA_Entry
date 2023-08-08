@@ -2,7 +2,7 @@ from maindash import app
 from dash import html, dcc
 import plotly.graph_objects as go
 from assets.court import draw_plotly_court
-from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown, TeamSelector
+from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown, TeamSelector, DefenderDropdown, ShotQualitySlider
 
 fig = go.Figure()
 
@@ -12,6 +12,8 @@ play_type = [{}, {}]
 player = [{}, {}]
 shot_coordinates = [{}, {}]
 free_throws = [{}, {}]
+shot_quality = [{}, {}]
+defender = [{}, {}]
 
 app.config.suppress_callback_exceptions = True
 
@@ -21,7 +23,12 @@ def make_layout():
                 html.Div(id='team-one-container',
                     children=[
                         TeamSelector('team-one'),
-                        html.Div(draw_plotly_court(fig, 'team-one'), id='team-one-court-plot'),
+                        html.Div(id='team-one-court-slider-container',
+                            children=[ 
+                                html.Div(draw_plotly_court(fig, 'team-one'), id='team-one-court-plot'),
+                                ShotQualitySlider('team-one')
+                            ]
+                        ),
                         ClearLocationDataButton('team-one'),
                         ShotChecklist('team-one'),
                         ShooterHeader('team-one'),
@@ -31,11 +38,12 @@ def make_layout():
                         html.Div(id='team-one-free-throw-result'),
                         PlayerDropdown('team-one'),
                         PlayTypeDropdown('team-one'),
+                        DefenderDropdown('team-one'),
                         html.Div(id='team-one-creation-inputs-container', style={'display': 'none'}, children=[
                             PasserHeader('team-one'),
                             PassingPlayerDropdown('team-one'), 
                             PassingPlayTypeDropdown('team-one')
-                        ] ),
+                        ]),
                         RecordShotButton('team-one'),
                         html.Div(id='team-one-shot-type')
                     ]
@@ -43,7 +51,12 @@ def make_layout():
                 html.Div(id='team-two-container',
                     children=[
                         TeamSelector('team-two'),
-                        html.Div(draw_plotly_court(fig, 'team-two'), id='team-two-court-plot'),
+                        html.Div(id='team-two-court-slider-container',
+                            children=[
+                                html.Div(draw_plotly_court(fig, 'team-two'), id='team-two-court-plot'),
+                                ShotQualitySlider('team-two'),
+                            ]
+                        ),
                         ClearLocationDataButton('team-two'),
                         ShotChecklist('team-two'),
                         ShooterHeader('team-two'),
@@ -54,6 +67,7 @@ def make_layout():
                         html.Div(id='team-two-free-throw-result'),
                         PlayerDropdown('team-two'),
                         PlayTypeDropdown('team-two'),
+                        DefenderDropdown('team-two'),
                         html.Div(id='team-two-creation-inputs-container', style={'display': 'none'}, children=[
                             PasserHeader('team-two'),
                             PassingPlayerDropdown('team-two'), 
@@ -69,6 +83,8 @@ def make_layout():
                 dcc.Store(id='player', data=player, storage_type='session'),
                 dcc.Store(id='shot-coordinates', data=shot_coordinates, storage_type='session'),
                 dcc.Store(id='free-throws', data=free_throws, storage_type='session'),
+                dcc.Store(id='shot-quality', data=shot_quality, storage_type='session'),
+                dcc.Store(id='defender', data=defender, storage_type='session'),
                 
                 dcc.Store(id='players', data=[], storage_type='session')
             ], style={'display': 'flex'}

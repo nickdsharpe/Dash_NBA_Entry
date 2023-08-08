@@ -64,7 +64,7 @@ def UpdateShooterDF(shot):
             player_data.loc[['shoot3TO'], [shot['play_type']]] += 1
             
     output_path = f'game_data/{shot["player"]}'
-  
+    
     try:
         file = pd.read_csv(output_path, index_col='Shot Type')
 

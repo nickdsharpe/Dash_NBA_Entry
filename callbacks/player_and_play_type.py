@@ -25,35 +25,31 @@ def teamOne_UpdateCreatorPlayer(team_one_shooter, team_two_shooter, team_one_cre
     
     if triggered_input_id == "team-one-player-dropdown":
         
-        print('Shooter Recorded')
         if team_one_shooter:
             team_one['shooter'] = team_one_shooter
-            print(updated_data)
+            
             return updated_data
         
     elif triggered_input_id == "team-two-player-dropdown":
         
-        print('Shooter Recorded')
         if team_two_shooter:
             team_two['shooter'] = team_two_shooter
-            print(updated_data)
+            
             return updated_data
 
     
     if triggered_input_id == "team-one-passing-player-dropdown":
         
-        print('Creator Recorded')
         if team_one_creator:
             team_one['creator'] = team_one_creator
-            print(updated_data)
+            
             return updated_data
         
     elif triggered_input_id == "team-two-passing-player-dropdown":
         
-        print('Creator Recorded')
         if team_two_creator:
             team_two['creator'] = team_two_creator
-            print(updated_data)
+            
             return updated_data
         
     return updated_data
@@ -96,7 +92,6 @@ def teamOne_UpdateCreatorPlayer(team_one_shooter, team_two_shooter, team_one_cre
     
     if triggered_input_id == "team-one-passing-play-type-dropdown":
         
-        print('Creator Recorded')
         if team_one_creator:
             team_one['creator'] = team_one_creator
             
@@ -104,7 +99,6 @@ def teamOne_UpdateCreatorPlayer(team_one_shooter, team_two_shooter, team_one_cre
         
     elif triggered_input_id == "team-two-passing-play-type-dropdown":
         
-        print('Creator Recorded')
         if team_two_creator:
             team_two['creator'] = team_two_creator
             

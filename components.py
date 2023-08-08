@@ -197,7 +197,7 @@ def TeamSelector(team_id):
                                                'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 0}),
                     dcc.Dropdown(
                         players,
-                        placeholder='Select a player',
+                        placeholder='Select a team',
                         id=f'{team_id}-team-dropdown',
                         maxHeight=200,
                         clearable=True,
@@ -209,3 +209,48 @@ def TeamSelector(team_id):
             html.Div(id=f'{team_id}-team-dropdown-output-container')
         ]
     )   
+
+def DefenderDropdown(defender_id):
+    
+    if defender_id == 'team-one':
+        players=team_two_players
+    elif defender_id == 'team-two':
+        players=team_one_players
+        
+    return html.Div(
+        children=[
+            html.Div(
+                children=[
+                    html.Div("Defender:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
+                                               'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 15}),
+                    dcc.Dropdown(
+                        players,
+                        placeholder='Select a defender',
+                        id=f'{defender_id}-defender-dropdown',
+                        maxHeight=200,
+                        clearable=True,
+                        className='defender-dropdown'
+                    ),
+                ],
+                style={'display': 'flex', 'alignItems': 'center'}
+            ),
+            html.Div(id=f'{defender_id}-defender-dropdown-output-container')
+        ]
+    )   
+
+def ShotQualitySlider(slider_id):
+    return html.Div(
+                    dcc.Slider(1, 5,
+                        step=None,
+                        marks={
+                            1: {'label': 'Heavily Contested', 'style': {'color': '#fa5448', 'font-size': '14px'}}, 
+                            2: {'label': 'Well Contested', 'style': {'color': '#f7aa57', 'font-size': '14px'}},
+                            3: {'label': 'Lightly Contested', 'style': {'color': '#e8e85d', 'font-size': '14px'}},
+                            4: {'label': 'Late Contest', 'style': {'color': '#90e35d', 'font-size': '14px'}}, 
+                            5: {'label': 'Open', 'style': {'color': '#39f75f', 'font-size': '14px'}}, 
+                        },
+                        vertical=True,
+                        id=f'{slider_id}-shot-quality-slider',
+                    ),className='shot-quality-slider'
+                    )
+                

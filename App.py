@@ -1,5 +1,5 @@
 from maindash import app
-import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.player_and_play_type, callbacks.record_shot
+import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.player_and_play_type, callbacks.record_shot, callbacks.shot_quality, callbacks.defender
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 from layout import make_layout
@@ -29,15 +29,16 @@ def teamOne_CreatorInputs(value):
     Output('team-one-play-type-dropdown', 'value'),
     Output('team-one-passing-player-dropdown', 'value'),
     Output('team-one-passing-play-type-dropdown', 'value'),
+    Output('team-one-defender-dropdown', 'value'),
     Output('team-one-creation-checklist', 'value'),
     [Input("team-one-record-shot-button", "n_clicks")],
     prevent_initial_call=True
 )
 def teamOne_ClearComponents(n_clicks):
     if n_clicks is not None:
-        return [[], '', '', '', '', []]
+        return [[], '', '', '', '', '', []]
     else:
-        return [], None, None, None, None, []
+        return [], None, None, None, None, None, []
 
 '''TEAM-TWO CALLBACKS'''    
 
@@ -58,15 +59,18 @@ def teamTwo_CreatorInputs(value):
     Output("team-two-shot-checklist", 'value', allow_duplicate=True),
     Output("team-two-player-dropdown", 'value'),
     Output('team-two-play-type-dropdown', 'value'),
+    Output('team-two-passing-player-dropdown', 'value'),
+    Output('team-two-passing-play-type-dropdown', 'value'),
+    Output('team-two-defender-dropdown', 'value'),
     Output('team-two-creation-checklist', 'value'),
     [Input("team-two-record-shot-button", "n_clicks")],
-    allow_duplicate=True
+    prevent_initial_call=True
 )
-def teamTwo_ClearClearComponents(value):
-    if value is not None:
-        return [[], '', '', []]
+def teamTwo_ClearComponents(n_clicks):
+    if n_clicks is not None:
+        return [[], '', '', '', '', '', []]
     else:
-        return [], None, None, []
+        return [], None, None, None, None, None, []
 
 # Run the app
 if __name__ == '__main__':
