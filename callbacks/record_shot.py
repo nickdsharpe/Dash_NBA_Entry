@@ -1,6 +1,6 @@
 from maindash import app
 import dash
-from dash.dependencies import Input, Output 
+from dash.dependencies import Input, Output , State
 from update_player_df import UpdateShooterDF, UpdateCreatorDF, UpdateDefenderDF
 
 # Record shot callback
@@ -44,10 +44,11 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
 
     ctx = dash.callback_context
     triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
-    print(defender)
+    
     # Team One
     if triggered_input_id == "team-one-record-shot-button" and team_one_n_clicks is not None:
-    
+
+        ### SHOOTER ###
         try:
             team_one_shooter = {'result': shot_result[0]['shooter'],
                             'shot_type': shot_type[0]['shooter'],
@@ -57,11 +58,19 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                             'shot_quality': shot_quality[0]['shooter'],
                             'free_throws': free_throws[0]['shooter'],}
             
+            if defender[0]['shooter']:
+                print('Defender Identified')
+                team_one_shooter['defender'] = defender[0]['shooter']
+            
             updated_shooter_df = UpdateShooterDF(team_one_shooter, 'team_one')
+            updated_defender_df = UpdateDefenderDF(team_one_shooter, 'team-two')
+            
+            print(team_one_shooter['defender'], updated_defender_df)
             print(team_one_shooter['player'], updated_shooter_df)
             
         except:
             try:
+                print('Checkpoint 4', defender)
                 team_one_shooter = {'result': shot_result[0]['shooter'],
                             'shot_type': shot_type[0]['shooter'],
                             'play_type': play_type[0]['shooter'],
@@ -69,42 +78,21 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                             'shot_coordinates': shot_coordinates[0],
                             'shot_quality': shot_quality[0]['shooter'],}
     
+                if defender[0]['shooter']:
+                    team_one_shooter['defender'] = defender[0]['shooter']
+                    
                 updated_shooter_df = UpdateShooterDF(team_one_shooter, 'team_one')
+                print(team_one_shooter)
+                updated_defender_df = UpdateDefenderDF(team_one_shooter, 'team_two')
+                print('Defender DF Updated')
+                
                 print(team_one_shooter['player'], updated_shooter_df)
+                print(team_one_shooter['defender'], updated_defender_df)
                 
             except:
+                print('Checkpoint 6', defender)
                 return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared
         
-        ### DEFENDER ###
-        if defender[0]['shooter']:
-            print('Defender logic reached')
-            try:
-                team_one_defender = {'result': shot_result[0]['shooter'],
-                                'shot_type': shot_type[0]['shooter'],
-                                'play_type': play_type[0]['shooter'],
-                                'player': defender[0]['shooter'],
-                                'shot_coordinates': shot_coordinates[0],
-                                'shot_quality': shot_quality[0]['shooter'],
-                                'free_throws': free_throws[0]['shooter'],}
-                
-                updated_shooter_df = UpdateDefenderDF(team_one_defender, 'team_one')
-                print(team_one_defender['player'], updated_shooter_df)
-                
-            except:
-                try:
-                    team_one_defender = {'result': shot_result[0]['shooter'],
-                                'shot_type': shot_type[0]['shooter'],
-                                'play_type': play_type[0]['shooter'],
-                                'player': defender[0]['shooter'],
-                                'shot_coordinates': shot_coordinates[0],
-                                'shot_quality': shot_quality[0]['shooter'],}
-        
-                    updated_shooter_df = UpdateDefenderDF(team_one_defender, 'team_one')
-                    print(team_one_defender['player'], updated_shooter_df)
-                    
-                except:
-                    return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared
-    
         ### CREATOR ###
         try:
             if player[0]['creator']:
@@ -220,6 +208,5 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                 return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared
         except:
             return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared
-            
-    
+
     return None, None, shot_type, shot_result, play_type, player, defender, shot_coordinates, shot_quality, free_throws

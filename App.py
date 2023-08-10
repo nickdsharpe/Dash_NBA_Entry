@@ -1,8 +1,11 @@
 from maindash import app
 import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.player_and_play_type, callbacks.record_shot, callbacks.shot_quality, callbacks.defender
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
+import dash
+from dash import no_update
 import plotly.graph_objects as go
 from layout import make_layout
+import time
 
 shot, passer = {}, {}
 fig = go.Figure()
@@ -31,14 +34,17 @@ def teamOne_CreatorInputs(value):
     Output('team-one-passing-play-type-dropdown', 'value'),
     Output('team-one-defender-dropdown', 'value'),
     Output('team-one-creation-checklist', 'value'),
-    [Input("team-one-record-shot-button", "n_clicks")],
+    [Input("team-one-record-shot-button", "n_clicks"),
+     Input("team-one-record-shot-output", "children"),],
     prevent_initial_call=True
 )
-def teamOne_ClearComponents(n_clicks):
-    if n_clicks is not None:
-        return [[], '', '', '', '', '', []]
-    else:
-        return [], None, None, None, None, None, []
+def teamOne_ClearComponents(n_clicks, children):
+    if children:
+        if n_clicks is not None:
+            return [[], '', '', '', '', '', []]
+        else:
+            return [], None, None, None, None, None, []
+    return no_update
 
 '''TEAM-TWO CALLBACKS'''    
 

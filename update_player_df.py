@@ -13,7 +13,7 @@ def UpdateShooterDF(shot, team):
     player_data = empty.copy()
 
     shot['play_type'] = mapping[shot['play_type']]
- 
+
     # Handle shot makes
     if shot['result'] == 1:
         if shot['shot_type'] == '2pt FG':
@@ -168,11 +168,9 @@ def UpdateCreatorDF(shot, team):
 
 
 def UpdateDefenderDF(shot, team):
-    
+   
     player_data = empty_defender.copy()
-
-    shot['play_type'] = mapping[shot['play_type']]
- 
+    print(player_data)
     # Handle shot makes
     if shot['result'] == 1:
         if shot['shot_type'] == '2pt FG':
@@ -231,15 +229,14 @@ def UpdateDefenderDF(shot, team):
     if shot['shot_type'] == '3pt FG':
         player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']      
 
-
     # Define ouptut path and write updated data to CSV
-    output_path = f'game_data/{team}/Defense/{shot["player"]}'
-    
+    output_path = f'game_data/{team}/Defense/{shot["defender"]}'
+ 
     try:
         file = pd.read_csv(output_path, index_col='Shot Type')
 
     except(FileNotFoundError):
-        file = empty
+        file = empty_defender
     
     file = file.add(player_data)
     file.to_csv(output_path)
