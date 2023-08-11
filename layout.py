@@ -45,6 +45,7 @@ def make_layout():
                             PassingPlayTypeDropdown('team-one')
                         ]),
                         RecordShotButton('team-one'),
+                        html.Div(id='team-one-clear-values-indicator'),
                         html.Div(id='team-one-shot-type')
                     ]
                 ),

@@ -35,7 +35,7 @@ def teamOne_CreatorInputs(value):
     Output('team-one-defender-dropdown', 'value'),
     Output('team-one-creation-checklist', 'value'),
     [Input("team-one-record-shot-button", "n_clicks"),
-     Input("team-one-record-shot-output", "children"),],
+     Input("team-one-clear-values-indicator", "children"),],
     prevent_initial_call=True
 )
 def teamOne_ClearComponents(n_clicks, children):

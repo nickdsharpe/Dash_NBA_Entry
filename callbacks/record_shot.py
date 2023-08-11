@@ -5,7 +5,7 @@ from update_player_df import UpdateShooterDF, UpdateCreatorDF, UpdateDefenderDF
 
 # Record shot callback
 @app.callback(
-    Output("team-one-record-shot-output", "children"),
+    Output("team-one-clear-values-indicator", "children"),
     Output("team-two-record-shot-output", "children"),
     Output('shot-type', 'data', allow_duplicate=True),
     Output('shot-result', 'data', allow_duplicate=True),
