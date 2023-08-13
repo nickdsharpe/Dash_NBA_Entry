@@ -36,7 +36,7 @@ def team_one_add_marker(clickData, n_clicks, rec_n_clicks, figure):
                 y=[y],
                 mode="markers",
                 marker=dict(
-                    color='#b465f7',
+                    color='#b079fc',
                     size=18,
                     opacity=0.9,
                     symbol='x',

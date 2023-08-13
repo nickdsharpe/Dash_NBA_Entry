@@ -45,7 +45,6 @@ def make_layout():
                             PassingPlayTypeDropdown('team-one')
                         ]),
                         RecordShotButton('team-one'),
-                        html.Div(id='team-one-clear-values-indicator'),
                         html.Div(id='team-one-shot-type')
                     ]
                 ),
@@ -87,6 +86,7 @@ def make_layout():
                 dcc.Store(id='shot-quality', data=shot_quality, storage_type='session'),
                 dcc.Store(id='defender', data=defender, storage_type='session'),
                 
-                dcc.Store(id='players', data=[], storage_type='session')
+                dcc.Store(id='players', data=[], storage_type='session'),
+                dcc.Store(id='clear-components-flag', data=False, storage_type='session')
             ], style={'display': 'flex'}
         )

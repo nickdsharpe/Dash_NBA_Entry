@@ -170,7 +170,7 @@ def UpdateCreatorDF(shot, team):
 def UpdateDefenderDF(shot, team):
    
     player_data = empty_defender.copy()
-    print(player_data)
+
     # Handle shot makes
     if shot['result'] == 1:
         if shot['shot_type'] == '2pt FG':
@@ -223,10 +223,11 @@ def UpdateDefenderDF(shot, team):
             player_data.loc[['shoot3TO'], [shot['play_type']]] += 1
                
     # Handle Shot Quality
-    if shot['shot_type'] == '2pt FG':
+    if shot['shot_type'] == '2pt FG' and shot['result'] != 11 or 30:
+        
         player_data.loc[['shootSQ2'], [shot['play_type']]] += shot['shot_quality']  
         
-    if shot['shot_type'] == '3pt FG':
+    if shot['shot_type'] == '3pt FG' and shot['result'] != 11 or 30:
         player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']      
 
     # Define ouptut path and write updated data to CSV

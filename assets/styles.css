@@ -22,7 +22,7 @@
 #team-one-clear-shot-button {
   margin-left: 45px;
   margin-bottom: 10px;
-  background-color: #b465f7;
+  background-color: #b079fc;
 }
   
 #team-two-clear-shot-button {
@@ -32,13 +32,13 @@
 }
 
 .record-shot-button {
-  margin-top: 5px;
+  margin-top: 15px;
   width: 370px;
   height: 40px;
   cursor: pointer;
   border: 0px;
   border-radius: 5px;
-  background-color: #b465f7;
+  background-color: #b079fc;
   color: black;
   text-transform: uppercase;
   font-size: 18px;
@@ -46,7 +46,7 @@
 }
 
 #team-one-record-shot-button {
-  background-color: #b465f7;
+  background-color: #b079fc;
 }
 
 #team-two-record-shot-button {
@@ -61,14 +61,16 @@
   padding-bottom: 4px;
   border-radius: 5px;
   width: 253px;
-  border: 1px solid #c6c6c6;
-  background-color: #2c2d2d;
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
+  color: #ffffff;
 }
 
 .free-throw-label {
   margin-left: 45px;
   font-size: 18px;
   padding-bottom: 8px;
+  background-color: 1px solid #ffffff;
 }
 
 .player-dropdown {
@@ -139,7 +141,7 @@
 }
 
 #team-one-shooter-header {
-  color: #b465f7;
+  color: #b079fc;
 }
 
 #team-two-shooter-header {
@@ -160,7 +162,7 @@
 }
 
 #team-one-creator-header {
-  color: #b465f7;
+  color: #b079fc;
 }
 
 #team-two-creator-header {

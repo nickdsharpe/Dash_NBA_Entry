@@ -169,7 +169,7 @@ def RecordShotButton(record_shot_id):
     return html.Div(
                 children=[
                     html.Button("Record Shot", id=f"{record_shot_id}-record-shot-button", className='record-shot-button',
-                                style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 10, 'padding': '0px 7px'}),
+                                style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 20, 'padding': '0px 7px'}),
                     html.Div(id=f"{record_shot_id}-record-shot-output")
                 ]
             )
@@ -243,13 +243,14 @@ def ShotQualitySlider(slider_id):
                     dcc.Slider(1, 5,
                         step=None,
                         marks={
-                            1: {'label': 'Heavily Contested', 'style': {'color': '#fa5448', 'font-size': '14px'}}, 
+                            1: {'label': 'Heavily Contested', 'style': {'color': '#f56c62', 'font-size': '14px'}}, 
                             2: {'label': 'Well Contested', 'style': {'color': '#f7aa57', 'font-size': '14px'}},
-                            3: {'label': 'Lightly Contested', 'style': {'color': '#e8e85d', 'font-size': '14px'}},
+                            3: {'label': 'Lightly Contested', 'style': {'color': '#e6e673', 'font-size': '14px'}},
                             4: {'label': 'Late Contest', 'style': {'color': '#90e35d', 'font-size': '14px'}}, 
-                            5: {'label': 'Open', 'style': {'color': '#39f75f', 'font-size': '14px'}}, 
+                            5: {'label': 'Open', 'style': {'color': '#78ff93', 'font-size': '14px'}}, 
                         },
                         vertical=True,
+                        value=None,
                         id=f'{slider_id}-shot-quality-slider',
                     ),className='shot-quality-slider'
                     )

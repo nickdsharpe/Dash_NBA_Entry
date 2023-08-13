@@ -34,16 +34,19 @@ def teamOne_CreatorInputs(value):
     Output('team-one-passing-play-type-dropdown', 'value'),
     Output('team-one-defender-dropdown', 'value'),
     Output('team-one-creation-checklist', 'value'),
+    Output('team-one-shot-quality-slider', 'value'),
+    Output("clear-components-flag", "data", allow_duplicate=True),
+
     [Input("team-one-record-shot-button", "n_clicks"),
-     Input("team-one-clear-values-indicator", "children"),],
+     Input("clear-components-flag", "data")],
     prevent_initial_call=True
 )
-def teamOne_ClearComponents(n_clicks, children):
-    if children:
+def teamOne_ClearComponents(n_clicks, flag):
+    if flag:
         if n_clicks is not None:
-            return [[], '', '', '', '', '', []]
+            return [[], '', '', '', '', '', [], None, False]
         else:
-            return [], None, None, None, None, None, []
+            return [], None, None, None, None, None, [], None, False
     return no_update
 
 '''TEAM-TWO CALLBACKS'''    
@@ -69,14 +72,20 @@ def teamTwo_CreatorInputs(value):
     Output('team-two-passing-play-type-dropdown', 'value'),
     Output('team-two-defender-dropdown', 'value'),
     Output('team-two-creation-checklist', 'value'),
-    [Input("team-two-record-shot-button", "n_clicks")],
+    Output('team-two-shot-quality-slider', 'value'),
+    Output("clear-components-flag", "data", allow_duplicate=True),
+
+    [Input("team-two-record-shot-button", "n_clicks"),
+     Input("clear-components-flag", "data")],
     prevent_initial_call=True
 )
-def teamTwo_ClearComponents(n_clicks):
-    if n_clicks is not None:
-        return [[], '', '', '', '', '', []]
-    else:
-        return [], None, None, None, None, None, []
+def teamTwo_ClearComponents(n_clicks, flag):
+    if flag:
+        if n_clicks is not None:
+            return [[], '', '', '', '', '', [], None, False]
+        else:
+            return [], None, None, None, None, None, [], None, False
+    return no_update
 
 # Run the app
 if __name__ == '__main__':
