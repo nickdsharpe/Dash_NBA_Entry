@@ -81,7 +81,11 @@ def UpdateShooterDF(shot, team):
 
     except(FileNotFoundError):
         file = empty
-    
+        
+    json_file = file.to_dict(orient='records')
+    with open(f'game_data/{team}/Offense/{shot["player"]}.json', 'w', encoding='utf-8') as f:
+        json.dump(json_file, f, ensure_ascii=False, indent=4)
+        
     file = file.add(player_data)
     file.to_csv(output_path)
 
@@ -243,3 +247,5 @@ def UpdateDefenderDF(shot, team):
     file.to_csv(output_path)
 
     return file
+
+## player_df.to_dict(orient='records')

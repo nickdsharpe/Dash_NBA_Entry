@@ -29,6 +29,7 @@ def draw_plotly_court(fig, court_id, fig_width=450, margins=0):
     threept_break_y = 89.47765084
     three_line_col = "#000000"
     main_line_col = "#000000"
+    zone_line_col = 'red'
 
     fig.update_layout(
         # Line Horizontal
@@ -166,7 +167,100 @@ def draw_plotly_court(fig, court_id, fig_width=450, margins=0):
                  path=ellipse_arc(y_center=417.5, a=60, b=60,
                                   start_angle=-0, end_angle=-np.pi),
                  line=dict(color=main_line_col, width=1), layer='below'),
-
+                 
+                 
+            ###   SHOOTING ZONES   ###
+            ### RIM ###
+            # ARC #
+            dict(type="path",
+                 path=ellipse_arc(a=80, b=80, start_angle=0, end_angle=np.pi),
+                 line=dict(color=zone_line_col, width=1), layer='below'),
+                 
+            dict(
+                type="line", x0=80, y0=-51, x1=80, y1=0,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            dict(
+                type="line", x0=-80, y0=-51, x1=-80, y1=0,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            ### Short Mid-Range  ###
+            # ARC #
+            dict(type="path",
+                 path=ellipse_arc(
+                     a=160, b=160, start_angle=0.1, end_angle=np.pi - 0.1),
+                 line=dict(color=zone_line_col, width=1), layer='below'),
+            
+            dict(
+                type="line", x0=159, y0=-51, x1=159, y1=16,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            dict(
+                type="line", x0=-159, y0=-51, x1=-159, y1=16,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            # LINES #
+            dict(
+                type="line", x0=55, y0=59, x1=101, y1=124,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            dict(
+                type="line", x0=-55, y0=59, x1=-101, y1=124,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            ### Long Mid-Range ###
+            # ARC#
+            dict(type="path",
+                 path=ellipse_arc(
+                     a=237.5, b=237.5, start_angle=0.386283101, end_angle=np.pi - 0.386283101),
+                 line=dict(color=zone_line_col, width=1), layer='below'),
+            
+            dict(
+                type="line", x0=220, y0=-52.5, x1=220, y1=threept_break_y,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            dict(
+                type="line", x0=-220, y0=-52.5, x1=-220, y1=threept_break_y,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            # LINES #
+            dict(
+                type="line", x0=61, y0=149, x1=185, y1=420,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            dict(
+                type="line", x0=-61, y0=149, x1=-185, y1=420,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            dict(
+                type="line", x0=138, y0=79, x1=206, y1=119,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            dict(
+                type="line", x0=-138, y0=79, x1=-206, y1=119,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            ### THREE POINT BREAK ###
+            # LINES #
+            dict(
+                type="line", x0=221, y0=89, x1=250, y1=89,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
+            
+            dict(
+                type="line", x0=-221, y0=89, x1=-250, y1=89,
+                line=dict(color=zone_line_col, width=1), layer='below'
+            ),
         ]
     )
     
