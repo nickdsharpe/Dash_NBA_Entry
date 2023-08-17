@@ -14,6 +14,7 @@ shot_coordinates = [{}, {}]
 free_throws = [{}, {}]
 shot_quality = [{}, {}]
 defender = [{}, {}]
+shot_zone = [{}, {}]
 
 app.config.suppress_callback_exceptions = True
 
@@ -26,7 +27,8 @@ def make_layout():
                         html.Div(id='team-one-court-slider-container',
                             children=[ 
                                 html.Div(draw_plotly_court(fig, 'team-one'), id='team-one-court-plot'),
-                                ShotQualitySlider('team-one')
+                                ShotQualitySlider('team-one'),
+                                html.Div(id='team-one-shot-zone-output')
                             ]
                         ),
                         ClearLocationDataButton('team-one'),
@@ -55,6 +57,7 @@ def make_layout():
                             children=[
                                 html.Div(draw_plotly_court(fig, 'team-two'), id='team-two-court-plot'),
                                 ShotQualitySlider('team-two'),
+                                html.Div(id='team-two-shot-zone-output')
                             ]
                         ),
                         ClearLocationDataButton('team-two'),
@@ -85,6 +88,7 @@ def make_layout():
                 dcc.Store(id='free-throws', data=free_throws, storage_type='session'),
                 dcc.Store(id='shot-quality', data=shot_quality, storage_type='session'),
                 dcc.Store(id='defender', data=defender, storage_type='session'),
+                dcc.Store(id='shot-zone', data=shot_zone, storage_type='session'),
                 
                 dcc.Store(id='players', data=[], storage_type='session'),
                 dcc.Store(id='clear-components-flag', data=False, storage_type='session')

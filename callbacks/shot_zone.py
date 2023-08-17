@@ -1,94 +1,70 @@
 from maindash import app
+import dash
+from dash import no_update
+from dash.dependencies import Input, Output
+from assets.court import is_inside_three_point_line
+from assets.shot_zone_math import inside_rim_shot_zone, inside_short_mid_range_shot_zone_1, inside_short_mid_range_shot_zone_2, inside_short_mid_range_shot_zone_3, inside_long_mid_range_shot_zone_1, inside_long_mid_range_shot_zone_5, inside_long_mid_range_shot_zone_2, inside_long_mid_range_shot_zone_4, inside_long_mid_range_shot_zone_3
 
-def is_inside_rim_shot_zone(click_data):
-    if click_data is None:
-        return False
-
-    # Extract the x and y coordinates of the clicked point
-    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
-
-    # Parameters of the rim ellipse
-    x_center, y_center = 0, 0
-    a, b = 80, 80
+@app.callback(
+    Output('team-one-shot-zone-output', 'children'),
+    Output('team-two-shot-zone-output', 'children'),
+    Output('shot-zone', 'data'),
     
-    if y < 0:
-        is_within_lower_entension = -80 <= x <= 80
-    else:
-        is_within_lower_entension = False
+    Input('team-one-court-graph', 'clickData'),
+    Input('team-two-court-graph', 'clickData'),
+    Input('shot-zone', 'data'),
+    prevent_initial_call=True
+)
+def HandleShotZone(team_one_click_data, team_two_click_data, data):
     
-    # Check if the clicked point satisfies the ellipse equation and is within y-range
-    is_inside_ellipse = (((x - x_center) / a) ** 2 + ((y - y_center) / b) ** 2) <= 1
-
-    return is_inside_ellipse or is_within_lower_entension
-
-def is_inside_short_mid_range_shot_zone_3(click_data):
-    if click_data is None:
-        return False
+    updated_data = data.copy()
     
-    # Extract the x and y coordinates of the clicked point
-    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
-
-    # Parameters of the rim ellipse
-    x_center, y_center = 0, 0
-    a, b = 160, 160
+    team_one = updated_data[0]
+    team_two = updated_data[1]
     
-    if y < 16:
-        is_within_lower_entension = -160 <= x <= 160
-    else:
-        is_within_lower_entension = False
-        
-    is_on_right_side_of_line = x > 55 and y < 59 + (65/46) * (x - 55)
+    if inside_rim_shot_zone(team_one_click_data):
+        team_one['shooter'] = 'Rim'
+        team_one['creator'] = 'Rim'
+        return 'Rim', None, updated_data
     
-    # Check if the clicked point satisfies the ellipse equation and is within y-range
-    is_inside_ellipse = (((x - x_center) / a) ** 2 + ((y - y_center) / b) ** 2) <= 1
+    elif inside_short_mid_range_shot_zone_1(team_one_click_data):
+        team_one['shooter'] = 'SMRZ 1'
+        team_one['creator'] = 'SMRZ 1'
+        return 'Short Mid-range Zone 1', None, updated_data
     
-    if ((is_inside_ellipse or is_within_lower_entension) and is_on_right_side_of_line) and not is_inside_rim_shot_zone(click_data):
-        return 'Mid-range Zone 3'
-    else:
-        return None
+    elif inside_short_mid_range_shot_zone_2(team_one_click_data):
+        team_one['shooter'] = 'SMRZ 2'
+        team_one['creator'] = 'SMRZ 2'
+        return 'Short Mid-range Zone 2', None, updated_data
     
-def is_inside_short_mid_range_shot_zone_1(click_data):
-    if click_data is None:
-        return False
+    elif inside_short_mid_range_shot_zone_3(team_one_click_data):
+        team_one['shooter'] = 'SMRZ 3'
+        team_one['creator'] = 'SMRZ 3'
+        return 'Short Mid-range Zone 3', None, updated_data
     
-    # Extract the x and y coordinates of the clicked point
-    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
-
-    # Parameters of the rim ellipse
-    x_center, y_center = 0, 0
-    a, b = 160, 160
+    elif inside_long_mid_range_shot_zone_1(team_one_click_data):
+        team_one['shooter'] = 'LMRZ 1'
+        team_one['creator'] = 'LMRZ 1'
+        return 'Long Mid-range Zone 1', None, updated_data
     
-    if y < 16:
-        is_within_lower_entension = -160 <= x <= 160
-    else:
-        is_within_lower_entension = False
-        
-    is_on_left_side_of_line = x < -55 and y < 59 - (65/46) * (x + 55)
+    elif inside_long_mid_range_shot_zone_2(team_one_click_data):
+        team_one['shooter'] = 'LMRZ 2'
+        team_one['creator'] = 'LMRZ 2'
+        return 'Long Mid-range Zone 2', None, updated_data
     
-    # Check if the clicked point satisfies the ellipse equation and is within y-range
-    is_inside_ellipse = (((x - x_center) / a) ** 2 + ((y - y_center) / b) ** 2) <= 1
+    elif inside_long_mid_range_shot_zone_3(team_one_click_data):
+        team_one['shooter'] = 'LMRZ 3'
+        team_one['creator'] = 'LMRZ 3'
+        return 'Long Mid-range Zone 3', None, updated_data
     
-    if ((is_inside_ellipse or is_within_lower_entension) and is_on_left_side_of_line) and not is_inside_rim_shot_zone(click_data):
-        return 'Mid-range Zone 1'
-    else:
-        return None
+    elif inside_long_mid_range_shot_zone_4(team_one_click_data):
+        team_one['shooter'] = 'LMRZ 4'
+        team_one['creator'] = 'LMRZ 4'
+        return 'Long Mid-range Zone 4', None, updated_data
     
+    elif inside_long_mid_range_shot_zone_5(team_one_click_data):
+        team_one['shooter'] = 'LMRZ 5'
+        team_one['creator'] = 'LMRZ 5'
+        return 'Long Mid-range Zone 5', None, updated_data
     
-def is_inside_short_mid_range_shot_zone_2(click_data):
-    if click_data is None:
-        return False
-    
-    # Extract the x and y coordinates of the clicked point
-    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
-
-    # Parameters of the rim ellipse
-    x_center, y_center = 0, 0
-    a, b = 160, 160
-    
-    # Check if the clicked point satisfies the ellipse equation and is within y-range
-    is_inside_ellipse = (((x - x_center) / a) ** 2 + ((y - y_center) / b) ** 2) <= 1
-    
-    if (is_inside_ellipse and not is_inside_rim_shot_zone(click_data)) and not (is_inside_short_mid_range_shot_zone_1(click_data) or is_inside_short_mid_range_shot_zone_3(click_data)):
-        return 'Mid-range Zone 2'
-    else:
-        return None
+    return '', '', updated_data

@@ -206,3 +206,7 @@ body {
 .shot-quality-slider .rc-slider-track {
  background-color: rgba(72, 177, 243, 0.874);
 }
+
+#team-one-shot-zone-output {
+  margin-left: 60px;
+}
