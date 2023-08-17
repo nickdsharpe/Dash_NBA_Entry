@@ -85,9 +85,12 @@ def UpdateShooterDF(shot, team):
     file = file.add(player_data)
     file.to_csv(output_path)
     
+    ### Code to write dataframes as loadable JSON ###
+    '''
     json_file = file.to_dict(orient='index')
     with open(f'game_data/{team}/Offense/{shot["player"]}.json', 'w', encoding='utf-8') as f:
         json.dump(json_file, f, ensure_ascii=False, indent=4)
+        '''
 
     return file
 

@@ -3,6 +3,7 @@ import dash
 from dash import no_update
 from dash.dependencies import Input, Output
 from assets.court import is_inside_three_point_line
+from callbacks.shot_zone import is_inside_rim_shot_zone, is_inside_short_mid_range_shot_zone_3, is_inside_short_mid_range_shot_zone_1, is_inside_short_mid_range_shot_zone_2
 
 @app.callback(
         Output('team-one-shot-type', 'children'),
@@ -25,6 +26,8 @@ def handle_shot_type(team_one_clickData, team_two_clickData, data):
 
     # Team One
     if triggered_input_id == "team-one-court-graph":
+        
+        print(is_inside_short_mid_range_shot_zone_2(team_one_clickData))
         
         if is_inside_three_point_line(team_one_clickData):
             
