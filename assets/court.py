@@ -293,7 +293,7 @@ def draw_scatter_trace(fig):
                 opacity=0,
                 size=2,
             ),
-            hoverinfo='none'
+            #hoverinfo='none'
         )
     )
     
