@@ -205,3 +205,86 @@ def inside_long_mid_range_shot_zone_3(click_data):
     inside_short_mid_range_arc = (((x - x_center) / a_short_mid) ** 2 + ((y - y_center) / b_short_mid) ** 2) <= 1
     
     return ((inside_3pt_arc and within_x_range and on_left_side_of_line and on_right_side_of_line) and not inside_short_mid_range_arc)
+
+def inside_3pt_range_shot_zone_1(click_data):
+    if click_data is None:
+        return False
+    
+    # Extract the x and y coordinates of the clicked point
+    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
+    
+    ouside_3pt_break = x <= -220
+    under_y_range = y <= 89
+    
+    return (ouside_3pt_break and under_y_range)
+
+def inside_3pt_range_shot_zone_5(click_data):
+    if click_data is None:
+        return False
+    
+    # Extract the x and y coordinates of the clicked point
+    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
+    
+    ouside_3pt_break = x >= -220
+    under_y_range = y <= 89
+    
+    return (ouside_3pt_break and under_y_range)
+
+def inside_3pt_range_shot_zone_2(click_data):
+    if click_data is None:
+        return False
+    
+    # Extract the x and y coordinates of the clicked point
+    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
+    
+    # Parameters of the rim ellipse
+    x_center, y_center = 0, 0
+    a_3pt, b_3pt = 237.5, 237.5
+    
+    above_the_break = y > 89
+   
+    on_left_side_of_line = x < -94 and y < 219 - (95/46) * (x + 94)
+       
+    # Check if the clicked point satisfies the ellipse equation and is within y-range
+    outside_3pt_arc = (((x - x_center) / a_3pt) ** 2 + ((y - y_center) / b_3pt) ** 2) >= 1
+    
+    return outside_3pt_arc and above_the_break and on_left_side_of_line
+
+def inside_3pt_range_shot_zone_4(click_data):
+    if click_data is None:
+        return False
+    
+    # Extract the x and y coordinates of the clicked point
+    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
+    
+    # Parameters of the rim ellipse
+    x_center, y_center = 0, 0
+    a_3pt, b_3pt = 237.5, 237.5
+    
+    above_the_break = y > 89
+   
+    on_right_side_of_line = x > 94 and y < 219 + (95/46) * (x - 94)
+       
+    # Check if the clicked point satisfies the ellipse equation and is within y-range
+    outside_3pt_arc = (((x - x_center) / a_3pt) ** 2 + ((y - y_center) / b_3pt) ** 2) >= 1
+    
+    return outside_3pt_arc and above_the_break and on_right_side_of_line
+
+def inside_3pt_range_shot_zone_3(click_data):
+    if click_data is None:
+        return False
+    
+    # Extract the x and y coordinates of the clicked point
+    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
+    
+    # Parameters of the rim ellipse
+    x_center, y_center = 0, 0
+    a_3pt, b_3pt = 237.5, 237.5
+   
+    on_left_side_of_line = y > 219 + (95/46) * (x - 94)
+    on_right_side_of_line = y > 219 - (95/46) * (x + 94)
+       
+    # Check if the clicked point satisfies the ellipse equation and is within y-range
+    outside_3pt_arc = (((x - x_center) / a_3pt) ** 2 + ((y - y_center) / b_3pt) ** 2) >= 1
+    
+    return outside_3pt_arc and on_right_side_of_line and on_left_side_of_line

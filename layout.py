@@ -28,7 +28,6 @@ def make_layout():
                             children=[ 
                                 html.Div(draw_plotly_court(fig, 'team-one'), id='team-one-court-plot'),
                                 ShotQualitySlider('team-one'),
-                                html.Div(id='team-one-shot-zone-output')
                             ]
                         ),
                         ClearLocationDataButton('team-one'),
@@ -57,7 +56,6 @@ def make_layout():
                             children=[
                                 html.Div(draw_plotly_court(fig, 'team-two'), id='team-two-court-plot'),
                                 ShotQualitySlider('team-two'),
-                                html.Div(id='team-two-shot-zone-output')
                             ]
                         ),
                         ClearLocationDataButton('team-two'),

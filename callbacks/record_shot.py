@@ -16,6 +16,7 @@ from update_player_df import UpdateShooterDF, UpdateCreatorDF, UpdateDefenderDF
     Output('shot-coordinates', 'data', allow_duplicate=True),
     Output('shot-quality', 'data', allow_duplicate=True),
     Output('free-throws', 'data', allow_duplicate=True),
+    Output('shot-zone', 'data', allow_duplicate=True),
     Output('clear-components-flag', 'data', allow_duplicate=True),
     
     Input("team-one-record-shot-button", "n_clicks"),
@@ -28,10 +29,11 @@ from update_player_df import UpdateShooterDF, UpdateCreatorDF, UpdateDefenderDF
     Input('shot-coordinates', 'data'),
     Input('shot-quality', 'data'),
     Input('free-throws', 'data'),
+    Input('shot-zone', 'data'),
     
     prevent_initial_call=True,
 )
-def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_result, play_type, player, defender, shot_coordinates, shot_quality, free_throws):
+def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_result, play_type, player, defender, shot_coordinates, shot_quality, free_throws, shot_zone):
 
     cleared = [{}, {}]
     
@@ -43,6 +45,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
     shot_coordinates = shot_coordinates.copy()
     shot_quality = shot_quality.copy()
     free_throws = free_throws.copy()
+    shot_zone = shot_zone.copy()
 
     ctx = dash.callback_context
     triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
@@ -58,7 +61,8 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                             'player': player[0]['shooter'],
                             'shot_coordinates': shot_coordinates[0],
                             'shot_quality': shot_quality[0]['shooter'],
-                            'free_throws': free_throws[0]['shooter'],}
+                            'free_throws': free_throws[0]['shooter'],
+                            'shot_zone': shot_zone[0]['shooter'],}
             
             if defender[0]['shooter']:
                 team_one_shooter['defender'] = defender[0]['shooter']
@@ -76,11 +80,12 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                             'play_type': play_type[0]['shooter'],
                             'player': player[0]['shooter'],
                             'shot_coordinates': shot_coordinates[0],
-                            'shot_quality': shot_quality[0]['shooter'],}
+                            'shot_quality': shot_quality[0]['shooter'],
+                            'shot_zone': shot_zone[0]['shooter'],}
     
                 if defender[0]['shooter']:
                     team_one_shooter['defender'] = defender[0]['shooter']
-                    
+                print(team_one_shooter)
                 updated_shooter_df = UpdateShooterDF(team_one_shooter, 'team_one')
                 updated_defender_df = UpdateDefenderDF(team_one_shooter, 'team_two')
                 
@@ -88,7 +93,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                 print(f'DEFENDER:{team_one_shooter["defender"]}\n', updated_defender_df)
                 
             except:
-                return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
         
         ### CREATOR ###
         try:
@@ -100,13 +105,14 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                     'player': player[0]['creator'],
                                     'shot_coordinates': shot_coordinates[0],
                                     'shot_quality': shot_quality[0]['creator'],
-                                    'free_throws': free_throws[0]['creator'],}
+                                    'free_throws': free_throws[0]['creator'],
+                                    'shot_zone': shot_zone[0]['creator'],}
     
                     updated_creator_df = UpdateCreatorDF(team_one_creator, 'team_one')
                     print(f'CREATOR:{team_one_creator["player"]}', updated_creator_df)
                     
                     team_one_n_clicks = None
-                    return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                    return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
                 
                 except:
                     try:
@@ -115,22 +121,23 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                     'play_type': play_type[0]['creator'],
                                     'player': player[0]['creator'],
                                     'shot_coordinates': shot_coordinates[0],
-                                    'shot_quality': shot_quality[0]['creator'],}
+                                    'shot_quality': shot_quality[0]['creator'],
+                                    'shot_zone': shot_zone[0]['creator'],}
       
                         updated_creator_df = UpdateCreatorDF(team_one_creator, 'team_one')
                         print(f'CREATOR:{team_one_creator["player"]}\n', updated_creator_df)
                         
                         team_one_n_clicks = None
-                        return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                        return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
                         
                     except:
-                        return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                        return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
             else:
                 
                 team_one_n_clicks = None
-                return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
         except:
-            return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+            return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
         
         
         
@@ -140,21 +147,21 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
 
         ### SHOOTER ###
         try:
-            print('CHeckpoint 1')
             team_two_shooter = {'result': shot_result[1]['shooter'],
                             'shot_type': shot_type[1]['shooter'],
                             'play_type': play_type[1]['shooter'],
                             'player': player[1]['shooter'],
                             'shot_coordinates': shot_coordinates[1],
                             'shot_quality': shot_quality[1]['shooter'],
-                            'free_throws': free_throws[1]['shooter'],}
-            print('CHeckpoint 2')
+                            'free_throws': free_throws[1]['shooter'],
+                            'shot_zone': shot_zone[1]['shooter'],}
+
             if defender[1]['shooter']:
                 team_two_shooter['defender'] = defender[1]['shooter']
             
             updated_shooter_df = UpdateShooterDF(team_two_shooter, 'team_two')
             updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_one')
-            print('CHeckpoint 3')
+
             print(f'SHOOTER:{team_two_shooter["player"]}\n', updated_shooter_df)
             print(f'DEFENDER:{team_two_shooter["defender"]}\n', updated_defender_df)
             
@@ -165,7 +172,8 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                             'play_type': play_type[1]['shooter'],
                             'player': player[1]['shooter'],
                             'shot_coordinates': shot_coordinates[1],
-                            'shot_quality': shot_quality[1]['shooter'],}
+                            'shot_quality': shot_quality[1]['shooter'],
+                            'shot_zone': shot_zone[1]['shooter'],}
     
                 if defender[1]['shooter']:
                     team_two_shooter['defender'] = defender[1]['shooter']
@@ -177,8 +185,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                 print(f'DEFENDER:\n{team_two_shooter["defender"]}', updated_defender_df)
                 
             except:
-                print('CHeckpoint ')
-                return None, 'Data Incomplete', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                return None, 'Data Incomplete', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
         
         ### CREATOR ###
         try:
@@ -190,13 +197,14 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                     'player': player[1]['creator'],
                                     'shot_coordinates': shot_coordinates[1],
                                     'shot_quality': shot_quality[1]['creator'],
-                                    'free_throws': free_throws[1]['creator'],}
+                                    'free_throws': free_throws[1]['creator'],
+                                    'shot_zone': shot_zone[1]['shooter'],}
     
                     updated_creator_df = UpdateCreatorDF(team_two_creator, 'team_two')
                     print(f'CREATOR:\n{team_two_creator["player"]}', updated_creator_df)
                     
                     team_two_n_clicks = None
-                    return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                    return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
                 
                 except:
                     try:
@@ -205,22 +213,23 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                     'play_type': play_type[1]['creator'],
                                     'player': player[1]['creator'],
                                     'shot_coordinates': shot_coordinates[1],
-                                    'shot_quality': shot_quality[1]['creator'],}
+                                    'shot_quality': shot_quality[1]['creator'],
+                                    'shot_zone': shot_zone[1]['shooter'],}
       
                         updated_creator_df = UpdateCreatorDF(team_two_creator, 'team_two')
                         print(f'CREATOR:\n{team_two_creator["player"]}', updated_creator_df)
                         
                         team_two_n_clicks = None
-                        return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                        return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
                         
                     except:
-                        return None, 'Data Incomplete', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                        return None, 'Data Incomplete', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
             else:
                 
                 team_two_n_clicks = None
-                return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
         except:
-            return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+            return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
         
     return no_update
     
