@@ -167,8 +167,66 @@ def draw_plotly_court(fig, court_id, fig_width=450, margins=0):
                  path=ellipse_arc(y_center=417.5, a=60, b=60,
                                   start_angle=-0, end_angle=-np.pi),
                  line=dict(color=main_line_col, width=1), layer='below'),
-                 
-                 
+        ]
+    )
+    
+    draw_scatter_trace(fig)
+
+    return dcc.Graph(
+        figure=fig,
+        config={'displayModeBar': False},
+        style={'width': f'{fig_width}px',
+               'height': f'{fig_height}px',
+                'marginLeft': 5},
+        id=f'{court_id}-court-graph'
+    ),
+
+def draw_scatter_trace(fig):
+    
+    # Create a list of all possible coordinates (x, y) for scatter points
+    scatter_points = []
+    for x in range(-249, 250, 5):
+        for y in range(-51, 418, 5):
+            scatter_points.append((x, y))
+
+    # Add a new scatter trace for all the points
+    fig.add_trace(
+        go.Scatter(
+            x=[point[0] for point in scatter_points],
+            y=[point[1] for point in scatter_points],
+            mode="markers",
+            marker=dict(
+                opacity=0,
+                size=2,
+            ),
+            hoverinfo='none',
+        )
+    )
+    
+    return fig
+
+def is_inside_three_point_line(click_data):
+    if click_data is None:
+        return False
+
+    # Extract the x and y coordinates of the clicked point
+    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
+
+    # Parameters of the 3-point arc ellipse
+    x_center, y_center = 0, 0
+    a, b = 237.5, 237.5
+
+    # Check if the x value is within the range [-220, 220]
+    is_within_x_range = -220 <= x <= 220
+
+    # Equation of the ellipse: ((x-x_center)/a)**2 + ((y-y_center)/b)**2 = 1
+    # Check if the clicked point satisfies the ellipse equation
+    is_inside_ellipse = (((x - x_center) / a) ** 2 + ((y - y_center) / b) ** 2) <= 1
+
+    return is_within_x_range and is_inside_ellipse
+
+
+'''
             ###   SHOOTING ZONES   ###
             ### RIM ###
             # ARC #
@@ -261,60 +319,4 @@ def draw_plotly_court(fig, court_id, fig_width=450, margins=0):
                 type="line", x0=-221, y0=89, x1=-250, y1=89,
                 line=dict(color=zone_line_col, width=1), layer='below'
             ),
-        ]
-    )
-    
-    draw_scatter_trace(fig)
-
-    return dcc.Graph(
-        figure=fig,
-        config={'displayModeBar': False},
-        style={'width': f'{fig_width}px',
-               'height': f'{fig_height}px',
-                'marginLeft': 5},
-        id=f'{court_id}-court-graph'
-    ),
-
-def draw_scatter_trace(fig):
-    
-    # Create a list of all possible coordinates (x, y) for scatter points
-    scatter_points = []
-    for x in range(-249, 250, 5):
-        for y in range(-51, 418, 5):
-            scatter_points.append((x, y))
-
-    # Add a new scatter trace for all the points
-    fig.add_trace(
-        go.Scatter(
-            x=[point[0] for point in scatter_points],
-            y=[point[1] for point in scatter_points],
-            mode="markers",
-            marker=dict(
-                opacity=0,
-                size=2,
-            ),
-            #hoverinfo='none'
-        )
-    )
-    
-    return fig
-
-def is_inside_three_point_line(click_data):
-    if click_data is None:
-        return False
-
-    # Extract the x and y coordinates of the clicked point
-    x, y = click_data['points'][0]['x'], click_data['points'][0]['y']
-
-    # Parameters of the 3-point arc ellipse
-    x_center, y_center = 0, 0
-    a, b = 237.5, 237.5
-
-    # Check if the x value is within the range [-220, 220]
-    is_within_x_range = -220 <= x <= 220
-
-    # Equation of the ellipse: ((x-x_center)/a)**2 + ((y-y_center)/b)**2 = 1
-    # Check if the clicked point satisfies the ellipse equation
-    is_inside_ellipse = (((x - x_center) / a) ** 2 + ((y - y_center) / b) ** 2) <= 1
-
-    return is_within_x_range and is_inside_ellipse
+            '''
