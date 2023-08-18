@@ -198,8 +198,8 @@ def inside_long_mid_range_shot_zone_3(click_data):
     within_x_range = -220 <= x <= 220
     
     on_left_side_of_line = x < 91 and y > 149 + (95/46) * (x - 91)
-    on_right_side_of_line = x > -91 and y > -149 - (95/46) * (x + 91)
-  
+    on_right_side_of_line = x > -91 and y > 149 + (95/46) * (x - 61)
+       
     # Check if the clicked point satisfies the ellipse equation and is within y-range
     inside_3pt_arc = (((x - x_center) / a_3pt) ** 2 + ((y - y_center) / b_3pt) ** 2) <= 1
     inside_short_mid_range_arc = (((x - x_center) / a_short_mid) ** 2 + ((y - y_center) / b_short_mid) ** 2) <= 1
