@@ -70,9 +70,20 @@ def UpdateShooterDF(shot, team):
         player_data.loc[['shootSQ2'], [shot['play_type']]] += shot['shot_quality']  
         
     if shot['shot_type'] == '3pt FG':
-        player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']      
+        player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']  
+        
+    # Update Shot Zone Data
+    shot_zone_output = f'game_data/{team}/Offense/{shot["shot_zone"]}'
+    
+    try:
+        file = pd.read_csv(shot_zone_output, index_col='Shot Type')
 
-
+    except(FileNotFoundError):
+        file = empty
+    
+    file = file.add(player_data)
+    file.to_csv(shot_zone_output)
+    
     # Define ouptut path and write updated data to CSV
     output_path = f'game_data/{team}/Offense/{shot["player"]}'
     
@@ -157,8 +168,18 @@ def UpdateCreatorDF(shot, team):
     if shot['shot_type'] == '3pt FG':
         player_data.loc[['passSQ3'], [shot['play_type']]] += shot['shot_quality']   
         
-        
+    # Update Shot Zone Data
+    shot_zone_output = f'game_data/{team}/Offense/{shot["shot_zone"]}'
+    
+    try:
+        file = pd.read_csv(shot_zone_output, index_col='Shot Type')
 
+    except(FileNotFoundError):
+        file = empty
+    
+    file = file.add(player_data)
+    file.to_csv(shot_zone_output)
+        
     output_path = f'game_data/{team}/Offense/{shot["player"]}'
   
     try:
