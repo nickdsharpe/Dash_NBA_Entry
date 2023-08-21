@@ -32,68 +32,68 @@ def HandleShotZone(team_one_click_data, team_two_click_data, data):
             return updated_data
         
         elif inside_short_mid_range_shot_zone_1(team_one_click_data):
-            team_one['shooter'] = 'SMRZ 1'
-            team_one['creator'] = 'SMRZ 1'
+            team_one['shooter'] = 'SMZ1'
+            team_one['creator'] = 'SMZ1'
             return updated_data
         
         elif inside_short_mid_range_shot_zone_2(team_one_click_data):
-            team_one['shooter'] = 'SMRZ 2'
-            team_one['creator'] = 'SMRZ 2'
+            team_one['shooter'] = 'SMZ2'
+            team_one['creator'] = 'SMZ2'
             return updated_data
         
         elif inside_short_mid_range_shot_zone_3(team_one_click_data):
-            team_one['shooter'] = 'SMRZ 3'
-            team_one['creator'] = 'SMRZ 3'
+            team_one['shooter'] = 'SMZ3'
+            team_one['creator'] = 'SMZ3'
             return updated_data
         
         elif inside_long_mid_range_shot_zone_1(team_one_click_data):
-            team_one['shooter'] = 'LMRZ 1'
-            team_one['creator'] = 'LMRZ 1'
+            team_one['shooter'] = 'LMZ1'
+            team_one['creator'] = 'LMZ1'
             return updated_data
         
         elif inside_long_mid_range_shot_zone_2(team_one_click_data):
-            team_one['shooter'] = 'LMRZ 2'
-            team_one['creator'] = 'LMRZ 2'
+            team_one['shooter'] = 'LMZ2'
+            team_one['creator'] = 'LMZ2'
             return updated_data
         
         elif inside_long_mid_range_shot_zone_3(team_one_click_data):
-            team_one['shooter'] = 'LMRZ 3'
-            team_one['creator'] = 'LMRZ 3'
+            team_one['shooter'] = 'LMZ3'
+            team_one['creator'] = 'LMZ3'
             return updated_data
         
         elif inside_long_mid_range_shot_zone_4(team_one_click_data):
-            team_one['shooter'] = 'LMRZ 4'
-            team_one['creator'] = 'LMRZ 4'
+            team_one['shooter'] = 'LMZ4'
+            team_one['creator'] = 'LMZ4'
             return updated_data
         
         elif inside_long_mid_range_shot_zone_5(team_one_click_data):
-            team_one['shooter'] = 'LMRZ 5'
-            team_one['creator'] = 'LMRZ 5'
+            team_one['shooter'] = 'LMZ5'
+            team_one['creator'] = 'LMZ5'
             return updated_data
         
         elif inside_3pt_range_shot_zone_1(team_one_click_data):
-            team_one['shooter'] = '3ptRZ 1'
-            team_one['creator'] = '3ptRZ 1'
+            team_one['shooter'] = '3ptZ1'
+            team_one['creator'] = '3ptZ1'
             return updated_data
         
         elif inside_3pt_range_shot_zone_2(team_one_click_data):
-            team_one['shooter'] = '3ptRZ 2'
-            team_one['creator'] = '3ptRZ 2'
+            team_one['shooter'] = '3ptZ2'
+            team_one['creator'] = '3ptZ2'
             return updated_data
         
         elif inside_3pt_range_shot_zone_3(team_one_click_data):
-            team_one['shooter'] = '3ptRZ 3'
-            team_one['creator'] = '3ptRZ 3'
+            team_one['shooter'] = '3ptZ3'
+            team_one['creator'] = '3ptZ3'
             return updated_data
         
         elif inside_3pt_range_shot_zone_4(team_one_click_data):
-            team_one['shooter'] = '3ptRZ 4'
-            team_one['creator'] = '3ptRZ 4'
+            team_one['shooter'] = '3ptZ4'
+            team_one['creator'] = '3ptZ4'
             return updated_data
         
         elif inside_3pt_range_shot_zone_5(team_one_click_data):
-            team_one['shooter'] = '3ptRZ 5'
-            team_one['creator'] = '3ptRZ 5'
+            team_one['shooter'] = '3ptZ5'
+            team_one['creator'] = '3ptZ5'
             return updated_data
         
         
@@ -106,68 +106,68 @@ def HandleShotZone(team_one_click_data, team_two_click_data, data):
             return updated_data
         
         elif inside_short_mid_range_shot_zone_1(team_two_click_data):
-            team_two['shooter'] = 'SMRZ 1'
-            team_two['creator'] = 'SMRZ 1'
+            team_two['shooter'] = 'SMZ1 '
+            team_two['creator'] = 'SMZ1'
             return updated_data
         
         elif inside_short_mid_range_shot_zone_2(team_two_click_data):
-            team_two['shooter'] = 'SMRZ 2'
-            team_two['creator'] = 'SMRZ 2'
+            team_two['shooter'] = 'SMZ2'
+            team_two['creator'] = 'SMZ2'
             return updated_data
         
         elif inside_short_mid_range_shot_zone_3(team_two_click_data):
-            team_two['shooter'] = 'SMRZ 3'
-            team_two['creator'] = 'SMRZ 3'
+            team_two['shooter'] = 'SMZ3'
+            team_two['creator'] = 'SMZ3'
             return updated_data
         
         elif inside_long_mid_range_shot_zone_1(team_two_click_data):
-            team_two['shooter'] = 'LMRZ 1'
-            team_two['creator'] = 'LMRZ 1'
+            team_two['shooter'] = 'LMZ1'
+            team_two['creator'] = 'LMZ1'
             return updated_data
         
         elif inside_long_mid_range_shot_zone_2(team_two_click_data):
-            team_two['shooter'] = 'LMRZ 2'
-            team_two['creator'] = 'LMRZ 2'
+            team_two['shooter'] = 'LMZ2'
+            team_two['creator'] = 'LMZ2'
             return updated_data
         
         elif inside_long_mid_range_shot_zone_3(team_two_click_data):
-            team_two['shooter'] = 'LMRZ 3'
-            team_two['creator'] = 'LMRZ 3'
+            team_two['shooter'] = 'LMZ3'
+            team_two['creator'] = 'LMZ3'
             return updated_data
         
         elif inside_long_mid_range_shot_zone_4(team_two_click_data):
-            team_two['shooter'] = 'LMRZ 4'
-            team_two['creator'] = 'LMRZ 4'
+            team_two['shooter'] = 'LMZ4'
+            team_two['creator'] = 'LMZ4'
             return updated_data
         
         elif inside_long_mid_range_shot_zone_5(team_two_click_data):
-            team_two['shooter'] = 'LMRZ 5'
-            team_two['creator'] = 'LMRZ 5'
+            team_two['shooter'] = 'LMZ5'
+            team_two['creator'] = 'LMZ5'
             return updated_data
         
         elif inside_3pt_range_shot_zone_1(team_two_click_data):
-            team_two['shooter'] = '3ptRZ 1'
-            team_two['creator'] = '3ptRZ 1'
+            team_two['shooter'] = '3ptZ1'
+            team_two['creator'] = '3ptZ1'
             return updated_data
         
         elif inside_3pt_range_shot_zone_2(team_two_click_data):
-            team_two['shooter'] = '3ptRZ 2'
-            team_two['creator'] = '3ptRZ 2'
+            team_two['shooter'] = '3ptZ2'
+            team_two['creator'] = '3ptZ2'
             return updated_data
         
         elif inside_3pt_range_shot_zone_3(team_two_click_data):
-            team_two['shooter'] = '3ptRZ 3'
-            team_two['creator'] = '3ptRZ 3'
+            team_two['shooter'] = '3ptZ3'
+            team_two['creator'] = '3ptZ3'
             return updated_data
         
         elif inside_3pt_range_shot_zone_4(team_two_click_data):
-            team_two['shooter'] = '3ptRZ 4'
-            team_two['creator'] = '3ptRZ 4'
+            team_two['shooter'] = '3ptZ4'
+            team_two['creator'] = '3ptZ4'
             return updated_data
         
         elif inside_3pt_range_shot_zone_5(team_two_click_data):
-            team_two['shooter'] = '3ptRZ 5'
-            team_two['creator'] = '3ptRZ 5'
+            team_two['shooter'] = '3ptZ5'
+            team_two['creator'] = '3ptZ5'
             return updated_data
         
     return updated_data

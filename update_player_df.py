@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 import json
 
 mapping = {'PNR Ball Handler': 'PNR BH', 'PNR Screener': 'PNR SC', 'DHO Ball Handler': 'DHO BH', 'DHO Screener': 'DHO SC',
@@ -13,7 +14,7 @@ def UpdateShooterDF(shot, team):
     player_data = empty.copy()
 
     shot['play_type'] = mapping[shot['play_type']]
-
+    
     # Handle shot makes
     if shot['result'] == 1:
         if shot['shot_type'] == '2pt FG':
@@ -73,28 +74,42 @@ def UpdateShooterDF(shot, team):
         player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']  
         
     # Update Shot Zone Data
-    shot_zone_output = f'game_data/{team}/Offense/{shot["shot_zone"]}'
-    
-    try:
-        file = pd.read_csv(shot_zone_output, index_col='Shot Type')
-
-    except(FileNotFoundError):
-        file = empty
-    
-    file = file.add(player_data)
-    file.to_csv(shot_zone_output)
-    
-    # Define ouptut path and write updated data to CSV
     output_path = f'game_data/{team}/Offense/{shot["player"]}'
-    
+    shot_zone_output = f'game_data/{team}/Offense/{shot["player"]}/{shot["player"]}_{shot["shot_zone"]}.json'
+ 
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+        
     try:
-        file = pd.read_csv(output_path, index_col='Shot Type')
+        with open(shot_zone_output, 'r', encoding='utf-8') as f:
+            shot_zone_file = json.load(f)
+            shot_zone_file['data'] = pd.DataFrame(shot_zone_file['data']).transpose()
+     
+    except(FileNotFoundError):
+        shot_zone_file = {'data' :empty, 'locations': []}
+        
+    # Unpack Shot coordinates
+    x = shot['shot_coordinates']['x']
+    y =shot['shot_coordinates']['y']
+    shot_coordinates = (x, y)
+    
+    # Add data to the overall and change dataframe to dict
+    shot_zone_file['data'] = shot_zone_file['data'].add(player_data)
+    shot_zone_file['data'] = shot_zone_file['data'].to_dict(orient='index')
+    shot_zone_file['locations'].append(shot_coordinates)
+
+    with open(shot_zone_output, 'w', encoding='utf-8') as f:
+        json.dump(shot_zone_file, f, ensure_ascii=False, indent=4)
+
+    # Define ouptut path and write updated data to CSV
+    try:
+        file = pd.read_csv(f'{output_path}/{shot["player"]}_Overall.csv', index_col='Shot Type')
 
     except(FileNotFoundError):
         file = empty
-        
+    
     file = file.add(player_data)
-    file.to_csv(output_path)
+    file.to_csv(f'{output_path}/{shot["player"]}_Overall.csv')
     
     ### Code to write dataframes as loadable JSON ###
     '''
@@ -169,27 +184,38 @@ def UpdateCreatorDF(shot, team):
         player_data.loc[['passSQ3'], [shot['play_type']]] += shot['shot_quality']   
         
     # Update Shot Zone Data
-    shot_zone_output = f'game_data/{team}/Offense/{shot["shot_zone"]}'
+    output_path = f'game_data/{team}/Offense/{shot["player"]}'
+    shot_zone_output = f'game_data/{team}/Offense/{shot["player"]}/{shot["player"]}_{shot["shot_zone"]}.json'
     
+    # If player folder does not exist, make one
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+    
+    # Try to load shot zone data for game, use empty if none exists
     try:
-        file = pd.read_csv(shot_zone_output, index_col='Shot Type')
+        with open(shot_zone_output, 'r', encoding='utf-8') as f:
+            shot_zone_file = json.load(f)
+            shot_zone_file = pd.DataFrame(shot_zone_file).transpose()
+      
+    except(FileNotFoundError):
+        shot_zone_file = empty
+ 
+    # Add data to the overall and change dataframe to dict
+    shot_zone_file = shot_zone_file.add(player_data)
+    shot_zone_file = shot_zone_file.to_dict(orient='index')
+
+    with open(shot_zone_output, 'w', encoding='utf-8') as f:
+        json.dump(shot_zone_file, f, ensure_ascii=False, indent=4)
+  
+    # Try to load Overall data for game, use empty if none exists
+    try:
+        file = pd.read_csv(f'{output_path}/{shot["player"]}_Overall.csv', index_col='Shot Type')
 
     except(FileNotFoundError):
         file = empty
     
     file = file.add(player_data)
-    file.to_csv(shot_zone_output)
-        
-    output_path = f'game_data/{team}/Offense/{shot["player"]}'
-  
-    try:
-        file = pd.read_csv(output_path, index_col='Shot Type')
-  
-    except(FileNotFoundError):
-        file = empty
-    
-    file = file.add(player_data)
-    file.to_csv(output_path)
+    file.to_csv(f'{output_path}/{shot["player"]}_Overall.csv')
 
     return file
 
@@ -258,17 +284,39 @@ def UpdateDefenderDF(shot, team):
     if shot['shot_type'] == '3pt FG' and (shot['result'] != 11 or 30):
         player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']      
 
-    # Define ouptut path and write updated data to CSV
+    # Update Shot Zone Data
     output_path = f'game_data/{team}/Defense/{shot["defender"]}'
- 
+    shot_zone_output = f'game_data/{team}/Defense/{shot["defender"]}/{shot["defender"]}_Defense_{shot["shot_zone"]}.json'
+    
+    # If player folder does not exist, make one
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)
+    
+    # Try to load shot zone data for game, use empty if none exists
     try:
-        file = pd.read_csv(output_path, index_col='Shot Type')
+        with open(shot_zone_output, 'r', encoding='utf-8') as f:
+            shot_zone_file = json.load(f)
+            shot_zone_file = pd.DataFrame(shot_zone_file).transpose()
+      
+    except(FileNotFoundError):
+        shot_zone_file = empty_defender
+ 
+    # Add data to the overall and change dataframe to dict
+    shot_zone_file = shot_zone_file.add(player_data)
+    shot_zone_file = shot_zone_file.to_dict(orient='index')
+
+    with open(shot_zone_output, 'w', encoding='utf-8') as f:
+        json.dump(shot_zone_file, f, ensure_ascii=False, indent=4)
+  
+    # Try to load Overall data for game, use empty if none exists
+    try:
+        file = pd.read_csv(f'{output_path}/{shot["defender"]}_Defense.csv', index_col='Shot Type')
 
     except(FileNotFoundError):
         file = empty_defender
     
     file = file.add(player_data)
-    file.to_csv(output_path)
+    file.to_csv(f'{output_path}/{shot["defender"]}_Defense.csv')
 
     return file
 
