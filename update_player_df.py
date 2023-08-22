@@ -328,7 +328,7 @@ def UpdateDefenderDF(shot, team):
             overall_file = json.load(f)
             overall_file['data'] = pd.DataFrame(overall_file['data']).transpose()
     
-    except(FileNotFoundError):
+    except(FileNotFoundError):     
         overall_file = {'data' :empty_defender, 'locations': []}
     
     overall_file['data'] = overall_file['data'].add(player_data)
