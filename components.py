@@ -16,11 +16,11 @@ def ShooterHeader(creation_checklist_id):
     return html.Div(children=[
         html.Div("Shooter", id=f'{creation_checklist_id}-shooter-header', className='shooter-header'),
         dcc.Checklist(
-            ['Shot Created?'],
+            ['Add Creator'],
             inline=True,
             id=f'{creation_checklist_id}-creation-checklist',
             className='creation-checklist',
-            inputStyle={"marginRight": 5},
+            inputStyle={"marginRight": 7},
         )],
         style={'display': 'flex', 'alignItems': 'center'})
 
@@ -170,7 +170,7 @@ def RecordShotButton(record_shot_id):
                 children=[
                     html.Button("Record Shot", id=f"{record_shot_id}-record-shot-button", className='record-shot-button',
                                 style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 20, 'padding': '0px 7px'}),
-                    html.Div(id=f"{record_shot_id}-record-shot-output")
+                    html.Div(id=f"{record_shot_id}-record-shot-output", className='record-shot-output')
                 ]
             )
 
@@ -243,11 +243,11 @@ def ShotQualitySlider(slider_id):
                     dcc.Slider(1, 5,
                         step=None,
                         marks={
-                            1: {'label': 'Heavily Contested', 'style': {'color': '#f56c62', 'font-size': '14px'}}, 
-                            2: {'label': 'Well Contested', 'style': {'color': '#f7aa57', 'font-size': '14px'}},
-                            3: {'label': 'Lightly Contested', 'style': {'color': '#e6e673', 'font-size': '14px'}},
-                            4: {'label': 'Late Contest', 'style': {'color': '#90e35d', 'font-size': '14px'}}, 
-                            5: {'label': 'Open', 'style': {'color': '#78ff93', 'font-size': '14px'}}, 
+                            1: {'label': 'Heavily Contested', 'style': {'color': '#f56c62', 'font-size': '16px'}}, 
+                            2: {'label': 'Well Contested', 'style': {'color': '#f7aa57', 'font-size': '16px'}},
+                            3: {'label': 'Lightly Contested', 'style': {'color': '#e6e673', 'font-size': '16px'}},
+                            4: {'label': 'Late Contest', 'style': {'color': '#b3ff6b', 'font-size': '16px'}}, 
+                            5: {'label': 'Open', 'style': {'color': '#81ff78', 'font-size': '16px'}}, 
                         },
                         vertical=True,
                         value=None,

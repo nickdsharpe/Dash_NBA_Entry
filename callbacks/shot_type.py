@@ -5,8 +5,6 @@ from dash.dependencies import Input, Output
 from assets.court import is_inside_three_point_line
 
 @app.callback(
-        Output('team-one-shot-type', 'children'),
-        Output('team-two-shot-type', 'children'),
         Output('shot-type', 'data'),
         
         Input('team-one-court-graph', 'clickData'),
@@ -31,16 +29,12 @@ def handle_shot_type(team_one_clickData, team_two_clickData, data):
             team_one['shooter'] = '2pt FG'
             team_one['creator'] = '2pt FG'
             
-            shot_type = '2pt FG'
-            
         else:
     
             team_one['shooter'] = '3pt FG'
             team_one['creator'] = '3pt FG'
-            
-            shot_type = '3pt FG'
         
-        return shot_type, no_update, updated_data
+        return updated_data
     
     # Team One
     if triggered_input_id == "team-two-court-graph":
@@ -50,15 +44,11 @@ def handle_shot_type(team_one_clickData, team_two_clickData, data):
             team_two['shooter'] = '2pt FG'
             team_two['creator'] = '2pt FG'
             
-            shot_type = '2pt FG'
-            
         else:
     
             team_two['shooter'] = '3pt FG'
             team_two['creator'] = '3pt FG'
-            
-            shot_type = '3pt FG'
         
-        return no_update, shot_type, updated_data
+        return updated_data
     
-    return no_update, no_update, no_update
+    return no_update
