@@ -1,9 +1,13 @@
-from dash import dcc, html,Input, Output, State
-import dash_daq as daq
+from dash import dcc, html
 import pandas as pd
-from dash_bootstrap_components import Modal, ModalHeader, ModalBody, ModalFooter, Button
+import json
 
 empty = pd.read_csv('assets/empty.csv')
+
+nba_teams = {'ATL': 'Atlanta Hawks', 'BOS': 'Boston Celtics', 'BRK': 'Brooklyn Nets', 'CHO': 'Charlotte Hornets', 'CHI': 'Chicago Bulls', 'CLE': 'Cleveland Cavaliers', 'DAL': 'Dallas Mavericks', 'DEN': 'Denver Nuggets', 'DET': 'Detroit Pistons', 'GSW': 'Golden State Warriors',
+             'HOU': 'Houston Rockets', 'IND': 'Indiana Pacers', 'LAC': 'Los Angeles Clippers', 'LAL': 'Los Angeles Lakers', 'MEM': 'Memphis Grizlies', 'MIA': 'Miami Heat', 'MIL': 'Milwaukee Bucks', 'MIN': 'Minnesota Timberwolves', 'NOP': 'New Orleans Pelicans', 
+             'NYK': 'New York Knicks', 'OKC': 'Oklahoma CIty Thunder', 'ORL': 'Orlando Magic', 'PHI': 'Philadelphia 76ers', 'PHO': 'Phoenix Suns', 'POR': 'Portland Trailblazers', 'SAC': 'Sacramento Kings', 'SAS': 'San Antonio Spurs', 'TOR': 'Toronto Raptors',
+             'UTA': 'Utah Jazz', 'WAS': 'Washington Wizards'}
 
 team_two_players = ['Butler', 'Adebayo', 'Herro', 'Lowry', 'Martin', 'D. Robinson', 'Love', 'Highsmith', 'Richardson', 'Jovic', 'Bryant', 'O. Robinson', 'Jaquez Jr.']
 team_one_players = ['Jokic', 'Murray', 'Porter Jr.', 'Caldwell-Pope', 'Gordon', 'Braun', 'Watson', 'Jackson', 'Jordan', 'Cancar', 'Nnaji']
@@ -11,6 +15,9 @@ team_one_players = ['Jokic', 'Murray', 'Porter Jr.', 'Caldwell-Pope', 'Gordon', 
 play_types = ['PNR Ball Handler', 'PNR Screener', 'DHO Ball Handler', 'DHO Screener', 'Isolation', 'Transition', 'Attacking Closeouts',
              'Catch & Shoot', 'Off-Ball Screens', 'Cutting', 'Offensive Rebounds']
 shot_types = ['2pt FG', '3pt FG', '2pt Free Throws', '3pt Free Throws', '2pt And-1', '3pt And-1']
+
+with open('assets/rosters.json', 'r') as f:
+    rosters = json.load(f)
 
 def ShooterHeader(creation_checklist_id):
     return html.Div(children=[
@@ -185,9 +192,9 @@ def ClearLocationDataButton(clear_location_id):
 def TeamSelector(team_id):
     
     if team_id == 'team-one':
-        players=team_one_players
+        teams=nba_teams.values()
     elif team_id == 'team-two':
-        players=team_two_players
+        teams=nba_teams.values()
         
     return html.Div(
         children=[
@@ -196,7 +203,7 @@ def TeamSelector(team_id):
                     html.Div("Team:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 0}),
                     dcc.Dropdown(
-                        players,
+                        teams,
                         placeholder='Select a team',
                         id=f'{team_id}-team-dropdown',
                         maxHeight=200,
