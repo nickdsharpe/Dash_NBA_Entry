@@ -6,7 +6,7 @@ empty = pd.read_csv('assets/empty.csv')
 
 nba_teams = {'ATL': 'Atlanta Hawks', 'BOS': 'Boston Celtics', 'BRK': 'Brooklyn Nets', 'CHO': 'Charlotte Hornets', 'CHI': 'Chicago Bulls', 'CLE': 'Cleveland Cavaliers', 'DAL': 'Dallas Mavericks', 'DEN': 'Denver Nuggets', 'DET': 'Detroit Pistons', 'GSW': 'Golden State Warriors',
              'HOU': 'Houston Rockets', 'IND': 'Indiana Pacers', 'LAC': 'Los Angeles Clippers', 'LAL': 'Los Angeles Lakers', 'MEM': 'Memphis Grizlies', 'MIA': 'Miami Heat', 'MIL': 'Milwaukee Bucks', 'MIN': 'Minnesota Timberwolves', 'NOP': 'New Orleans Pelicans', 
-             'NYK': 'New York Knicks', 'OKC': 'Oklahoma CIty Thunder', 'ORL': 'Orlando Magic', 'PHI': 'Philadelphia 76ers', 'PHO': 'Phoenix Suns', 'POR': 'Portland Trailblazers', 'SAC': 'Sacramento Kings', 'SAS': 'San Antonio Spurs', 'TOR': 'Toronto Raptors',
+             'NYK': 'New York Knicks', 'OKC': 'Oklahoma City Thunder', 'ORL': 'Orlando Magic', 'PHI': 'Philadelphia 76ers', 'PHO': 'Phoenix Suns', 'POR': 'Portland Trailblazers', 'SAC': 'Sacramento Kings', 'SAS': 'San Antonio Spurs', 'TOR': 'Toronto Raptors',
              'UTA': 'Utah Jazz', 'WAS': 'Washington Wizards'}
 
 team_two_players = ['Butler', 'Adebayo', 'Herro', 'Lowry', 'Martin', 'D. Robinson', 'Love', 'Highsmith', 'Richardson', 'Jovic', 'Bryant', 'O. Robinson', 'Jaquez Jr.']
@@ -191,12 +191,9 @@ def ClearLocationDataButton(clear_location_id):
 
 def TeamSelector(team_id):
     
-    if team_id == 'team-one':
-        teams=nba_teams.values()
-    elif team_id == 'team-two':
-        teams=nba_teams.values()
+    teams=list(nba_teams.values())
         
-    return html.Div(
+    return html.Div(   
         children=[
             html.Div(
                 children=[
