@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 import json
 
 mapping = {'PNR Ball Handler': 'PNR BH', 'PNR Screener': 'PNR SC', 'DHO Ball Handler': 'DHO BH', 'DHO Screener': 'DHO SC',
@@ -13,7 +14,7 @@ def UpdateShooterDF(shot, team):
     player_data = empty.copy()
 
     shot['play_type'] = mapping[shot['play_type']]
-
+    
     # Handle shot makes
     if shot['result'] == 1:
         if shot['shot_type'] == '2pt FG':
@@ -72,38 +73,87 @@ def UpdateShooterDF(shot, team):
     if shot['shot_type'] == '3pt FG':
         player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']  
         
-    # Update Shot Zone Data
-    shot_zone_output = f'game_data/{team}/Offense/{shot["shot_zone"]}'
+    # Declare output paths for Player and Team overall and shot zone data
+    player_output_path = f'game_data/{team}/Offense/{shot["player"]}'
+    player_shot_zone_output_path = f'game_data/{team}/Offense/{shot["player"]}/{shot["player"]}_{shot["shot_zone"]}.json'
+    team_output_path = f'game_data/{team}/Offense/Team'
+    team_shot_zone_output_path = f'game_data/{team}/Offense/Team/Team_{shot["shot_zone"]}.json'
     
+    # Check if Player output path exists and make a new directory if it doesn't
+    if not os.path.exists(player_output_path):
+        os.makedirs(player_output_path)
+    # Check if Team output path exists and make a new directory if it doesn't    
+    if not os.path.exists(team_output_path):
+        os.makedirs(team_output_path)
+    
+    # Try to load Player shot zone data, create empty JSON file of not
     try:
-        file = pd.read_csv(shot_zone_output, index_col='Shot Type')
-
+        with open(player_shot_zone_output_path, 'r', encoding='utf-8') as f:
+            player_shot_zone_file = json.load(f)
+            player_shot_zone_file['data'] = pd.DataFrame(player_shot_zone_file['data']).transpose()
+     
     except(FileNotFoundError):
-        file = empty
-    
-    file = file.add(player_data)
-    file.to_csv(shot_zone_output)
-    
-    # Define ouptut path and write updated data to CSV
-    output_path = f'game_data/{team}/Offense/{shot["player"]}'
-    
-    try:
-        file = pd.read_csv(output_path, index_col='Shot Type')
-
-    except(FileNotFoundError):
-        file = empty
+        player_shot_zone_file = {'data' :empty, 'locations': []}
         
-    file = file.add(player_data)
-    file.to_csv(output_path)
+    # Try to load Team shot zone data, create empty JSON file of not
+    try:
+        with open(team_shot_zone_output_path, 'r', encoding='utf-8') as f:
+            team_shot_zone_file = json.load(f)
+            team_shot_zone_file['data'] = pd.DataFrame(team_shot_zone_file['data']).transpose()
+     
+    except(FileNotFoundError):
+        team_shot_zone_file = {'data' :empty, 'locations': []}
+        
+    # Unpack Shot coordinates
+    x = shot['shot_coordinates']['x']
+    y =shot['shot_coordinates']['y']
     
-    ### Code to write dataframes as loadable JSON ###
-    '''
-    json_file = file.to_dict(orient='index')
-    with open(f'game_data/{team}/Offense/{shot["player"]}.json', 'w', encoding='utf-8') as f:
-        json.dump(json_file, f, ensure_ascii=False, indent=4)
-        '''
+    # Add data to the Shot Zone Data and change dataframe to dict
+    player_shot_zone_file['data'] = player_shot_zone_file['data'].add(player_data)
+    player_shot_zone_file['data'] = player_shot_zone_file['data'].to_dict(orient='index')
+    player_shot_zone_file['locations'].append(tuple((x, y)))
+    team_shot_zone_file['data'] = team_shot_zone_file['data'].add(player_data)
+    team_shot_zone_file['data'] = team_shot_zone_file['data'].to_dict(orient='index')
+    team_shot_zone_file['locations'].append(tuple((x, y)))
+    
+    # Write updated Player shot zone data to shot zone output path
+    with open(player_shot_zone_output_path, 'w', encoding='utf-8') as f:
+        json.dump(player_shot_zone_file, f, ensure_ascii=False, indent=4)
+    # Write updated Team shot zone data to shot zone output path
+    with open(team_shot_zone_output_path, 'w', encoding='utf-8') as f:
+        json.dump(team_shot_zone_file, f, ensure_ascii=False, indent=4)
+        
+    # Try to load overall Player data file, create empty JSON file if not
+    try:
+        with open(f'{player_output_path}/{shot["player"]}_Overall.json', 'r', encoding='utf-8') as f:
+            player_overall_file = json.load(f)
+            player_overall_file['data'] = pd.DataFrame(player_overall_file['data']).transpose()
+    except(FileNotFoundError):
+        player_overall_file = {'data' :empty, 'locations': []}
+    # Try to load overall Team data file, create empty JSON file if not
+    try:
+        with open(f'{team_output_path}/Team_Overall.json', 'r', encoding='utf-8') as f:
+            team_overall_file = json.load(f)
+            team_overall_file['data'] = pd.DataFrame(team_overall_file['data']).transpose()
+    except(FileNotFoundError):
+        team_overall_file = {'data' :empty, 'locations': []}
+        
+    # Add data to overall data and change DF back to dict
+    player_overall_file['data'] = player_overall_file['data'].add(player_data)
+    player_overall_file['data'] = player_overall_file['data'].to_dict(orient='index')
+    player_overall_file['locations'].append(tuple((x, y)))
+    team_overall_file['data'] = team_overall_file['data'].add(player_data)
+    team_overall_file['data'] = team_overall_file['data'].to_dict(orient='index')
+    team_overall_file['locations'].append(tuple((x, y)))
+    
+    # Write updated overall Player file to output path
+    with open(f'{player_output_path}/{shot["player"]}_Overall.json', 'w', encoding='utf-8') as f:
+        json.dump(player_overall_file, f, ensure_ascii=False, indent=4)
+    # Write updated overall Team file to output path
+    with open(f'{team_output_path}/Team_Overall.json', 'w', encoding='utf-8') as f:
+        json.dump(team_overall_file, f, ensure_ascii=False, indent=4)
 
-    return file
+    return player_overall_file
 
 def UpdateCreatorDF(shot, team):
     player_data = empty.copy()
@@ -168,32 +218,87 @@ def UpdateCreatorDF(shot, team):
     if shot['shot_type'] == '3pt FG':
         player_data.loc[['passSQ3'], [shot['play_type']]] += shot['shot_quality']   
         
-    # Update Shot Zone Data
-    shot_zone_output = f'game_data/{team}/Offense/{shot["shot_zone"]}'
+    # Declare output paths for Player and Team overall and shot zone data
+    player_output_path = f'game_data/{team}/Offense/{shot["player"]}'
+    player_shot_zone_output_path = f'game_data/{team}/Offense/{shot["player"]}/{shot["player"]}_{shot["shot_zone"]}.json'
+    team_output_path = f'game_data/{team}/Offense/Team'
+    team_shot_zone_output_path = f'game_data/{team}/Offense/Team/Team_{shot["shot_zone"]}.json'
     
+    # Check if Player output path exists and make a new directory if it doesn't
+    if not os.path.exists(player_output_path):
+        os.makedirs(player_output_path)
+    # Check if Team output path exists and make a new directory if it doesn't    
+    if not os.path.exists(team_output_path):
+        os.makedirs(team_output_path)
+    
+    # Try to load Player shot zone data, create empty JSON file of not
     try:
-        file = pd.read_csv(shot_zone_output, index_col='Shot Type')
-
+        with open(player_shot_zone_output_path, 'r', encoding='utf-8') as f:
+            player_shot_zone_file = json.load(f)
+            player_shot_zone_file['data'] = pd.DataFrame(player_shot_zone_file['data']).transpose()
+     
     except(FileNotFoundError):
-        file = empty
-    
-    file = file.add(player_data)
-    file.to_csv(shot_zone_output)
+        player_shot_zone_file = {'data' :empty, 'locations': []}
         
-    output_path = f'game_data/{team}/Offense/{shot["player"]}'
-  
+    # Try to load Team shot zone data, create empty JSON file of not
     try:
-        file = pd.read_csv(output_path, index_col='Shot Type')
-  
+        with open(team_shot_zone_output_path, 'r', encoding='utf-8') as f:
+            team_shot_zone_file = json.load(f)
+            team_shot_zone_file['data'] = pd.DataFrame(team_shot_zone_file['data']).transpose()
+     
     except(FileNotFoundError):
-        file = empty
+        team_shot_zone_file = {'data' :empty, 'locations': []}
+        
+    # Unpack Shot coordinates
+    x = shot['shot_coordinates']['x']
+    y =shot['shot_coordinates']['y']
     
-    file = file.add(player_data)
-    file.to_csv(output_path)
+    # Add data to the Shot Zone Data and change dataframe to dict
+    player_shot_zone_file['data'] = player_shot_zone_file['data'].add(player_data)
+    player_shot_zone_file['data'] = player_shot_zone_file['data'].to_dict(orient='index')
+    player_shot_zone_file['locations'].append(tuple((x, y)))
+    team_shot_zone_file['data'] = team_shot_zone_file['data'].add(player_data)
+    team_shot_zone_file['data'] = team_shot_zone_file['data'].to_dict(orient='index')
+    team_shot_zone_file['locations'].append(tuple((x, y)))
+    
+    # Write updated Player shot zone data to shot zone output path
+    with open(player_shot_zone_output_path, 'w', encoding='utf-8') as f:
+        json.dump(player_shot_zone_file, f, ensure_ascii=False, indent=4)
+    # Write updated Team shot zone data to shot zone output path
+    with open(team_shot_zone_output_path, 'w', encoding='utf-8') as f:
+        json.dump(team_shot_zone_file, f, ensure_ascii=False, indent=4)
+        
+    # Try to load overall Player data file, create empty JSON file if not
+    try:
+        with open(f'{player_output_path}/{shot["player"]}_Overall.json', 'r', encoding='utf-8') as f:
+            player_overall_file = json.load(f)
+            player_overall_file['data'] = pd.DataFrame(player_overall_file['data']).transpose()
+    except(FileNotFoundError):
+        player_overall_file = {'data' :empty, 'locations': []}
+    # Try to load overall Team data file, create empty JSON file if not
+    try:
+        with open(f'{team_output_path}/Team_Overall.json', 'r', encoding='utf-8') as f:
+            team_overall_file = json.load(f)
+            team_overall_file['data'] = pd.DataFrame(team_overall_file['data']).transpose()
+    except(FileNotFoundError):
+        team_overall_file = {'data' :empty, 'locations': []}
+        
+    # Add data to overall data and change DF back to dict
+    player_overall_file['data'] = player_overall_file['data'].add(player_data)
+    player_overall_file['data'] = player_overall_file['data'].to_dict(orient='index')
+    player_overall_file['locations'].append(tuple((x, y)))
+    team_overall_file['data'] = team_overall_file['data'].add(player_data)
+    team_overall_file['data'] = team_overall_file['data'].to_dict(orient='index')
+    team_overall_file['locations'].append(tuple((x, y)))
+    
+    # Write updated overall Player file to output path
+    with open(f'{player_output_path}/{shot["player"]}_Overall.json', 'w', encoding='utf-8') as f:
+        json.dump(player_overall_file, f, ensure_ascii=False, indent=4)
+    # Write updated overall Team file to output path
+    with open(f'{team_output_path}/Team_Overall.json', 'w', encoding='utf-8') as f:
+        json.dump(team_overall_file, f, ensure_ascii=False, indent=4)
 
-    return file
-
-
+    return player_overall_file
 
 def UpdateDefenderDF(shot, team):
    
@@ -258,18 +363,83 @@ def UpdateDefenderDF(shot, team):
     if shot['shot_type'] == '3pt FG' and (shot['result'] != 11 or 30):
         player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']      
 
-    # Define ouptut path and write updated data to CSV
-    output_path = f'game_data/{team}/Defense/{shot["defender"]}'
- 
-    try:
-        file = pd.read_csv(output_path, index_col='Shot Type')
-
-    except(FileNotFoundError):
-        file = empty_defender
+    # Declare output paths for Defender and Team overall and shot zone data
+    defender_output_path = f'game_data/{team}/Defense/{shot["defender"]}'
+    defender_shot_zone_output_path = f'game_data/{team}/Defense/{shot["defender"]}/{shot["defender"]}_{shot["shot_zone"]}.json'
+    team_output_path = f'game_data/{team}/Defense/Team'
+    team_shot_zone_output_path = f'game_data/{team}/Defense/Team/Team_{shot["shot_zone"]}.json'
     
-    file = file.add(player_data)
-    file.to_csv(output_path)
+    # Check if Defender output path exists and make a new directory if it doesn't
+    if not os.path.exists(defender_output_path):
+        os.makedirs(defender_output_path)
+    # Check if Team output path exists and make a new directory if it doesn't    
+    if not os.path.exists(team_output_path):
+        os.makedirs(team_output_path)
+    
+    # Try to load Defender shot zone data, create empty JSON file of not
+    try:
+        with open(defender_shot_zone_output_path, 'r', encoding='utf-8') as f:
+            defender_shot_zone_file = json.load(f)
+            defender_shot_zone_file['data'] = pd.DataFrame(defender_shot_zone_file['data']).transpose()
+     
+    except(FileNotFoundError):
+        defender_shot_zone_file = {'data' :empty_defender, 'locations': []}
+    # Try to load Team shot zone data, create empty JSON file of not
+    try:
+        with open(team_shot_zone_output_path, 'r', encoding='utf-8') as f:
+            team_shot_zone_file = json.load(f)
+            team_shot_zone_file['data'] = pd.DataFrame(team_shot_zone_file['data']).transpose()
+     
+    except(FileNotFoundError):
+        team_shot_zone_file = {'data' :empty_defender, 'locations': []}
+        
+    # Unpack Shot coordinates
+    x = shot['shot_coordinates']['x']
+    y =shot['shot_coordinates']['y']
+    
+    # Add data to the Shot Zone Data and change dataframe to dict
+    defender_shot_zone_file['data'] = defender_shot_zone_file['data'].add(player_data)
+    defender_shot_zone_file['data'] = defender_shot_zone_file['data'].to_dict(orient='index')
+    defender_shot_zone_file['locations'].append(tuple((x, y)))
+    team_shot_zone_file['data'] = team_shot_zone_file['data'].add(player_data)
+    team_shot_zone_file['data'] = team_shot_zone_file['data'].to_dict(orient='index')
+    team_shot_zone_file['locations'].append(tuple((x, y)))
+    
+    # Write updated Player shot zone data to shot zone output path
+    with open(defender_shot_zone_output_path, 'w', encoding='utf-8') as f:
+        json.dump(defender_shot_zone_file, f, ensure_ascii=False, indent=4)
+    # Write updated Team shot zone data to shot zone output path
+    with open(team_shot_zone_output_path, 'w', encoding='utf-8') as f:
+        json.dump(team_shot_zone_file, f, ensure_ascii=False, indent=4)
+        
+    # Try to load overall Player data file, create empty JSON file if not
+    try:
+        with open(f'{defender_output_path}/{shot["defender"]}_Defense.json', 'r', encoding='utf-8') as f:
+            defender_overall_file = json.load(f)
+            defender_overall_file['data'] = pd.DataFrame(defender_overall_file['data']).transpose()
+    except(FileNotFoundError):
+        defender_overall_file = {'data' :empty_defender, 'locations': []}
+    # Try to load overall Team data file, create empty JSON file if not
+    try:
+        with open(f'{team_output_path}/Team_Defense.json', 'r', encoding='utf-8') as f:
+            team_overall_file = json.load(f)
+            team_overall_file['data'] = pd.DataFrame(team_overall_file['data']).transpose()
+    except(FileNotFoundError):
+        team_overall_file = {'data' :empty_defender, 'locations': []}
+        
+    # Add data to overall data and change DF back to dict
+    defender_overall_file['data'] = defender_overall_file['data'].add(player_data)
+    defender_overall_file['data'] = defender_overall_file['data'].to_dict(orient='index')
+    defender_overall_file['locations'].append(tuple((x, y)))
+    team_overall_file['data'] = team_overall_file['data'].add(player_data)
+    team_overall_file['data'] = team_overall_file['data'].to_dict(orient='index')
+    team_overall_file['locations'].append(tuple((x, y)))
+    
+    # Write updated overall Player file to output path
+    with open(f'{defender_output_path}/{shot["defender"]}_Defense.json', 'w', encoding='utf-8') as f:
+        json.dump(defender_overall_file, f, ensure_ascii=False, indent=4)
+    # Write updated overall Team file to output path
+    with open(f'{team_output_path}/Team_Defense.json', 'w', encoding='utf-8') as f:
+        json.dump(team_overall_file, f, ensure_ascii=False, indent=4)
 
-    return file
-
-## player_df.to_dict(orient='records')
+    return defender_overall_file

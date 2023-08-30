@@ -55,7 +55,7 @@
 
 .free-throw-input {
   margin-left: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   padding-left: 8px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -151,6 +151,7 @@
 .creation-checklist {
   margin-left: 20px;
   padding-bottom: 0px;
+  font-size: 18px;
 }
 
 .creator-header {
@@ -209,4 +210,10 @@ body {
 
 #team-one-shot-zone-output {
   margin-left: 60px;
+}
+
+.record-shot-output {
+  margin-left: 165px;
+  font-size: 20px;
+  margin-top: 10px;
 }
