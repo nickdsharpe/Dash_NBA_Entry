@@ -2,7 +2,9 @@ from maindash import app
 import dash
 from dash import no_update
 from dash.dependencies import Input, Output , State
-from update_player_df import UpdateShooterDF, UpdateCreatorDF, UpdateDefenderDF
+from assets.update_defender_data import UpdateDefenderDF
+from assets.update_shooter_data import UpdateShooterDF
+from assets.update_creator_data import UpdateCreatorDF
 
 # Record shot callback
 @app.callback(

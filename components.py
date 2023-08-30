@@ -254,4 +254,3 @@ def ShotQualitySlider(slider_id):
                         id=f'{slider_id}-shot-quality-slider',
                     ),className='shot-quality-slider'
                     )
-                
