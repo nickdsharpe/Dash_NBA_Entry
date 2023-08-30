@@ -200,7 +200,7 @@ def TeamSelector(team_id):
                     html.Div("Team:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 0}),
                     dcc.Dropdown(
-                        teams,
+                        teams,    
                         placeholder='Select a team',
                         id=f'{team_id}-team-dropdown',
                         maxHeight=200,
