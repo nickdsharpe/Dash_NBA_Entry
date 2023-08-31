@@ -9,9 +9,6 @@ nba_teams = {'ATL': 'Atlanta Hawks', 'BOS': 'Boston Celtics', 'BRK': 'Brooklyn N
              'NYK': 'New York Knicks', 'OKC': 'Oklahoma City Thunder', 'ORL': 'Orlando Magic', 'PHI': 'Philadelphia 76ers', 'PHO': 'Phoenix Suns', 'POR': 'Portland Trailblazers', 'SAC': 'Sacramento Kings', 'SAS': 'San Antonio Spurs', 'TOR': 'Toronto Raptors',
              'UTA': 'Utah Jazz', 'WAS': 'Washington Wizards'}
 
-team_two_players = ['Butler', 'Adebayo', 'Herro', 'Lowry', 'Martin', 'D. Robinson', 'Love', 'Highsmith', 'Richardson', 'Jovic', 'Bryant', 'O. Robinson', 'Jaquez Jr.']
-team_one_players = ['Jokic', 'Murray', 'Porter Jr.', 'Caldwell-Pope', 'Gordon', 'Braun', 'Watson', 'Jackson', 'Jordan', 'Cancar', 'Nnaji']
-
 play_types = ['PNR Ball Handler', 'PNR Screener', 'DHO Ball Handler', 'DHO Screener', 'Isolation', 'Transition', 'Attacking Closeouts',
              'Catch & Shoot', 'Off-Ball Screens', 'Cutting', 'Offensive Rebounds']
 shot_types = ['2pt FG', '3pt FG', '2pt Free Throws', '3pt Free Throws', '2pt And-1', '3pt And-1']
@@ -61,9 +58,9 @@ def FreeThrowInput(FT_input_id):
 def PlayerDropdown(player_dropdown_id):
     
     if player_dropdown_id == 'team-one':
-        players=team_one_players
+        players=['']
     elif player_dropdown_id == 'team-two':
-        players=team_two_players
+        players=['']
         
     return html.Div(
         children=[
@@ -72,7 +69,7 @@ def PlayerDropdown(player_dropdown_id):
                     html.Div("Player:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 13}),
                     dcc.Dropdown(
-                        players,
+                        options=players,
                         placeholder='Select a player',
                         id=f'{player_dropdown_id}-player-dropdown',
                         maxHeight=200,
@@ -123,9 +120,9 @@ def PasserHeader(passer_header_id):
 def PassingPlayerDropdown(passing_player_dropdown_id):
     
     if passing_player_dropdown_id == 'team-one':
-        players=team_one_players
+        players=['']
     elif passing_player_dropdown_id == 'team-two':
-        players=team_two_players
+        players=['']
         
     return html.Div(
         children=[
@@ -134,7 +131,7 @@ def PassingPlayerDropdown(passing_player_dropdown_id):
                     html.Div("Player:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 13}),
                     dcc.Dropdown(
-                        players,
+                        options=players,
                         placeholder='Select a player',
                         id=f'{passing_player_dropdown_id}-passing-player-dropdown',
                         maxHeight=200,
@@ -217,9 +214,9 @@ def TeamSelector(team_id):
 def DefenderDropdown(defender_id):
     
     if defender_id == 'team-one':
-        players=team_two_players
+        players=['']
     elif defender_id == 'team-two':
-        players=team_one_players
+        players=['']
         
     return html.Div(
         children=[
@@ -228,7 +225,7 @@ def DefenderDropdown(defender_id):
                     html.Div("Defender:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 15}),
                     dcc.Dropdown(
-                        players,
+                        options=players,
                         placeholder='Select a defender',
                         id=f'{defender_id}-defender-dropdown',
                         maxHeight=200,

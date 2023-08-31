@@ -1,11 +1,9 @@
 from maindash import app
-import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.player_and_play_type, callbacks.record_shot, callbacks.shot_quality, callbacks.defender, callbacks.shot_zone
-from dash.dependencies import Input, Output, State
-import dash
+import callbacks.add_marker, callbacks.shot_result, callbacks.free_throw_input, callbacks.record_coordinates, callbacks.shot_type, callbacks.player_and_play_type, callbacks.record_shot, callbacks.shot_quality, callbacks.defender, callbacks.shot_zone, callbacks.populate_dropdowns
+from dash.dependencies import Input, Output
 from dash import no_update
 import plotly.graph_objects as go
 from layout import make_layout
-import time
 
 shot, passer = {}, {}
 fig = go.Figure()
