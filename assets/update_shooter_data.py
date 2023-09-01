@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import os
+from assets.PPP import PPP
 
 mapping = {'PNR Ball Handler': 'PNR BH', 'PNR Screener': 'PNR SC', 'DHO Ball Handler': 'DHO BH', 'DHO Screener': 'DHO SC',
            'Isolation': 'ISO', 'Transition': 'TRAN', 'Attacking Closeouts': 'ACO', 'Catch & Shoot': 'C/S', 'Off-Ball Screens': 'OBS',
@@ -136,7 +137,7 @@ def UpdateShooterDF(shot, team):
             team_overall_file['data'] = pd.DataFrame(team_overall_file['data']).transpose()
     except(FileNotFoundError):
         team_overall_file = {'data' :empty, 'shooting_locations': [], 'created_locations': []}
-        
+    
     # Add data to overall data and change DF back to dict
     player_overall_file['data'] = player_overall_file['data'].add(player_data)
     player_overall_file['data'] = player_overall_file['data'].to_dict(orient='index')
@@ -151,5 +152,7 @@ def UpdateShooterDF(shot, team):
     # Write updated overall Team file to output path
     with open(f'{team_output_path}/Team_Overall.json', 'w', encoding='utf-8') as f:
         json.dump(team_overall_file, f, ensure_ascii=False, indent=4)
-
+        
+    print(PPP(pd.DataFrame(player_overall_file['data']).transpose()))
+    
     return player_overall_file
