@@ -153,6 +153,6 @@ def UpdateShooterDF(shot, team):
     with open(f'{team_output_path}/Team_Overall.json', 'w', encoding='utf-8') as f:
         json.dump(team_overall_file, f, ensure_ascii=False, indent=4)
         
-    print(PPP(pd.DataFrame(player_overall_file['data']).transpose()))
+    #print(PPP(pd.DataFrame(player_overall_file['data']).transpose()))
     
     return player_overall_file

@@ -15,23 +15,52 @@ def PPP(data):
     shoot2FTA = data.loc['shoot2FTA'].sum().sum()
     shoot2FTM = data.loc['shoot2FTM'].sum().sum()
     shoot2TO = data.loc['shoot2TO'].sum().sum()
+    shoot2SQ = data.loc['shootSQ2'].sum().sum()
     shoot3FGA = data.loc['shoot3FGA'].sum().sum()
     shoot3FGM = data.loc['shoot3FGM'].sum().sum()
     shoot3FTA = data.loc['shoot3FTA'].sum().sum()
     shoot3FTM = data.loc['shoot3FTM'].sum().sum()
     shoot3TO = data.loc['shoot3TO'].sum().sum()
+    shoot3SQ = data.loc['shootSQ3'].sum().sum()
     
+    # Average out Shot Quality, mark as N/A if no FGA's
+    if shoot2FGA > 0:
+        shoot2SQ = shoot2SQ / shoot2FGA
+    else:
+        shoot2SQ = 'N/A'
+        
+    if shoot3FGA > 0:
+        shoot3SQ = shoot3SQ / shoot3FGA
+    else:
+        shoot3SQ = 'N/A'
+   
     # Assign passing data to new variables
     pass2FGA = data.loc['pass2FGA'].sum().sum()
     pass2FGM = data.loc['pass2FGM'].sum().sum()
     pass2FTA = data.loc['pass2FTA'].sum().sum()
     pass2FTM = data.loc['pass2FTM'].sum().sum()
     pass2TO = data.loc['pass2TO'].sum().sum()
+    pass2SQ = data.loc['passSQ2'].sum().sum()
     pass3FGA = data.loc['pass3FGA'].sum().sum()
     pass3FGM = data.loc['pass3FGM'].sum().sum()
     pass3FTA = data.loc['pass3FTA'].sum().sum()
     pass3FTM = data.loc['pass3FTM'].sum().sum()
     pass3TO = data.loc['pass3TO'].sum().sum()
+    pass3SQ = data.loc['passSQ3'].sum().sum()
+    
+    # Average out Shot Quality, mark as N/A if no FGA's
+    SQ2 = pass2SQ + shoot2SQ
+    SQ3 = pass3SQ + shoot3SQ
+    
+    if pass2FGA > 0:
+        pass2SQ = pass2SQ / pass2FGA
+    else:
+        pass2SQ = 'N/A'
+        
+    if pass3FGA > 0:
+        pass3SQ = pass3SQ / pass3FGA
+    else:
+        pass3SQ = 'N/A'
     
     # Create Overall data variables
     FGA2 = pass2FGA + shoot2FGA
@@ -44,6 +73,21 @@ def PPP(data):
     FTA3 = pass3FTA + shoot3FTA
     FTM3 = pass3FTM + shoot3FTM
     TO3 = pass3TO + shoot3TO
+    
+    total_points = (shoot3FGM * 3) + (shoot2FGM * 2) + (shoot2FTM + shoot3FTM)
+    tot_trueshooting_per = str(round(((0.5 * total_points) / (FGA2 + FGA3) + (0.44 * (FTM2 + FTM3)))* 100, 2))
+    
+    # Average out Shot Quality, mark as N/A if no FGA's
+    if FGA2 > 0:
+        SQ2 = SQ2 / FGA2
+    else:
+        SQ2 = 'N/A'
+    if FGA3 > 0:
+        SQ3 = SQ3 / FGA3
+    else:
+        SQ3 = 'N/A'
+        
+    totalSQ = (SQ2 + SQ3) / 2
     
     # Calculate shooting, passing, and total Points per Possesion
     shootingPPP_tot = round(((shoot2FGM * 2) + (shoot3FGM * 3) + (shoot2FTM + shoot3FTM)) / ((shoot2FGA + shoot3FGA) + ((shoot2FTA + shoot3FTA) * 0.44) + (shoot2TO + shoot3TO)),2)
@@ -67,24 +111,20 @@ def PPP(data):
     totPoss_2ptOVR = (shootPoss_2pt + passingPoss_2pt)
     totPoss_3ptOVR = (shootPoss_3pt + passingPoss_3pt)  
     
-    # Sum up field foal attempts
+    # Sum up field goal attempts
     tot3FGA = shoot3FGA + pass3FGA
     tot2FGA = shoot2FGA + pass2FGA
     passFGA = pass2FGA + pass3FGA
     shootFGA = shoot2FGA + shoot3FGA
     totFGA = shoot2FGA + pass2FGA + shoot3FGA + pass3FGA
     
-    # Calculate possesion percentage and shooting percentage for overall stats, assign 'N/A' if no data exists
-    try:
-        shootPoss_perOVR = round(((shootPoss_totOVR / totPossOVR)*100),1)
-    except(ZeroDivisionError):
-        shootPoss_perOVR = 'N/A'
-    
+    # Calculate creation percentage  
     try:
         passingPoss_perOVR = round(((passingPoss_totOVR / totPossOVR)*100),1)
     except(ZeroDivisionError):
-        passingPoss_perOVR = 'N/A'
+        passingPoss_perOVR = 0
         
+    # Calculate OVR FG percentage    
     try:
         totFG_per = round(((shoot2FGM + shoot3FGM + pass2FGM + pass3FGM) / (shoot2FGA + pass2FGA + shoot3FGA + pass3FGA)* 100),1)
     except(ZeroDivisionError):
@@ -99,23 +139,29 @@ def PPP(data):
         passFG_per = round((((pass2FGM + pass3FGM) / (pass2FGA + pass3FGA))*100),1)
     except(ZeroDivisionError):
         passFG_per = 'N/A'
-        
+    
+    # Calculate 2pt FG percentage
     try:
         tot2FG_per = round((((pass2FGM + shoot2FGM) / (pass2FGA + shoot2FGA))*100),1)
     except(ZeroDivisionError):
         tot2FG_per = 'N/A'
         
     try:
+        shoot2FG_per = round((((shoot2FGM) / (shoot2FGA))* 100), 1)
+    except(ZeroDivisionError):
+        shoot2FG_per = 'N/A'
+        
+    try:
+        pass2FG_per = round((((pass2FGM) / (pass2FGA))* 100), 1)
+    except(ZeroDivisionError):
+        pass2FG_per = 'N/A'
+    
+    # Calculate 3pt FG percentage    
+    try:
         tot3FG_per = round((((pass3FGM + shoot3FGM) / (pass3FGA + shoot3FGA))*100),1)
     except(ZeroDivisionError):
         tot3FG_per = 'N/A'
         
-    try:
-        shoot2FG_per = round((((shoot2FGM) / (shoot2FGA))* 100), 1)
-    except(ZeroDivisionError):
-        shoot2FG_per = 'N/A'
-    
-    
     try:
         if shoot3FGA == 0:  
             shoot3FG_per = 'N/A'
@@ -123,11 +169,6 @@ def PPP(data):
             shoot3FG_per = round((((shoot3FGM) / (shoot3FGA))* 100), 1)
     except:
         shoot3FG_per = 'N/A'
-        
-    try:
-        pass2FG_per = round((((pass2FGM) / (pass2FGA))* 100), 1)
-    except(ZeroDivisionError):
-        pass2FG_per = 'N/A'
         
     try:
         pass3FG_per = round((((pass3FGM) / (pass3FGA))* 100), 1)
@@ -139,17 +180,13 @@ def PPP(data):
     total_to_per = round((((total_to * 100) / totPossOVR)),1)
     
     # Create the index
-    index = ['Total PPP', '% of Poss.', 'Total TO', 'Total FG%', 
-             'Shooting PPP', '% of Shooting Poss.', 'Shooting FG%', 'Shooting 2pt Att.', 'Shooting 2pt FG%', 'Shooting 3pt Att.', 'Shooting 3pt FG%',
-             'Passing PPP', '% of Passing Poss.', 'Passing FG%', 'Passing 2pt Att.', 'Passing 2pt FG%', 'Passing 3pt Att.', 'Passing 3pt FG%']   
+    index = ['Total PPP', '% of Poss.', 'Total TO', 'Total Creation %', 'Total TS%', 'Total 2pt FGA','Total 2pt FG%', 'Total 3pt FGA','Total 3pt FG%']   
     
     # Create the PPP DataFrame
     data_df = pd.DataFrame(columns=headers, index=index)
     
     #Create the 'TOTAL' column at the end of the dataframe
-    data_df['TOTAL'] = [str(ppp_tot), (str(totPossOVR)), total_to_per, (str(totFG_per)), 
-                        str(shootingPPP_tot), str(shootPoss_perOVR), str(shootFG_per), str(shoot2FGA), str(shoot2FG_per), str(shoot3FGA), str(shoot3FG_per),
-                        str(passingPPP_tot), str(passingPoss_perOVR), str(passFG_per), str(pass2FGA), str(pass2FG_per), str(pass3FGA), str(pass3FG_per)]
+    data_df['TOTAL'] = [str(ppp_tot), (str(totPossOVR)), total_to_per, str(passingPoss_perOVR), str(tot_trueshooting_per), str(tot2FGA), str(tot2FG_per), str(tot3FGA), str(tot3FG_per)]
     
     # Create dictionary for each column
     col_dicts = {col_name: data[col_name].to_dict() for col_name in data.columns}
@@ -190,6 +227,12 @@ def PPP(data):
         FTM3 = pass3FTM + shoot3FTM
         TO3 = pass3TO + shoot3TO
         
+        total_points = (shoot3FGM * 3) + (shoot2FGM * 2) + (shoot2FTM + shoot3FTM)
+        try:
+            tot_trueshooting_per = str(round(((0.5 * total_points) / (FGA2 + FGA3) + (0.44 * (FTM2 + FTM3)))* 100, 2))
+        except(ZeroDivisionError):
+            tot_trueshooting_per = 'N/A'
+            
         total_to = TO2 + TO3
         
         try:
@@ -247,15 +290,18 @@ def PPP(data):
             passingPPP_3pt = round(((pass3FGM * 3) + pass3FTM) / (pass3FGA + (pass3FTA * 0.44) + pass3TO),2)
         except(ZeroDivisionError):
             passingPPP_3pt = 'N/A'
-            
+        
         passingPoss_tot =  pass2FGA + (0.44*(pass2FTA + pass3FTA)) + pass2TO + pass3FGA + pass3TO
+        totPoss = (shootPoss_tot + passingPoss_tot)
+        # Calculate Creation Percantage
         try:
-            passingPoss_per = round(((passingPoss_tot / passingPoss_totOVR)*100),1)
+            passingPoss_per = round(((passingPoss_tot / totPoss)*100),1)
         except(ZeroDivisionError):
-            passingPoss_per = 'N/A'
+            passingPoss_per = 0
         
         passingPoss_2pt = (pass2FGA + pass2FTA + pass2TO)
         passingPoss_3pt = (pass3FGA + pass3FTA + pass3TO)
+      
         passFGA = (pass2FGA + pass3FGA)
             
         try:
@@ -287,8 +333,6 @@ def PPP(data):
             ppp_tot = round(((FGM2 * 2) + (FGM3 * 3) + (FTM2 + FTM3)) / ((FGA2 + FGA3) + ((FTA2 + FTA3) * 0.44) + (TO2 + TO3)),2)
         except(ZeroDivisionError):
             ppp_tot = 'N/A'
-        
-        totPoss = (shootPoss_tot + passingPoss_tot)
             
         try:
             totPoss_per = round(((totPoss / totPossOVR)*100),1)
@@ -316,13 +360,8 @@ def PPP(data):
         except(ZeroDivisionError):
             tot3FG_per = 'N/A'
        
-        data_df[i] = [str(ppp_tot), str((totPoss_per)), total_to, (str(totFG_per)),
-                      str(shootingPPP_tot), str(shootPoss_per), (str(shootFG_per)), str(shoot2FGA), str(shoot2FG_per), str(shoot3FGA), str(shoot3FG_per),
-                      str(passingPPP_tot), str(passingPoss_per), str(passFG_per), str(pass2FGA), str(pass2FG_per), str(pass3FGA), str(pass3FG_per)]
-        
-    timeEnd = time.time()
-    #print(timeEnd - timeStart)
-    
+        data_df[i] = [str(ppp_tot), str((totPoss_per)), total_to, passingPoss_per, str(tot_trueshooting_per), str(FGA2), str(tot2FG_per), str(FGA3),         str(tot3FG_per)]
+           
     # Rename column headers
     data_df = data_df.rename(columns={'PNR BH' : 'PNR Ball Handler', 'PNR SC' : 'PNR Screener', "DHO BH" : "DHO Ball Handler", "DHO SC" : "DHO Screener", "DBL BH" : "DBL Ball Handler", "DBL SC" : "DBL Screener",
                                       "ISO" : "ISOLATION", "TRAN" : "TRANSITION", "ACO" : "Attacking Closeouts", "C/S" : "Catch & Shoot", "OBS" : "Off Ball Screens", "CUT" : "Cutting", "OREB" : "Off. Rebounds"})
