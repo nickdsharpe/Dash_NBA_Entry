@@ -1,7 +1,7 @@
 {
     "data": {
         "shoot2FGA": {
-            "PNR BH": 1,
+            "PNR BH": 0,
             "PNR SC": 0,
             "DHO BH": 0,
             "DHO SC": 0,
@@ -14,7 +14,7 @@
             "OREB": 0
         },
         "shoot2FGM": {
-            "PNR BH": 1,
+            "PNR BH": 0,
             "PNR SC": 0,
             "DHO BH": 0,
             "DHO SC": 0,
@@ -66,7 +66,7 @@
             "OREB": 0
         },
         "shootSQ2": {
-            "PNR BH": 2,
+            "PNR BH": 0,
             "PNR SC": 0,
             "DHO BH": 0,
             "DHO SC": 0,
@@ -86,7 +86,7 @@
             "ISO": 0,
             "TRAN": 0,
             "ACO": 0,
-            "C/S": 0,
+            "C/S": 1,
             "OBS": 0,
             "CUT": 0,
             "OREB": 0
@@ -99,7 +99,7 @@
             "ISO": 0,
             "TRAN": 0,
             "ACO": 0,
-            "C/S": 0,
+            "C/S": 1,
             "OBS": 0,
             "CUT": 0,
             "OREB": 0
@@ -151,7 +151,7 @@
             "ISO": 0,
             "TRAN": 0,
             "ACO": 0,
-            "C/S": 0,
+            "C/S": 2,
             "OBS": 0,
             "CUT": 0,
             "OREB": 0
@@ -316,8 +316,8 @@
     "shooting_locations": [
         [
             [
-                -99,
-                44
+                146,
+                209
             ],
             1
         ]
