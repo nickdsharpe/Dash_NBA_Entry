@@ -255,3 +255,15 @@ def ShotQualitySlider(slider_id):
                         id=f'{slider_id}-shot-quality-slider',
                     ),className='shot-quality-slider'
                     )
+
+def UpdateRosterButton():
+    return html.Div(
+                children=[
+                    html.Button("Update Rosters", id=f"update-roster-button", className='update-roster-button',
+                                style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 20, 'padding': '0px 7px'}),
+                    html.Button("Cancel", id=f"cancel-update-roster-button", className='cencel-update-roster-button',
+                                style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 20, 'padding': '0px 7px'}),
+                    html.Progress(id=f"update-roster-progress", className='update-roster-progress', style={'display': 'none'}),
+                    html.P(children=['Rosters not updated.'], id='update-roster-output', className='update-roster-output')
+                ]
+            )
