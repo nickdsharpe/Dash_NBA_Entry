@@ -267,7 +267,7 @@ def UpdateRosterButton():
                     html.Button("Cancel", id=f"cancel-update-roster-button", className='cancel-update-roster-button',
                                 style={'borderRadius': '5px', 'margin': '10px', 'padding': '0px 7px'}),
                 ],
-                style={'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center'}
+                style={'alignItems': 'center'}
             ),
             html.P(children=[''], id='update-roster-output', className='update-roster-output')
         ],

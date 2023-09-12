@@ -194,11 +194,13 @@ body {
 #team-one-court-slider-container {
   display: flex;
   align-items: center;
+  margin-left: 30px;
 }
 
 #team-two-court-slider-container {
   display: flex;
   align-items: center;
+  margin-left: 35px;
 }
 
 .shot-quality-slider .rc-slider-track {
@@ -245,6 +247,6 @@ body {
   margin-top: 20px;
 }
 
-#team-two-court-slider-container {
-  margin-left: 40px;
+.update-roster-progress {
+  width: 40%;
 }
