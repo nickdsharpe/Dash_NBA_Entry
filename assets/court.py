@@ -178,7 +178,8 @@ def draw_plotly_court(fig, court_id, fig_width=450, margins=0):
         style={'width': f'{fig_width}px',
                'height': f'{fig_height}px',
                 'marginLeft': 5},
-        id=f'{court_id}-court-graph'
+        id=f'{court_id}-court-graph',
+        className='court-graph'
     ),
 
 def draw_scatter_trace(fig):

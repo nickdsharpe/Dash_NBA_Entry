@@ -47,9 +47,9 @@ def make_layout():
                             ]),
                             RecordShotButton('team-one'),
                             html.Div(id='team-one-shot-type')
-                        ]
+                        ], style={'width': '33.33%', 'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center'}
                     ),
-                    html.Div(children=[UpdateRosterButton()]),
+                    html.Div(children=[UpdateRosterButton()], style={'width': '33.33%', 'align-items': 'center'}),
                     html.Div(id='team-two-container',
                         children=[
                             TeamSelector('team-two'),
@@ -77,7 +77,7 @@ def make_layout():
                             ] ),
                             RecordShotButton('team-two'),
                             html.Div(id='team-two-shot-type')
-                        ]
+                        ], style={'width': '33.33%', 'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center'}
                     ),
                     dcc.Store(id='shot-type', data=shot_type, storage_type='session'),
                     dcc.Store(id='shot-result', data=shot_result, storage_type='session'),

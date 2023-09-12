@@ -66,7 +66,7 @@ def PlayerDropdown(player_dropdown_id):
         children=[
             html.Div(
                 children=[
-                    html.Div("Player:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
+                    html.Div("Player:", style={'marginRight': 10, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 13}),
                     dcc.Dropdown(
                         options=players,
@@ -92,7 +92,7 @@ def PlayTypeDropdown(play_type_dropdown_id):
                         "Play Type:",
                         id=f'{play_type_dropdown_id}-play-type-label',
                         style={
-                            'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
+                            'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
                             'fontSize': 18, 'paddingBottom': 10
                         }
                     ),
@@ -128,7 +128,7 @@ def PassingPlayerDropdown(passing_player_dropdown_id):
         children=[
             html.Div(
                 children=[
-                    html.Div("Player:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
+                    html.Div("Player:", style={'marginRight': 10, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 13}),
                     dcc.Dropdown(
                         options=players,
@@ -152,7 +152,7 @@ def PassingPlayTypeDropdown(passing_play_type_dropdown_id):
                     html.Div(
                         "Play Type:",
                         style={
-                            'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
+                            'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
                             'fontSize': 18, 'paddingBottom': 10,
                         }
                     ),
@@ -173,7 +173,7 @@ def RecordShotButton(record_shot_id):
     return html.Div(
                 children=[
                     html.Button("Record Shot", id=f"{record_shot_id}-record-shot-button", className='record-shot-button',
-                                style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 20, 'padding': '0px 7px'}),
+                                style={'borderRadius': '5px', 'marginTop': 20, 'padding': '0px 7px'}),
                     html.Div(id=f"{record_shot_id}-record-shot-output", className='record-shot-output')
                 ]
             )
@@ -194,7 +194,7 @@ def TeamSelector(team_id):
         children=[
             html.Div(
                 children=[
-                    html.Div("Team:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
+                    html.Div("Team:", style={'marginRight': 10, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 0}),
                     dcc.Dropdown(
                         teams,    
@@ -222,7 +222,7 @@ def DefenderDropdown(defender_id):
         children=[
             html.Div(
                 children=[
-                    html.Div("Defender:", style={'marginLeft': 45, 'marginRight': 10, 'verticalAlign': 'middle', 
+                    html.Div("Defender:", style={'marginRight': 10, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 15}),
                     dcc.Dropdown(
                         options=players,
@@ -258,12 +258,19 @@ def ShotQualitySlider(slider_id):
 
 def UpdateRosterButton():
     return html.Div(
+        children=[
+            html.Progress(id=f"update-roster-progress", className='update-roster-progress', style={'display': 'none'}),
+            html.Div(
                 children=[
                     html.Button("Update Rosters", id=f"update-roster-button", className='update-roster-button',
-                                style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 20, 'padding': '0px 7px'}),
-                    html.Button("Cancel", id=f"cancel-update-roster-button", className='cencel-update-roster-button',
-                                style={'borderRadius': '5px', 'marginLeft': 45, 'marginTop': 20, 'padding': '0px 7px'}),
-                    html.Progress(id=f"update-roster-progress", className='update-roster-progress', style={'display': 'none'}),
-                    html.P(children=['Rosters not updated.'], id='update-roster-output', className='update-roster-output')
-                ]
-            )
+                                style={'borderRadius': '5px', 'margin': '10px', 'padding': '0px 7px'}),
+                    html.Button("Cancel", id=f"cancel-update-roster-button", className='cancel-update-roster-button',
+                                style={'borderRadius': '5px', 'margin': '10px', 'padding': '0px 7px'}),
+                ],
+                style={'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center'}
+            ),
+            html.P(children=[''], id='update-roster-output', className='update-roster-output')
+        ],
+        id='update-roster-container',
+        style={'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center'}
+    )

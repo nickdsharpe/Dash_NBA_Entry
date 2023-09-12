@@ -20,13 +20,11 @@
   }
   
 #team-one-clear-shot-button {
-  margin-left: 45px;
   margin-bottom: 10px;
   background-color: #b079fc;
 }
   
 #team-two-clear-shot-button {
-  margin-left: 45px;
   margin-bottom: 10px;
   background-color: #4fafa9;
 }
@@ -132,7 +130,7 @@
 
 .shooter-header {
   margin-top: 10px;
-  margin-left: 175px;
+  margin-left: 105px;
   font-size: 30px;
   padding-bottom: 10px;
   vertical-align: middle;
@@ -155,15 +153,16 @@
 }
 
 .creator-header {
-  margin-left: 185px;
   font-size: 30px;
   padding-bottom: 10px;
   font-weight: bold;
   font-variant: normal;
+  margin-left: 105px;
 }
 
 #team-one-creator-header {
   color: #b079fc;
+  align-items: center;
 }
 
 #team-two-creator-header {
@@ -172,7 +171,6 @@
 
 
 .creator-header-break {
-  margin-left: 45px;
   max-width: 370px;
   margin-bottom: 15px;
 }
@@ -184,14 +182,13 @@ body {
 }
 
 #team-one-container {
-  margin-left: 100px;
+  margin-left: 1%;
   margin-top: 30px;
 }
 
 #team-two-container {
-  margin-left: auto;
-  margin-right: 100px;
   margin-top: 30px;
+  margin-right: 5%;
 }
 
 #team-one-court-slider-container {
@@ -216,4 +213,38 @@ body {
   margin-left: 165px;
   font-size: 20px;
   margin-top: 10px;
+}
+
+.update-roster-button {
+  height: 40px;
+  cursor: pointer;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #b079fc;
+  color: black;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+  align-items: center;
+}
+
+.cancel-update-roster-button {
+  height: 40px;
+  cursor: pointer;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #4fafa9;
+  color: black;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+  align-items: center;
+}
+
+#update-roster-container {
+  margin-top: 20px;
+}
+
+#team-two-court-slider-container {
+  margin-left: 40px;
 }
