@@ -1,7 +1,7 @@
 import plotly.express as px
 import plotly.graph_objects as go
 from dash import html, dcc
-import numpy as np
+import plotly.io as pio
 
 def draw_plotly_court(fig, court_id, fig_width=450, margins=0):
 
@@ -34,7 +34,7 @@ def draw_plotly_court(fig, court_id, fig_width=450, margins=0):
     fig.update_layout(
         # Line Horizontal
         margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="rgb(47, 47, 47)",
+        paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="#f2f2f2",
         yaxis=dict(
             scaleanchor="x",
@@ -170,8 +170,24 @@ def draw_plotly_court(fig, court_id, fig_width=450, margins=0):
         ]
     )
     
+   # EXPORT COURT AS JPG
+    court_graph =  dcc.Graph(
+        figure=fig,
+        config={'displayModeBar': False},
+        style={'width': f'{fig_width}px',
+               'height': f'{fig_height}px',
+                'marginLeft': 5},
+        id=f'{court_id}-court-graph',
+        className='court-graph'
+    ),
+    
+    # Export the figure as a JPG image
+    image_file_path = 'court_image.jpg'  # Set the desired file path
+    pio.write_image(fig, image_file_path, format='jpg')
+   
+    
     draw_scatter_trace(fig)
-
+    
     return dcc.Graph(
         figure=fig,
         config={'displayModeBar': False},
@@ -181,6 +197,8 @@ def draw_plotly_court(fig, court_id, fig_width=450, margins=0):
         id=f'{court_id}-court-graph',
         className='court-graph'
     ),
+
+
 
 def draw_scatter_trace(fig):
     
