@@ -83,7 +83,7 @@ def team_two_add_marker(clickData, n_clicks, rec_n_clicks, figure):
                 mode="markers",
                 marker=dict(
                     color='#4fafa9',
-                    size=18,
+                    size=20,
                     opacity=0.9,
                     symbol='x',
                 ),

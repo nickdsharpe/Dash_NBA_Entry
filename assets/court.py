@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 from dash import html, dcc
 import plotly.io as pio
 
-def draw_plotly_court(fig, court_id, fig_width=1800, margins=0):
+def draw_plotly_court(fig, court_id, fig_width=500, margins=0):
 
     import numpy as np
 
@@ -218,7 +218,7 @@ def draw_scatter_trace(fig):
                 opacity=0,
                 size=2,
             ),
-            hoverinfo='none',
+            #hoverinfo='none',
         )
     )
     
