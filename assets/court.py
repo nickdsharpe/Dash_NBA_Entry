@@ -27,15 +27,15 @@ def draw_plotly_court(fig, court_id, fig_width=500, margins=0):
     fig.update_yaxes(range=[-52.5 - margins, 417.5 + margins])
 
     threept_break_y = 89.47765084
-    three_line_col = "#f2f2f2"
-    main_line_col = "#f2f2f2"
+    three_line_col = "#2f2f2f"
+    main_line_col = "#2f2f2f"
     zone_line_col = 'red'
 
     fig.update_layout(
         # Line Horizontal
         margin=dict(l=20, r=20, t=20, b=20),
         paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="#2f2f2f",
+        plot_bgcolor="#f2f2f2",
         yaxis=dict(
             scaleanchor="x",
             scaleratio=1,
@@ -170,7 +170,8 @@ def draw_plotly_court(fig, court_id, fig_width=500, margins=0):
         ]
     )
     
-   # EXPORT COURT AS JPG
+   # EXPORT COURT AS JPG 
+    '''
     court_graph =  dcc.Graph(
         figure=fig,
         config={'displayModeBar': False},
@@ -184,7 +185,7 @@ def draw_plotly_court(fig, court_id, fig_width=500, margins=0):
     # Export the figure as a JPG image
     image_file_path = 'court_image.jpg'  # Set the desired file path
     pio.write_image(fig, image_file_path, format='jpg')
-   
+    '''
     
     draw_scatter_trace(fig)
     
@@ -218,7 +219,7 @@ def draw_scatter_trace(fig):
                 opacity=0,
                 size=2,
             ),
-            #hoverinfo='none',
+            hoverinfo='none',
         )
     )
     
