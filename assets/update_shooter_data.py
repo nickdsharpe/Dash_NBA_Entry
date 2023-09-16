@@ -12,9 +12,9 @@ empty = pd.read_csv('assets/empty.csv', index_col='Shot Type')
 def UpdateShooterDF(shot, team):
     
     player_data = empty.copy()
-
-    shot['play_type'] = mapping[shot['play_type']]
     
+    shot['play_type'] = mapping[shot['play_type']]
+        
     # Handle shot makes
     if shot['result'] == 1:
         if shot['shot_type'] == '2pt FG':
@@ -23,7 +23,7 @@ def UpdateShooterDF(shot, team):
         elif shot['shot_type'] == '3pt FG':
             player_data.loc[['shoot3FGA'], [shot['play_type']]] += 1
             player_data.loc[['shoot3FGM'], [shot['play_type']]] += 1
-
+    
     # Handle shot misses
     if shot['result'] == 0:
         if shot['shot_type'] == '2pt FG':
@@ -76,7 +76,7 @@ def UpdateShooterDF(shot, team):
     # Declare output paths for Player and Team overall
     player_output_path = f'game_data/{team}/Offense/{shot["player"]}.json'
     team_output_path = f'game_data/{team}/Offense/Team.json'
-   
+    
     # Try to load OVERALL Player data, create empty JSON file of not
     try:
         with open(player_output_path, 'r', encoding='utf-8') as f:
@@ -84,7 +84,7 @@ def UpdateShooterDF(shot, team):
             player_file['ovr_data']['data'] = pd.DataFrame(player_file['ovr_data']['data']).transpose()
     except:
         player_file = {'ovr_data': {'data': empty, 'shooting_locations': [], 'created_locations': []}}
-    
+ 
     # Try to load OVERALL Team data, create empty JSON file of not
     try:
         with open(team_output_path, 'r', encoding='utf-8') as f:
@@ -92,7 +92,7 @@ def UpdateShooterDF(shot, team):
             team_file['ovr_data']['data'] = pd.DataFrame(team_file['ovr_data']['data']).transpose()
     except:
         team_file = {'ovr_data': {'data': empty, 'shooting_locations': [], 'created_locations': []}}
-        
+   
     # Unpack Shot coordinates
     x = shot['shot_coordinates']['x']
     y = shot['shot_coordinates']['y']
@@ -111,7 +111,7 @@ def UpdateShooterDF(shot, team):
     # Write updated Team OVERALL data to output path
     with open(team_output_path, 'w', encoding='utf-8') as f:
         json.dump(team_file, f, ensure_ascii=False, indent=4)
-    
+
     # Try to load SHOT ZONE Player data file, create empty JSON file if not
     try:
         with open(player_output_path, 'r', encoding='utf-8') as f:
@@ -119,7 +119,7 @@ def UpdateShooterDF(shot, team):
             player_file[f'{shot["shot_zone"]}']['data'] = pd.DataFrame(player_file[f'{shot["shot_zone"]}']['data']).transpose()
     except:
         player_file[f'{shot["shot_zone"]}'] = {'data': empty, 'shooting_locations': [], 'created_locations': []}
-    
+   
     # Try to load SHOT ZONE Team data file, create empty JSON file if not
     try:
         with open(team_output_path, 'r', encoding='utf-8') as f:
@@ -135,14 +135,14 @@ def UpdateShooterDF(shot, team):
     team_file[f'{shot["shot_zone"]}']['data'] = team_file[f'{shot["shot_zone"]}']['data'].add(player_data)
     team_file[f'{shot["shot_zone"]}']['data'] = team_file[f'{shot["shot_zone"]}']['data'].to_dict(orient='index')
     team_file[f'{shot["shot_zone"]}']['shooting_locations'].append(((x, y), shot['result']))
-   
+    
     # Write updated SHOT ZONE data to output path
     with open(player_output_path, 'w', encoding='utf-8') as f:
         json.dump(player_file, f, ensure_ascii=False, indent=4)
     # Write updated SHOT ZONE data to output path
     with open(team_output_path, 'w', encoding='utf-8') as f:
         json.dump(team_file, f, ensure_ascii=False, indent=4)
-    
+        
     #print(PPP(pd.DataFrame(player_file['data']).transpose()))
     
     return player_file

@@ -56,82 +56,175 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
     if triggered_input_id == "team-one-record-shot-button" and team_one_n_clicks is not None:
 
         ### SHOOTER ###
-        try:
-            team_one_shooter = {'result': shot_result[0]['shooter'],
-                            'shot_type': shot_type[0]['shooter'],
-                            'play_type': play_type[0]['shooter'],
-                            'player': player[0]['shooter'],
-                            'shot_coordinates': shot_coordinates[0],
-                            'shot_quality': shot_quality[0]['shooter'],
-                            'free_throws': free_throws[0]['shooter'],
-                            'shot_zone': shot_zone[0]['shooter'],}
+        if shot_result[0]['shooter'] == 0 or 1: # If shot is a make or miss, there needs to be shot quality
             
-            if defender[0]['shooter']:
-                team_one_shooter['defender'] = defender[0]['shooter']
-            
-            updated_shooter_df = UpdateShooterDF(team_one_shooter, 'team_one')
-            updated_defender_df = UpdateDefenderDF(team_one_shooter, 'team_two')
-            
-        except:
             try:
                 team_one_shooter = {'result': shot_result[0]['shooter'],
-                            'shot_type': shot_type[0]['shooter'],
-                            'play_type': play_type[0]['shooter'],
-                            'player': player[0]['shooter'],
-                            'shot_coordinates': shot_coordinates[0],
-                            'shot_quality': shot_quality[0]['shooter'],
-                            'shot_zone': shot_zone[0]['shooter'],}
-    
-                if defender[0]['shooter']:
-                    team_one_shooter['defender'] = defender[0]['shooter']
+                                'shot_type': shot_type[0]['shooter'],
+                                'play_type': play_type[0]['shooter'],
+                                'player': player[0]['shooter'],
+                                'shot_coordinates': shot_coordinates[0],
+                                'shot_quality': shot_quality[0]['shooter'],
+                                'free_throws': free_throws[0]['shooter'],
+                                'shot_zone': shot_zone[0]['shooter'],}
+                
                 updated_shooter_df = UpdateShooterDF(team_one_shooter, 'team_one')
-                updated_defender_df = UpdateDefenderDF(team_one_shooter, 'team_two')
+               
+                try:
+                    if defender[0]['shooter']:
+                        team_one_shooter['defender'] = defender[0]['shooter']
+                        updated_defender_df = UpdateDefenderDF(team_one_shooter, 'team_two')
+                except:
+                    pass
                 
             except:
-                return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
-        
-        ### CREATOR ###
-        try:
-            if player[0]['creator']:
                 try:
-                    team_one_creator = {'result': shot_result[0]['creator'],
-                                    'shot_type': shot_type[0]['creator'],
-                                    'play_type': play_type[0]['creator'],
-                                    'player': player[0]['creator'],
-                                    'shot_coordinates': shot_coordinates[0],
-                                    'shot_quality': shot_quality[0]['creator'],
-                                    'free_throws': free_throws[0]['creator'],
-                                    'shot_zone': shot_zone[0]['creator'],}
-    
-                    updated_creator_df = UpdateCreatorDF(team_one_creator, 'team_one')
+                   
+                    team_one_shooter = {'result': shot_result[0]['shooter'],
+                                'shot_type': shot_type[0]['shooter'],
+                                'play_type': play_type[0]['shooter'],
+                                'player': player[0]['shooter'],
+                                'shot_coordinates': shot_coordinates[0],
+                                'shot_quality': shot_quality[0]['shooter'],
+                                'shot_zone': shot_zone[0]['shooter'],}
+               
+                    updated_shooter_df = UpdateShooterDF(team_one_shooter, 'team_one')
+               
+                    try:
+                        if defender[0]['shooter']:
+                            team_one_shooter['defender'] = defender[0]['shooter']
+                            updated_defender_df = UpdateDefenderDF(team_one_shooter, 'team_two')
+                    except:
+                        pass
                     
-                    team_one_n_clicks = None
-                    return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
-                
                 except:
+                    
+                    return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+        
+        else: 
+            try:
+                team_one_shooter = {'result': shot_result[0]['shooter'],
+                                'shot_type': shot_type[0]['shooter'],
+                                'play_type': play_type[0]['shooter'],
+                                'player': player[0]['shooter'],
+                                'shot_coordinates': shot_coordinates[0],
+                                'free_throws': free_throws[0]['shooter'],
+                                'shot_zone': shot_zone[0]['shooter'],}
+                
+                updated_shooter_df = UpdateShooterDF(team_one_shooter, 'team_one')
+               
+                try:
+                    if defender[0]['shooter']:
+                        team_one_shooter['defender'] = defender[0]['shooter']
+                        updated_defender_df = UpdateDefenderDF(team_one_shooter, 'team_two')
+                except:
+                    pass
+                
+            except:
+                try:
+                   
+                    team_one_shooter = {'result': shot_result[0]['shooter'],
+                                'shot_type': shot_type[0]['shooter'],
+                                'play_type': play_type[0]['shooter'],
+                                'player': player[0]['shooter'],
+                                'shot_coordinates': shot_coordinates[0],
+                                'shot_zone': shot_zone[0]['shooter'],}
+               
+                    updated_shooter_df = UpdateShooterDF(team_one_shooter, 'team_one')
+               
+                    try:
+                        if defender[0]['shooter']:
+                            team_one_shooter['defender'] = defender[0]['shooter']
+                            updated_defender_df = UpdateDefenderDF(team_one_shooter, 'team_two')
+                    except:
+                        pass
+                    
+                except:
+                    
+                    return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+            
+            
+        ### CREATOR ###
+        if shot_result[0]['creator'] == 0 or 1: # If shot is a make or miss, there needs to be shot quality
+            try:
+                if player[0]['creator']:
                     try:
                         team_one_creator = {'result': shot_result[0]['creator'],
-                                    'shot_type': shot_type[0]['creator'],
-                                    'play_type': play_type[0]['creator'],
-                                    'player': player[0]['creator'],
-                                    'shot_coordinates': shot_coordinates[0],
-                                    'shot_quality': shot_quality[0]['creator'],
-                                    'shot_zone': shot_zone[0]['creator'],}
-      
+                                        'shot_type': shot_type[0]['creator'],
+                                        'play_type': play_type[0]['creator'],
+                                        'player': player[0]['creator'],
+                                        'shot_coordinates': shot_coordinates[0],
+                                        'shot_quality': shot_quality[0]['creator'],
+                                        'free_throws': free_throws[0]['creator'],
+                                        'shot_zone': shot_zone[0]['creator'],}
+        
                         updated_creator_df = UpdateCreatorDF(team_one_creator, 'team_one')
                         
                         team_one_n_clicks = None
                         return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
-                        
+                    
                     except:
-                        return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
-            else:
-                
-                team_one_n_clicks = None
-                return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
-        except:
-            return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                        try:
+                            team_one_creator = {'result': shot_result[0]['creator'],
+                                        'shot_type': shot_type[0]['creator'],
+                                        'play_type': play_type[0]['creator'],
+                                        'player': player[0]['creator'],
+                                        'shot_coordinates': shot_coordinates[0],
+                                        'shot_quality': shot_quality[0]['creator'],
+                                        'shot_zone': shot_zone[0]['creator'],}
         
+                            updated_creator_df = UpdateCreatorDF(team_one_creator, 'team_one')
+                            
+                            team_one_n_clicks = None
+                            return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                            
+                        except:
+                            return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                else:
+                    
+                    team_one_n_clicks = None
+                    return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+            except:
+                return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+        else:
+            try:
+                if player[0]['creator']:
+                    try:
+                        team_one_creator = {'result': shot_result[0]['creator'],
+                                        'shot_type': shot_type[0]['creator'],
+                                        'play_type': play_type[0]['creator'],
+                                        'player': player[0]['creator'],
+                                        'shot_coordinates': shot_coordinates[0],
+                                        'free_throws': free_throws[0]['creator'],
+                                        'shot_zone': shot_zone[0]['creator'],}
+        
+                        updated_creator_df = UpdateCreatorDF(team_one_creator, 'team_one')
+                        
+                        team_one_n_clicks = None
+                        return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                    
+                    except:
+                        try:
+                            team_one_creator = {'result': shot_result[0]['creator'],
+                                        'shot_type': shot_type[0]['creator'],
+                                        'play_type': play_type[0]['creator'],
+                                        'player': player[0]['creator'],
+                                        'shot_coordinates': shot_coordinates[0],
+                                        'shot_zone': shot_zone[0]['creator'],}
+        
+                            updated_creator_df = UpdateCreatorDF(team_one_creator, 'team_one')
+                            
+                            team_one_n_clicks = None
+                            return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                            
+                        except:
+                            return 'Data Incomplete', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                else:
+                    
+                    team_one_n_clicks = None
+                    return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+            except:
+                return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
         
         
         
@@ -139,82 +232,168 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
     if triggered_input_id == "team-two-record-shot-button" and team_two_n_clicks is not None:
 
         ### SHOOTER ###
-        try:
-            team_two_shooter = {'result': shot_result[1]['shooter'],
-                            'shot_type': shot_type[1]['shooter'],
-                            'play_type': play_type[1]['shooter'],
-                            'player': player[1]['shooter'],
-                            'shot_coordinates': shot_coordinates[1],
-                            'shot_quality': shot_quality[1]['shooter'],
-                            'free_throws': free_throws[1]['shooter'],
-                            'shot_zone': shot_zone[1]['shooter'],}
-
-            if defender[1]['shooter']:
-                team_two_shooter['defender'] = defender[1]['shooter']
-            
-            updated_shooter_df = UpdateShooterDF(team_two_shooter, 'team_two')
-            updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_one')
-            
-        except:
+        if shot_result[1]['shooter'] == 0 or 1: # If shot is a make or miss, there needs to be shot quality
             try:
                 team_two_shooter = {'result': shot_result[1]['shooter'],
-                            'shot_type': shot_type[1]['shooter'],
-                            'play_type': play_type[1]['shooter'],
-                            'player': player[1]['shooter'],
-                            'shot_coordinates': shot_coordinates[1],
-                            'shot_quality': shot_quality[1]['shooter'],
-                            'shot_zone': shot_zone[1]['shooter'],}
-    
-                if defender[1]['shooter']:
-                    team_two_shooter['defender'] = defender[1]['shooter']
-                    
+                                'shot_type': shot_type[1]['shooter'],
+                                'play_type': play_type[1]['shooter'],
+                                'player': player[1]['shooter'],
+                                'shot_coordinates': shot_coordinates[1],
+                                'shot_quality': shot_quality[1]['shooter'],
+                                'free_throws': free_throws[1]['shooter'],
+                                'shot_zone': shot_zone[1]['shooter'],}
+
                 updated_shooter_df = UpdateShooterDF(team_two_shooter, 'team_two')
-                updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_one')
+                
+                try:
+                    if defender[1]['shooter']:
+                        team_two_shooter['defender'] = defender[1]['shooter']
+                        updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_two')
+                except:
+                    pass
                 
             except:
-                return None, 'Data Incomplete', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
-        
-        ### CREATOR ###
-        try:
-            if player[1]['creator']:
                 try:
-                    team_two_creator = {'result': shot_result[1]['creator'],
-                                    'shot_type': shot_type[1]['creator'],
-                                    'play_type': play_type[1]['creator'],
-                                    'player': player[1]['creator'],
-                                    'shot_coordinates': shot_coordinates[1],
-                                    'shot_quality': shot_quality[1]['creator'],
-                                    'free_throws': free_throws[1]['creator'],
-                                    'shot_zone': shot_zone[1]['shooter'],}
-    
-                    updated_creator_df = UpdateCreatorDF(team_two_creator, 'team_two')
+                    team_two_shooter = {'result': shot_result[1]['shooter'],
+                                'shot_type': shot_type[1]['shooter'],
+                                'play_type': play_type[1]['shooter'],
+                                'player': player[1]['shooter'],
+                                'shot_coordinates': shot_coordinates[1],
+                                'shot_quality': shot_quality[1]['shooter'],
+                                'shot_zone': shot_zone[1]['shooter'],}
                     
-                    team_two_n_clicks = None
-                    return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                    updated_shooter_df = UpdateShooterDF(team_two_shooter, 'team_two')
                 
+                    try:
+                        if defender[1]['shooter']:
+                            team_two_shooter['defender'] = defender[1]['shooter']
+                            updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_two')
+                    except:
+                        pass
+                    
                 except:
+                    return None, 'Data Incomplete', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+        else:
+            try:
+                team_two_shooter = {'result': shot_result[1]['shooter'],
+                                'shot_type': shot_type[1]['shooter'],
+                                'play_type': play_type[1]['shooter'],
+                                'player': player[1]['shooter'],
+                                'shot_coordinates': shot_coordinates[1],
+                                'free_throws': free_throws[1]['shooter'],
+                                'shot_zone': shot_zone[1]['shooter'],}
+
+                updated_shooter_df = UpdateShooterDF(team_two_shooter, 'team_two')
+                
+                try:
+                    if defender[1]['shooter']:
+                        team_two_shooter['defender'] = defender[1]['shooter']
+                        updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_two')
+                except:
+                    pass
+                
+            except:
+                try:
+                    team_two_shooter = {'result': shot_result[1]['shooter'],
+                                'shot_type': shot_type[1]['shooter'],
+                                'play_type': play_type[1]['shooter'],
+                                'player': player[1]['shooter'],
+                                'shot_coordinates': shot_coordinates[1],
+                                'shot_zone': shot_zone[1]['shooter'],}
+                    
+                    updated_shooter_df = UpdateShooterDF(team_two_shooter, 'team_two')
+                
+                    try:
+                        if defender[1]['shooter']:
+                            team_two_shooter['defender'] = defender[1]['shooter']
+                            updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_two')
+                    except:
+                        pass
+                    
+                except:
+                    return None, 'Data Incomplete', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+               
+        ### CREATOR ###
+        if shot_result[1]['creator'] == 0 or 1: # If shot is a make or miss, there needs to be shot quality
+            try:
+                if player[1]['creator']:
                     try:
                         team_two_creator = {'result': shot_result[1]['creator'],
-                                    'shot_type': shot_type[1]['creator'],
-                                    'play_type': play_type[1]['creator'],
-                                    'player': player[1]['creator'],
-                                    'shot_coordinates': shot_coordinates[1],
-                                    'shot_quality': shot_quality[1]['creator'],
-                                    'shot_zone': shot_zone[1]['shooter'],}
-      
+                                        'shot_type': shot_type[1]['creator'],
+                                        'play_type': play_type[1]['creator'],
+                                        'player': player[1]['creator'],
+                                        'shot_coordinates': shot_coordinates[1],
+                                        'shot_quality': shot_quality[1]['creator'],
+                                        'free_throws': free_throws[1]['creator'],
+                                        'shot_zone': shot_zone[1]['shooter'],}
+        
                         updated_creator_df = UpdateCreatorDF(team_two_creator, 'team_two')
                         
                         team_two_n_clicks = None
                         return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
-                        
+                    
                     except:
-                        return None, 'Data Incomplete', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
-            else:
-                
-                team_two_n_clicks = None
-                return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
-        except:
-            return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                        try:
+                            team_two_creator = {'result': shot_result[1]['creator'],
+                                        'shot_type': shot_type[1]['creator'],
+                                        'play_type': play_type[1]['creator'],
+                                        'player': player[1]['creator'],
+                                        'shot_coordinates': shot_coordinates[1],
+                                        'shot_quality': shot_quality[1]['creator'],
+                                        'shot_zone': shot_zone[1]['shooter'],}
         
+                            updated_creator_df = UpdateCreatorDF(team_two_creator, 'team_two')
+                            
+                            team_two_n_clicks = None
+                            return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                            
+                        except:
+                            return None, 'Data Incomplete', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                else:
+                    
+                    team_two_n_clicks = None
+                    return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+            except:
+                return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+        else:
+            try:
+                if player[1]['creator']:
+                    try:
+                        team_two_creator = {'result': shot_result[1]['creator'],
+                                        'shot_type': shot_type[1]['creator'],
+                                        'play_type': play_type[1]['creator'],
+                                        'player': player[1]['creator'],
+                                        'shot_coordinates': shot_coordinates[1],
+                                        'free_throws': free_throws[1]['creator'],
+                                        'shot_zone': shot_zone[1]['shooter'],}
+        
+                        updated_creator_df = UpdateCreatorDF(team_two_creator, 'team_two')
+                        
+                        team_two_n_clicks = None
+                        return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                    
+                    except:
+                        try:
+                            team_two_creator = {'result': shot_result[1]['creator'],
+                                        'shot_type': shot_type[1]['creator'],
+                                        'play_type': play_type[1]['creator'],
+                                        'player': player[1]['creator'],
+                                        'shot_coordinates': shot_coordinates[1],
+                                        'shot_zone': shot_zone[1]['shooter'],}
+        
+                            updated_creator_df = UpdateCreatorDF(team_two_creator, 'team_two')
+                            
+                            team_two_n_clicks = None
+                            return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                            
+                        except:
+                            return None, 'Data Incomplete', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+                else:
+                    
+                    team_two_n_clicks = None
+                    return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+            except:
+                return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, True
+            
     return no_update
     

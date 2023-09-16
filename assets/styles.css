@@ -65,7 +65,6 @@
 }
 
 .free-throw-label {
-  margin-left: 45px;
   font-size: 18px;
   padding-bottom: 8px;
   background-color: 1px solid #ffffff;
@@ -200,7 +199,7 @@ body {
 #team-two-court-slider-container {
   display: flex;
   align-items: center;
-  margin-left: 35px;
+  margin-left: 30px;
 }
 
 .shot-quality-slider .rc-slider-track {
@@ -212,9 +211,9 @@ body {
 }
 
 .record-shot-output {
-  margin-left: 165px;
   font-size: 20px;
   margin-top: 10px;
+  align-items: center;
 }
 
 .update-roster-button {

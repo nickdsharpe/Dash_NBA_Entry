@@ -175,7 +175,7 @@ def RecordShotButton(record_shot_id):
                     html.Button("Record Shot", id=f"{record_shot_id}-record-shot-button", className='record-shot-button',
                                 style={'borderRadius': '5px', 'marginTop': 20, 'padding': '0px 7px'}),
                     html.Div(id=f"{record_shot_id}-record-shot-output", className='record-shot-output')
-                ]
+                ], style={'align-items': 'center'}
             )
 
 def ClearLocationDataButton(clear_location_id):
@@ -223,7 +223,7 @@ def DefenderDropdown(defender_id):
             html.Div(
                 children=[
                     html.Div("Defender:", style={'marginRight': 10, 'verticalAlign': 'middle', 
-                                               'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 15}),
+                                               'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 10}),
                     dcc.Dropdown(
                         options=players,
                         placeholder='Select a defender',

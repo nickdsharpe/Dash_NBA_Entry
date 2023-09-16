@@ -9,18 +9,25 @@ mapping = {'PNR Ball Handler': 'PNR BH', 'PNR Screener': 'PNR SC', 'DHO Ball Han
 empty_defender = pd.read_csv('assets/empty_defender.csv', index_col='Shot Type')
 
 def UpdateDefenderDF(shot, team):
-   
-    player_data = empty_defender.copy()
 
+    player_data = empty_defender.copy()
+    
+    try:
+        shot['play_type'] = mapping[shot['play_type']]
+    except:
+        pass
+    
     # Handle shot makes
     if shot['result'] == 1:
+        
         if shot['shot_type'] == '2pt FG':
             player_data.loc[['shoot2FGA'], [shot['play_type']]] += 1
             player_data.loc[['shoot2FGM'], [shot['play_type']]] += 1
         elif shot['shot_type'] == '3pt FG':
             player_data.loc[['shoot3FGA'], [shot['play_type']]] += 1
+            print('Checkpoint 1')
             player_data.loc[['shoot3FGM'], [shot['play_type']]] += 1
-
+    
     # Handle shot misses
     if shot['result'] == 0:
         if shot['shot_type'] == '2pt FG':
@@ -70,7 +77,7 @@ def UpdateDefenderDF(shot, team):
         
     if shot['shot_type'] == '3pt FG' and (shot['result'] != 11 or 30):
         player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']      
-
+    
     # Declare output paths for defender and Team overall
     defender_output_path = f'game_data/{team}/Defense/{shot["defender"]}.json'
     team_output_path = f'game_data/{team}/Defense/Team.json'
@@ -82,7 +89,7 @@ def UpdateDefenderDF(shot, team):
             defender_file['ovr_data']['data'] = pd.DataFrame(defender_file['ovr_data']['data']).transpose()
     except:
         defender_file = {'ovr_data': {'data': empty_defender, 'shooting_locations': []}}
-        
+ 
     # Try to load OVERALL Team data, create empty JSON file of not
     try:
         with open(team_output_path, 'r', encoding='utf-8') as f:
@@ -90,7 +97,7 @@ def UpdateDefenderDF(shot, team):
             team_file['ovr_data']['data'] = pd.DataFrame(team_file['ovr_data']['data']).transpose()
     except:
         team_file = {'ovr_data': {'data': empty_defender, 'shooting_locations': []}}
-        
+   
     # Unpack Shot coordinates
     x = shot['shot_coordinates']['x']
     y =shot['shot_coordinates']['y']
