@@ -248,7 +248,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                 try:
                     if defender[1]['shooter']:
                         team_two_shooter['defender'] = defender[1]['shooter']
-                        updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_two')
+                        updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_one')
                 except:
                     pass
                 
@@ -267,7 +267,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                     try:
                         if defender[1]['shooter']:
                             team_two_shooter['defender'] = defender[1]['shooter']
-                            updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_two')
+                            updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_one')
                     except:
                         pass
                     
@@ -288,7 +288,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                 try:
                     if defender[1]['shooter']:
                         team_two_shooter['defender'] = defender[1]['shooter']
-                        updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_two')
+                        updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_one')
                 except:
                     pass
                 
@@ -306,7 +306,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                     try:
                         if defender[1]['shooter']:
                             team_two_shooter['defender'] = defender[1]['shooter']
-                            updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_two')
+                            updated_defender_df = UpdateDefenderDF(team_two_shooter, 'team_one')
                     except:
                         pass
                     

@@ -65,10 +65,10 @@ def UpdateCreatorDF(shot, team):
             player_data.loc[['pass3TO'], [shot['play_type']]] += 1
             
     # Handle Shot Quality
-    if shot['shot_type'] == '2pt FG':
+    if shot['shot_type'] == '2pt FG' and (shot['result'] != 11 or 30 or 20):
         player_data.loc[['passSQ2'], [shot['play_type']]] += shot['shot_quality']  
         
-    if shot['shot_type'] == '3pt FG':
+    if shot['shot_type'] == '3pt FG' and (shot['result'] != 11 or 30 or 20):
         player_data.loc[['passSQ3'], [shot['play_type']]] += shot['shot_quality']   
         
     # Declare output paths for Player and Team overall
