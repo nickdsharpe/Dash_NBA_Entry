@@ -24,7 +24,7 @@ def ShooterHeader(creation_checklist_id):
             inline=True,
             id=f'{creation_checklist_id}-creation-checklist',
             className='creation-checklist',
-            inputStyle={"marginRight": 7},
+            inputStyle={"marginRight": 8, 'transform': 'scale(1.5)'},
         )],
         style={'display': 'flex', 'alignItems': 'center'})
 
@@ -34,7 +34,7 @@ def ShotChecklist(checklist_id):
             ['Make', 'Miss', 'Free Throws', 'And-1', 'Turnover'],
             inline=True,
             id=f'{checklist_id}-shot-checklist',
-            inputStyle={"marginRight": 5, 'marginLeft': 20},
+            inputStyle={"marginRight": 8, 'marginLeft': 20, 'transform': 'scale(1.5)'},
             className='shot-checklist'
         )
     ])
@@ -67,7 +67,7 @@ def PlayerDropdown(player_dropdown_id):
             html.Div(
                 children=[
                     html.Div("Player:", style={'marginRight': 10, 'verticalAlign': 'middle', 
-                                               'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 13}),
+                                               'display': 'inline-block', 'fontSize': 20, 'paddingBottom': 13}),
                     dcc.Dropdown(
                         options=players,
                         placeholder='Select a player',
@@ -93,7 +93,7 @@ def PlayTypeDropdown(play_type_dropdown_id):
                         id=f'{play_type_dropdown_id}-play-type-label',
                         style={
                             'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
-                            'fontSize': 18, 'paddingBottom': 10
+                            'fontSize': 20, 'paddingBottom': 15
                         }
                     ),
                     dcc.Dropdown(
@@ -129,7 +129,7 @@ def PassingPlayerDropdown(passing_player_dropdown_id):
             html.Div(
                 children=[
                     html.Div("Player:", style={'marginRight': 10, 'verticalAlign': 'middle', 
-                                               'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 13}),
+                                               'display': 'inline-block', 'fontSize': 20, 'paddingBottom': 15}),
                     dcc.Dropdown(
                         options=players,
                         placeholder='Select a player',
@@ -153,7 +153,7 @@ def PassingPlayTypeDropdown(passing_play_type_dropdown_id):
                         "Play Type:",
                         style={
                             'marginRight': 10, 'verticalAlign': 'middle', 'display': 'inline-block', 
-                            'fontSize': 18, 'paddingBottom': 10,
+                            'fontSize': 20, 'paddingBottom': 10,
                         }
                     ),
                     dcc.Dropdown(
@@ -195,7 +195,7 @@ def TeamSelector(team_id):
             html.Div(
                 children=[
                     html.Div("Team:", style={'marginRight': 10, 'verticalAlign': 'middle', 
-                                               'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 0}),
+                                               'display': 'inline-block', 'fontSize': 20, 'paddingBottom': 0}),
                     dcc.Dropdown(
                         teams,    
                         placeholder='Select a team',
@@ -223,7 +223,7 @@ def DefenderDropdown(defender_id):
             html.Div(
                 children=[
                     html.Div("Defender:", style={'marginRight': 10, 'verticalAlign': 'middle', 
-                                               'display': 'inline-block', 'fontSize': 18, 'paddingBottom': 10}),
+                                               'display': 'inline-block', 'fontSize': 20, 'paddingBottom': 7}),
                     dcc.Dropdown(
                         options=players,
                         placeholder='Select a defender',

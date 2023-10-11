@@ -15,7 +15,7 @@
     border-radius: 5px;
     color: black;
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
   }
   
@@ -39,7 +39,7 @@
   background-color: #b079fc;
   color: black;
   text-transform: uppercase;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
 }
 
@@ -65,8 +65,8 @@
 }
 
 .free-throw-label {
-  font-size: 18px;
-  padding-bottom: 8px;
+  font-size: 20px;
+  padding-bottom: 14px;
   background-color: 1px solid #ffffff;
 }
 
@@ -123,14 +123,14 @@
 .shot-checklist {
   margin-bottom: 20px;
   margin-left: 0px;
-  font-size: 18px;
+  font-size: 20px;
   margin-top: 10px;
 }
 
 .shooter-header {
   margin-top: 10px;
   margin-left: 105px;
-  font-size: 30px;
+  font-size: 32px;
   padding-bottom: 10px;
   vertical-align: middle;
   display: inline-block;
@@ -148,11 +148,11 @@
 .creation-checklist {
   margin-left: 20px;
   padding-bottom: 0px;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .creator-header {
-  font-size: 30px;
+  font-size: 32px;
   padding-bottom: 10px;
   font-weight: bold;
   font-variant: normal;
