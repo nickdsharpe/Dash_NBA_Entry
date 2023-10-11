@@ -205,8 +205,8 @@ def draw_scatter_trace(fig):
     
     # Create a list of all possible coordinates (x, y) for scatter points
     scatter_points = []
-    for x in range(-249, 250, 5):
-        for y in range(-51, 418, 5):
+    for x in range(-249, 250, 6):
+        for y in range(-51, 418, 6):
             scatter_points.append((x, y))
 
     # Add a new scatter trace for all the points
