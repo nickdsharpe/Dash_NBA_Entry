@@ -2,6 +2,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from dash import html, dcc
 import plotly.io as pio
+import json
 
 def draw_plotly_court(fig, court_id, fig_width=500, margins=0):
 
@@ -205,9 +206,31 @@ def draw_scatter_trace(fig):
     
     # Create a list of all possible coordinates (x, y) for scatter points
     scatter_points = []
-    for x in range(-249, 250, 6):
-        for y in range(-51, 418, 6):
+    for x in range(-249, 250, 9):
+        for y in range(-51, 418, 9):
             scatter_points.append((x, y))
+    
+    '''       WRITE THE SCATTER TRACE TO JSON OBJECT  
+    # Construct the trace in the desired format
+    trace = {
+        "hoverinfo": "none",
+        "marker": {
+            "opacity": 0,
+            "size": 2,
+        },
+        "mode": "markers",
+        "x": [point[0] for point in scatter_points],
+        "y": [point[1] for point in scatter_points]
+    }
+
+    # Wrap the trace in a list and serialize to JSON
+    trace_list = [trace]
+    trace_json = json.dumps(trace_list)
+    
+    # Write the JSON data to a file
+    with open('scatter_trace.json', 'w') as json_file:
+        json_file.write(trace_json)
+   '''
 
     # Add a new scatter trace for all the points
     fig.add_trace(

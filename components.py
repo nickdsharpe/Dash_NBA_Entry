@@ -1,4 +1,5 @@
 from dash import dcc, html
+import dash_daq as daq
 import pandas as pd
 import json
 
@@ -273,4 +274,23 @@ def UpdateRosterButton():
         ],
         id='update-roster-container',
         style={'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center'}
+    )
+
+def DefenderTypeToggle(defense_id):
+    return html.Div(
+        children=[
+            html.Div("POA", style={'marginRight': 9, 'verticalAlign': 'middle', 
+                                               'display': 'inline-block', 'fontSize': 20, 'paddingBottom': 2}),
+            daq.ToggleSwitch(
+                id=f'{defense_id}-defense-toggle',
+                value=False,
+                size=40,
+                style={
+                    'background-color': '#4287f5',
+                }
+            ),
+            html.Div("HELP", style={'marginLeft': 9, 'verticalAlign': 'middle', 
+                                               'display': 'inline-block', 'fontSize': 20, 'paddingBottom': 2}),
+        ],
+        style={'display': 'flex', 'alignItems': 'center', 'marginTop': 8}
     )
