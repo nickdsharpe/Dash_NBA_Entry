@@ -2,7 +2,7 @@ from maindash import app
 from dash import html, dcc
 import plotly.graph_objects as go
 from assets.court import draw_plotly_court
-from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown, TeamSelector, DefenderDropdown, ShotQualitySlider, UpdateRosterButton, DefenderTypeToggle
+from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown, TeamSelector, DefenderDropdown, ShotQualitySlider, UpdateRosterButton, DefenderTypeToggle, DefenderChecklist
 
 fig = go.Figure()
 
@@ -41,7 +41,10 @@ def make_layout():
                             PlayerDropdown('team-one'),
                             PlayTypeDropdown('team-one'),
                             DefenderDropdown('team-one'),
-                            DefenderTypeToggle('team-one'),
+                            html.Div(id='team-one-defender-container', children=[
+                                DefenderChecklist('team-one'),
+                                DefenderTypeToggle('team-one'),
+                            ], style={'display': 'flex', 'alignItems': 'center'}),
                             html.Div(id='team-one-creation-inputs-container', style={'display': 'none'}, children=[
                                 PasserHeader('team-one'),
                                 PassingPlayerDropdown('team-one'), 
@@ -72,7 +75,10 @@ def make_layout():
                             PlayerDropdown('team-two'),
                             PlayTypeDropdown('team-two'),
                             DefenderDropdown('team-two'),
-                            DefenderTypeToggle('team-two'),
+                            html.Div(id='team-two-defender-container', children=[
+                                DefenderChecklist('team-two'),
+                                DefenderTypeToggle('team-two'),
+                            ], style={'display': 'flex', 'alignItems': 'center'}),
                             html.Div(id='team-two-creation-inputs-container', style={'display': 'none'}, children=[
                                 PasserHeader('team-two'),
                                 PassingPlayerDropdown('team-two'), 

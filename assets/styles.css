@@ -26,7 +26,7 @@
   
 #team-two-clear-shot-button {
   margin-bottom: 10px;
-  background-color: #4fafa9;
+  background-color: #5fe3c6;
 }
 
 .record-shot-button {
@@ -48,7 +48,7 @@
 }
 
 #team-two-record-shot-button {
-  background-color: #4fafa9;
+  background-color: #5fe3c6;
 }
 
 .free-throw-input {
@@ -88,6 +88,12 @@
   background-color: #c6c6c6;
   color: #2c2d2d;
   border-radius: 5px;
+}
+
+.defense-checklist{
+  font-size: 20px;
+  margin-right: 60px;
+  margin-top: 10px
 }
 
 .play-type-dropdown {
@@ -142,7 +148,7 @@
 }
 
 #team-two-shooter-header {
-  color: #4fafa9;
+  color: #5fe3c6;
 }
 
 .creation-checklist {
@@ -165,7 +171,7 @@
 }
 
 #team-two-creator-header {
-  color: #4fafa9;
+  color: #5fe3c6;
 }
 
 
@@ -234,7 +240,7 @@ body {
   cursor: pointer;
   border: 0px;
   border-radius: 5px;
-  background-color: #4fafa9;
+  background-color: #5fe3c6;
   color: black;
   text-transform: uppercase;
   font-size: 18px;

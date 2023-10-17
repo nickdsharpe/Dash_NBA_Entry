@@ -285,12 +285,23 @@ def DefenderTypeToggle(defense_id):
                 id=f'{defense_id}-defense-toggle',
                 value=False,
                 size=40,
-                style={
-                    'background-color': '#4287f5',
-                }
+                color={'on': '#03fc17', 'off': 'red'}
             ),
             html.Div("HELP", style={'marginLeft': 9, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 20, 'paddingBottom': 2}),
         ],
-        style={'display': 'flex', 'alignItems': 'center', 'marginTop': 8}
+        style={'display': 'flex', 'alignItems': 'center', 'marginTop': 10}
+    )
+
+def DefenderChecklist(defense_id):
+    return html.Div(
+        children=[
+            dcc.Checklist(
+            ['Steal', 'Block'],
+            inline=True,
+            id=f'{defense_id}-shot-checklist',
+            inputStyle={"marginRight": 8, 'marginLeft': 20, 'transform': 'scale(1.5)'},
+            className='defense-checklist'
+        )
+        ]
     )

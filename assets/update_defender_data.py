@@ -11,7 +11,7 @@ empty_defender = pd.read_csv('assets/empty_defender.csv', index_col='Shot Type')
 def UpdateDefenderDF(shot, team):
 
     player_data = empty_defender.copy()
-    
+    print(shot)
     try:
         shot['play_type'] = mapping[shot['play_type']]
     except:
@@ -25,7 +25,6 @@ def UpdateDefenderDF(shot, team):
             player_data.loc[['shoot2FGM'], [shot['play_type']]] += 1
         elif shot['shot_type'] == '3pt FG':
             player_data.loc[['shoot3FGA'], [shot['play_type']]] += 1
-            print('Checkpoint 1')
             player_data.loc[['shoot3FGM'], [shot['play_type']]] += 1
     
     # Handle shot misses

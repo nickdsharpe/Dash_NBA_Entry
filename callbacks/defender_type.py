@@ -9,8 +9,10 @@ from dash.dependencies import Input, Output
     Input('team-one-defense-toggle', 'value'),
     Input('team-two-defense-toggle', 'value'),
     Input('defender-type', 'data'),
+    Input("team-one-record-shot-button", "n_clicks"),
+    Input("team-two-record-shot-button", "n_clicks"),
 )
-def UpdateDefender(team_one_defender, team_two_defender, data):
+def UpdateDefender(team_one_defender, team_two_defender, data, team_one_flag, team_two_flag):
     
     updated_data = data.copy()
     
@@ -20,28 +22,25 @@ def UpdateDefender(team_one_defender, team_two_defender, data):
     ctx = dash.callback_context
     triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
     
-    if triggered_input_id == "team-one-defense-toggle":
+    #if triggered_input_id == "team-one-defense-toggle":
         
-        if team_one_defender:
-        
-            team_one['shooter'] = 'HELP'
-            
-        else:
-            team_one['shooter'] = 'POA'
-            
-        return updated_data
-            
-    if triggered_input_id == "team-two-defense-toggle":
-        
-        if team_two_defender:
-        
-            team_two['shooter'] = 'HELP'
-            
-        else:
-            team_two['shooter'] = 'POA'
-            
-        return updated_data
+    if team_one_defender:
     
+        team_one['shooter'] = 'HELP'
+        
+    else:
+        team_one['shooter'] = 'POA'
+            
+    #if triggered_input_id == "team-two-defense-toggle":
+        
+    if team_two_defender:
+    
+        team_two['shooter'] = 'HELP'
+        
+    else:
+        team_two['shooter'] = 'POA'
+        
     return updated_data
+
             
     

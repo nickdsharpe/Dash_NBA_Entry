@@ -58,27 +58,26 @@ def UpdateShooterDF(shot, team):
             player_data.loc[['shoot3FTA'], [shot['play_type']]] += 1
             player_data.loc[['shoot3FTM'], [
                 shot['play_type']]] += int(shot['free_throws'])
-    print('1')
+
     # Handle Turnovers
     if shot['result'] == 20:
         if shot['shot_type'] == '2pt FG':
             player_data.loc[['shoot2TO'], [shot['play_type']]] += 1
         elif shot['shot_type'] == '3pt FG':
             player_data.loc[['shoot3TO'], [shot['play_type']]] += 1
-    print('2')
+
     # Handle Shot Quality
-    print((shot['result'] < 11))
     if (shot['shot_type'] == '2pt FG') and (shot['result'] < 11):
-        print('Prollem')
+
         player_data.loc[['shootSQ2'], [shot['play_type']]] += shot['shot_quality']  
         
     if (shot['shot_type'] == '3pt FG') and (shot['result'] < 11):
         player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']  
-    print('3')
+
     # Declare output paths for Player and Team overall
     player_output_path = f'game_data/{team}/Offense/{shot["player"]}.json'
     team_output_path = f'game_data/{team}/Offense/Team.json'
-    print('4')
+
     # Try to load OVERALL Player data, create empty JSON file of not
     try:
         with open(player_output_path, 'r', encoding='utf-8') as f:
