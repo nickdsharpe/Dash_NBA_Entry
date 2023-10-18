@@ -1,5 +1,4 @@
 import pandas as pd
-import os
 import json
 
 mapping = {'PNR Ball Handler': 'PNR BH', 'PNR Screener': 'PNR SC', 'DHO Ball Handler': 'DHO BH', 'DHO Screener': 'DHO SC',
@@ -8,7 +7,7 @@ mapping = {'PNR Ball Handler': 'PNR BH', 'PNR Screener': 'PNR SC', 'DHO Ball Han
 
 empty_defender = pd.read_csv('assets/empty_defender.csv', index_col='Shot Type')
 
-def UpdateDefenderDF(shot, team):
+def UpdateDefenderDF(shot, team, defense):
 
     player_data = empty_defender.copy()
     print(shot)
@@ -21,61 +20,75 @@ def UpdateDefenderDF(shot, team):
     if shot['result'] == 1:
         
         if shot['shot_type'] == '2pt FG':
-            player_data.loc[['shoot2FGA'], [shot['play_type']]] += 1
-            player_data.loc[['shoot2FGM'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}2FGA'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}2FGM'], [shot['play_type']]] += 1
         elif shot['shot_type'] == '3pt FG':
-            player_data.loc[['shoot3FGA'], [shot['play_type']]] += 1
-            player_data.loc[['shoot3FGM'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}3FGA'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}3FGM'], [shot['play_type']]] += 1
     
     # Handle shot misses
     if shot['result'] == 0:
         if shot['shot_type'] == '2pt FG':
-            player_data.loc[['shoot2FGA'], [shot['play_type']]] += 1
-            player_data.loc[['shoot2FGM'], [shot['play_type']]] += 0
+            player_data.loc[[f'{defense}2FGA'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}2FGM'], [shot['play_type']]] += 0
         elif shot['shot_type'] == '3pt FG':
-            player_data.loc[['shoot3FGA'], [shot['play_type']]] += 1
-            player_data.loc[['shoot3FGM'], [shot['play_type']]] += 0
+            player_data.loc[[f'{defense}3FGA'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}3FGM'], [shot['play_type']]] += 0
 
     # Handle Free Throws
     if shot['result'] == 11:
         if shot['shot_type'] == '2pt FG':
-            player_data.loc[['shoot2FTA'], [shot['play_type']]] += 2
-            player_data.loc[['shoot2FTM'], [
+            player_data.loc[[f'{defense}2FTA'], [shot['play_type']]] += 2
+            player_data.loc[[f'{defense}2FTM'], [
                 shot['play_type']]] += int(shot['free_throws'])
         elif shot['shot_type'] == '3pt FG':
-            player_data.loc[['shoot3FTA'], [shot['play_type']]] += 3
-            player_data.loc[['shoot3FTM'], [
+            player_data.loc[[f'{defense}3FTA'], [shot['play_type']]] += 3
+            player_data.loc[[f'{defense}3FTM'], [
                 shot['play_type']]] += int(shot['free_throws'])
             
     # Handle And-1
     if shot['result'] == 30:
         if shot['shot_type'] == '2pt FG':
-            player_data.loc[['shoot2FGA'], [shot['play_type']]] += 1
-            player_data.loc[['shoot2FGM'], [shot['play_type']]] += 1
-            player_data.loc[['shoot2FTA'], [shot['play_type']]] += 1
-            player_data.loc[['shoot2FTM'], [
+            player_data.loc[[f'{defense}2FGA'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}2FGM'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}2FTA'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}2FTM'], [
                 shot['play_type']]] += int(shot['free_throws'])
         elif shot['shot_type'] == '3pt FG':
-            player_data.loc[['shoot3FGA'], [shot['play_type']]] += 1
-            player_data.loc[['shoot3FGM'], [shot['play_type']]] += 1
-            player_data.loc[['shoot3FTA'], [shot['play_type']]] += 1
-            player_data.loc[['shoot3FTM'], [
+            player_data.loc[[f'{defense}3FGA'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}3FGM'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}3FTA'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}3FTM'], [
                 shot['play_type']]] += int(shot['free_throws'])
 
     # Handle Turnovers
     if shot['result'] == 20:
         if shot['shot_type'] == '2pt FG':
-            player_data.loc[['shoot2TO'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}2TO'], [shot['play_type']]] += 1
         elif shot['shot_type'] == '3pt FG':
-            player_data.loc[['shoot3TO'], [shot['play_type']]] += 1
+            player_data.loc[[f'{defense}3TO'], [shot['play_type']]] += 1
+            
+    # Handle Steals and Blocks
+    if shot['shot_type'] == '2pt FG':
+        if shot['stl/blk'] == 'STL':
+            player_data.loc[[f'{defense}2STL'], [shot['play_type']]] +=1
+        if shot['stl/blk'] == 'BLK':
+            player_data.loc[[f'{defense}2BLK'], [shot['play_type']]] +=1
+    if shot['shot_type'] == '3pt FG':
+        if shot['stl/blk'] == 'STL':
+            player_data.loc[[f'{defense}3STL'], [shot['play_type']]] +=1
+        if shot['stl/blk'] == 'BLK':
+            player_data.loc[[f'{defense}3BLK'], [shot['play_type']]] +=1
                
     # Handle Shot Quality
     if (shot['shot_type'] == '2pt FG') and (shot['result'] < 11):
-        
-        player_data.loc[['shootSQ2'], [shot['play_type']]] += shot['shot_quality']  
+        player_data.loc[[f'{defense}SQ2'], [shot['play_type']]] += shot['shot_quality']  
         
     if (shot['shot_type'] == '3pt FG') and (shot['result'] < 11):
-        player_data.loc[['shootSQ3'], [shot['play_type']]] += shot['shot_quality']      
+        player_data.loc[[f'{defense}SQ3'], [shot['play_type']]] += shot['shot_quality'] 
+        
+        
+             
     
     # Declare output paths for defender and Team overall
     defender_output_path = f'game_data/{team}/Defense/{shot["defender"]}.json'

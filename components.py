@@ -245,11 +245,11 @@ def ShotQualitySlider(slider_id):
                     dcc.Slider(1, 5,
                         step=None,
                         marks={
-                            1: {'label': 'Heavily Contested', 'style': {'color': '#f56c62', 'font-size': '16px'}}, 
-                            2: {'label': 'Well Contested', 'style': {'color': '#f7aa57', 'font-size': '16px'}},
-                            3: {'label': 'Lightly Contested', 'style': {'color': '#e6e673', 'font-size': '16px'}},
-                            4: {'label': 'Late Contest', 'style': {'color': '#b3ff6b', 'font-size': '16px'}}, 
-                            5: {'label': 'Open', 'style': {'color': '#81ff78', 'font-size': '16px'}}, 
+                            1: {'label': 'Heavily Contested', 'style': {'color': '#f56c62', 'font-size': '18px'}}, 
+                            2: {'label': 'Well Contested', 'style': {'color': '#f7aa57', 'font-size': '18px'}},
+                            3: {'label': 'Lightly Contested', 'style': {'color': '#e6e673', 'font-size': '18px'}},
+                            4: {'label': 'Late Contest', 'style': {'color': '#b3ff6b', 'font-size': '18px'}}, 
+                            5: {'label': 'Open', 'style': {'color': '#81ff78', 'font-size': '18px'}}, 
                         },
                         vertical=True,
                         value=None,
@@ -299,7 +299,7 @@ def DefenderChecklist(defense_id):
             dcc.Checklist(
             ['Steal', 'Block'],
             inline=True,
-            id=f'{defense_id}-shot-checklist',
+            id=f'{defense_id}-defense-checklist',
             inputStyle={"marginRight": 8, 'marginLeft': 20, 'transform': 'scale(1.5)'},
             className='defense-checklist'
         )

@@ -24,17 +24,15 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
     triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
     
     if triggered_input_id == "team-one-shot-checklist":
-        
+
         if team_one_value == ['Miss']:
             team_one['shooter'] = 0
             team_one['creator'] = 0
             return {'display': 'none'}, {'display': 'none'},  updated_data
         
         elif team_one_value == ['Make']:
-            
             team_one['shooter'] = 1
             team_one['creator'] = 1
-            
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         elif team_one_value == ['Free Throws']:

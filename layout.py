@@ -16,6 +16,7 @@ shot_quality = [{}, {}]
 defender = [{}, {}]
 defender_type = [{}, {}]
 shot_zone = [{}, {}]
+steals_blocks = [{}, {}]
 
 app.config.suppress_callback_exceptions = True
 
@@ -97,6 +98,7 @@ def make_layout():
                     dcc.Store(id='shot-quality', data=shot_quality, storage_type='session'),
                     dcc.Store(id='defender', data=defender, storage_type='session'),
                     dcc.Store(id='defender-type', data=defender_type, storage_type='session'),
+                    dcc.Store(id='steals-blocks', data=steals_blocks, storage_type='session'),
                     dcc.Store(id='shot-zone', data=shot_zone, storage_type='session'),
                     
                     dcc.Store(id='players', data=[], storage_type='session'),
