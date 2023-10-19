@@ -2,7 +2,7 @@ from maindash import app
 from dash import html, dcc
 import plotly.graph_objects as go
 from assets.court import draw_plotly_court
-from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown, TeamSelector, DefenderDropdown, ShotQualitySlider, UpdateRosterButton, DefenderTypeToggle, DefenderChecklist
+from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown, TeamSelector, DefenderDropdown, ShotQualitySlider, UpdateRosterButton, DefenderTypeToggle, DefenderChecklist, AddPlayerInput
 
 fig = go.Figure()
 
@@ -26,6 +26,9 @@ def make_layout():
                     html.Div(id='team-one-container',
                         children=[
                             TeamSelector('team-one'),
+                            html.Div(id='team-one-add-player-input-container', style={'display': 'none'}, children=[
+                                AddPlayerInput('team-one')]
+                            ),
                             html.Div(id='team-one-court-slider-container',
                                 children=[ 
                                     html.Div(draw_plotly_court(fig, 'team-one'), id='team-one-court-plot'),
@@ -59,6 +62,9 @@ def make_layout():
                     html.Div(id='team-two-container',
                         children=[
                             TeamSelector('team-two'),
+                            html.Div(id='team-two-add-player-input-container', style={'display': 'none'}, children=[
+                                AddPlayerInput('team-two')]
+                            ),
                             html.Div(id='team-two-court-slider-container',
                                 children=[
                                     html.Div(draw_plotly_court(fig, 'team-two'), id='team-two-court-plot'),

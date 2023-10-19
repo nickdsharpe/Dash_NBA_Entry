@@ -1,7 +1,7 @@
 from maindash import app
 import dash
 from dash import no_update
-from dash.dependencies import Input, Output , State
+from dash.dependencies import Input, Output
 from assets.update_defender_data import UpdateDefenderDF
 from assets.update_shooter_data import UpdateShooterDF
 from assets.update_creator_data import UpdateCreatorDF

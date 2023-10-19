@@ -26,7 +26,7 @@
   
 #team-two-clear-shot-button {
   margin-bottom: 10px;
-  background-color: #5fe3c6;
+  background-color: #5ee0ac;
 }
 
 .record-shot-button {
@@ -48,7 +48,7 @@
 }
 
 #team-two-record-shot-button {
-  background-color: #5fe3c6;
+  background-color: #5ee0ac;
 }
 
 .free-throw-input {
@@ -148,7 +148,7 @@
 }
 
 #team-two-shooter-header {
-  color: #5fe3c6;
+  color: #5ee0ac;
 }
 
 .creation-checklist {
@@ -171,7 +171,7 @@
 }
 
 #team-two-creator-header {
-  color: #5fe3c6;
+  color: #5ee0ac;
 }
 
 
@@ -240,7 +240,7 @@ body {
   cursor: pointer;
   border: 0px;
   border-radius: 5px;
-  background-color: #5fe3c6;
+  background-color: #5ee0ac;
   color: black;
   text-transform: uppercase;
   font-size: 18px;
@@ -254,4 +254,49 @@ body {
 
 .update-roster-progress {
   width: 40%;
+}
+
+.add-player-checklist {
+  font-size: 20px;
+}
+
+.add-player-input {
+  margin-left: 40px;
+  margin-bottom: 15px;
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 5px;
+  width: 253px;
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
+  color: #2c2d2d;
+}
+
+#team-one-add-player-input-button {
+  height: 35px;
+  cursor: pointer;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #b079fc;
+  color: black;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+  align-items: center;
+  margin-left: 10px;
+}
+
+#team-two-add-player-input-button {
+  height: 35px;
+  cursor: pointer;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #5ee0ac;
+  color: black;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+  align-items: center;
+  margin-left: 10px;
 }

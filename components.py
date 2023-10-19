@@ -198,19 +198,38 @@ def TeamSelector(team_id):
                     html.Div("Team:", style={'marginRight': 10, 'verticalAlign': 'middle', 
                                                'display': 'inline-block', 'fontSize': 20, 'paddingBottom': 0}),
                     dcc.Dropdown(
-                        teams,    
+                        options=teams,    
                         placeholder='Select a team',
                         id=f'{team_id}-team-dropdown',
                         maxHeight=200,
                         clearable=True,
                         className='team-dropdown'
                     ),
+                    dcc.Checklist(
+                        ['Add Player'],
+                        inline=True,
+                        id=f'{team_id}-add-player-checklist',
+                        inputStyle={"marginRight": 8, 'marginLeft': 20, 'transform': 'scale(1.5)'},
+                        className='add-player-checklist'
+                    )
                 ],
-                style={'display': 'flex', 'alignItems': 'center'}
+                style={'display': 'flex', 'alignItems': 'center', 'marginLeft': 35}
             ),
-            html.Div(id=f'{team_id}-team-dropdown-output-container')
         ]
     )   
+
+def AddPlayerInput(team_id):
+    return html.Div(children=[
+                dcc.Input(
+                    id=f'{team_id}-add-player-input',
+                    className='add-player-input',
+                    placeholder='Enter Player Name',
+                    type='text',
+                ),
+                html.Button("Add Player", id=f"{team_id}-add-player-input-button", className='add-player-input-button',
+                                style={'borderRadius': '5px', 'marginTop': 20, 'padding': '0px 7px'}),
+            ])
+
 
 def DefenderDropdown(defender_id):
     
