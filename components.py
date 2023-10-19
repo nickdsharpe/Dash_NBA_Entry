@@ -251,7 +251,7 @@ def ShotQualitySlider(slider_id):
                             4: {'label': 'Late Contest', 'style': {'color': '#b3ff6b', 'font-size': '18px'}}, 
                             5: {'label': 'Open', 'style': {'color': '#81ff78', 'font-size': '18px'}}, 
                         },
-                        vertical=True,
+                        vertical=True,  
                         value=None,
                         id=f'{slider_id}-shot-quality-slider',
                     ),className='shot-quality-slider'
