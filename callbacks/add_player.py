@@ -51,10 +51,15 @@ def HandleStyle(team_one_check, team_two_check, team_one_button, team_two_button
 
 
 
-
+# Add the new player to the dropdowns
 @app.callback(
     Output('team-one-player-dropdown', 'options', allow_duplicate=True),
+    Output('team-one-passing-player-dropdown', 'options', allow_duplicate=True),
+    Output('team-one-defender-dropdown', 'options', allow_duplicate=True),
+    
     Output('team-two-player-dropdown', 'options', allow_duplicate=True),
+    Output('team-two-passing-player-dropdown', 'options', allow_duplicate=True),
+    Output('team-two-defender-dropdown', 'options', allow_duplicate=True),
     
     State('team-one-add-player-input', 'value'),
     State('team-two-add-player-input', 'value'),
@@ -67,25 +72,25 @@ def HandleStyle(team_one_check, team_two_check, team_one_button, team_two_button
     
     prevent_initial_call=True
 )
-def AddPlayerToTeam(team_one_player, team_two_player, team_one_roster, team_two_roster, team_one_click, team_two_click):
+def AddPlayerToTeam(team_one_player, team_two_player, team_one_player_roster, team_two_player_roster, team_one_click, team_two_click):
 
     ctx = dash.callback_context
     triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
     
     if triggered_input_id == "team-one-add-player-input-button":
         
-        if team_one_player not in team_one_roster:
+        if team_one_player not in team_one_player_roster:
             
-            team_one_roster.append(team_one_player)
+            team_one_player_roster.append(team_one_player)
         
-            return team_one_roster, team_two_roster
+            return team_one_player_roster, team_one_player_roster, team_two_player_roster, team_two_player_roster, team_two_player_roster, team_one_player_roster
         
     if triggered_input_id == "team-two-add-player-input-button":
         
-        if team_two_player not in team_two_roster:
+        if team_two_player not in team_two_player_roster:
             
-            team_two_roster.append(team_two_player)
+            team_two_player_roster.append(team_two_player)
         
-            return team_one_roster, team_two_roster
+            return team_one_player_roster, team_one_player_roster, team_two_player_roster, team_two_player_roster, team_two_player_roster, team_one_player_roster
     
     return no_update
