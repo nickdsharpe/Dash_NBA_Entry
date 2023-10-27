@@ -13,10 +13,10 @@ player = [{}, {}]
 shot_coordinates = [{}, {}]
 free_throws = [{}, {}]
 shot_quality = [{}, {}]
-defender = [{}, {}]
-defender_type = [{}, {}]
+defender = [{'shooter': None}, {'shooter': None}]
+defender_type = [{'shooter': 'POA'}, {'shooter': 'POA'}]
 shot_zone = [{}, {}]
-steals_blocks = [{}, {}]
+steals_blocks = [{'shooter': None}, {'shooter': None}]
 
 app.config.suppress_callback_exceptions = True
 
