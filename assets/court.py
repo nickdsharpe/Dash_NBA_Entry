@@ -206,11 +206,11 @@ def draw_scatter_trace(fig):
     
     # Create a list of all possible coordinates (x, y) for scatter points
     scatter_points = []
-    for x in range(-249, 250, 9):
-        for y in range(-51, 418, 9):
+    for x in range(-249, 250, 8):
+        for y in range(-51, 418, 8):
             scatter_points.append((x, y))
-    
-    '''       WRITE THE SCATTER TRACE TO JSON OBJECT  
+    '''
+    #     WRITE THE SCATTER TRACE TO JSON OBJECT  
     # Construct the trace in the desired format
     trace = {
         "hoverinfo": "none",
