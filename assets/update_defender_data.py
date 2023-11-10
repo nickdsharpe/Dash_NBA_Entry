@@ -11,6 +11,7 @@ def UpdateDefenderDF(shot, team, defense):
 
     player_data = empty_defender.copy()
     
+    shot['full_play_type'] = shot['play_type']
     try:
         shot['play_type'] = mapping[shot['play_type']]
     except:
@@ -118,10 +119,10 @@ def UpdateDefenderDF(shot, team, defense):
     # Add data to the OVERALL Data and change dataframe to dict
     defender_file['ovr_data']['data'] = defender_file['ovr_data']['data'].add(player_data)
     defender_file['ovr_data']['data'] = defender_file['ovr_data']['data'].to_dict(orient='index')
-    defender_file['ovr_data']['shooting_locations'].append(((x, y), shot['result']))
+    defender_file['ovr_data']['shooting_locations'].append(((x, y), shot['result'], shot['full_play_type']))
     team_file['ovr_data']['data'] = team_file['ovr_data']['data'].add(player_data)
     team_file['ovr_data']['data'] = team_file['ovr_data']['data'].to_dict(orient='index')
-    team_file['ovr_data']['shooting_locations'].append(((x, y), shot['result']))
+    team_file['ovr_data']['shooting_locations'].append(((x, y), shot['result'], shot['full_play_type']))
     
     # Write updated Defender OVERALL data to output path
     with open(defender_output_path, 'w', encoding='utf-8') as f:
@@ -150,10 +151,10 @@ def UpdateDefenderDF(shot, team, defense):
     # Add data to SHOT ZONE data and change DF back to dict
     defender_file[f'{shot["shot_zone"]}']['data'] = defender_file[f'{shot["shot_zone"]}']['data'].add(player_data)
     defender_file[f'{shot["shot_zone"]}']['data'] = defender_file[f'{shot["shot_zone"]}']['data'].to_dict(orient='index')
-    defender_file[f'{shot["shot_zone"]}']['shooting_locations'].append(((x, y), shot['result']))
+    defender_file[f'{shot["shot_zone"]}']['shooting_locations'].append(((x, y), shot['result'], shot['full_play_type']))
     team_file[f'{shot["shot_zone"]}']['data'] = team_file[f'{shot["shot_zone"]}']['data'].add(player_data)
     team_file[f'{shot["shot_zone"]}']['data'] = team_file[f'{shot["shot_zone"]}']['data'].to_dict(orient='index')
-    team_file[f'{shot["shot_zone"]}']['shooting_locations'].append(((x, y), shot['result']))
+    team_file[f'{shot["shot_zone"]}']['shooting_locations'].append(((x, y), shot['result'], shot['full_play_type']))
     
     # Write updated overall Player file to output path
     with open(defender_output_path, 'w', encoding='utf-8') as f:
