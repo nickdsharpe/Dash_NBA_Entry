@@ -2,29 +2,29 @@
     "ovr_data": {
         "data": {
             "poa2FGA": {
-                "PNR BH": 0,
+                "PNR BH": 2,
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 2,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
                 "OBS": 0,
-                "CUT": 1,
+                "CUT": 0,
                 "OREB": 0
             },
             "poa2FGM": {
-                "PNR BH": 0,
+                "PNR BH": 1,
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 1,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
                 "OBS": 0,
-                "CUT": 1,
+                "CUT": 0,
                 "OREB": 0
             },
             "poa2FTA": {
@@ -84,7 +84,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 1,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -93,16 +93,16 @@
                 "OREB": 0
             },
             "poaSQ2": {
-                "PNR BH": 0,
+                "PNR BH": 6,
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 6,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
                 "OBS": 0,
-                "CUT": 5,
+                "CUT": 0,
                 "OREB": 0
             },
             "poa3FGA": {
@@ -113,7 +113,7 @@
                 "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
-                "C/S": 0,
+                "C/S": 1,
                 "OBS": 0,
                 "CUT": 0,
                 "OREB": 0
@@ -204,7 +204,7 @@
                 "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
-                "C/S": 0,
+                "C/S": 3,
                 "OBS": 0,
                 "CUT": 0,
                 "OREB": 0
@@ -266,7 +266,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 1,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -279,7 +279,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 1,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -315,7 +315,7 @@
             },
             "help3FGA": {
                 "PNR BH": 0,
-                "PNR SC": 1,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
                 "ISO": 0,
@@ -406,7 +406,7 @@
             },
             "helpSQ3": {
                 "PNR BH": 0,
-                "PNR SC": 4,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
                 "ISO": 0,
@@ -421,64 +421,64 @@
         "shooting_locations": [
             [
                 [
-                    47,
-                    -3
+                    -49,
+                    133
                 ],
                 0,
+                "PNR BH"
+            ],
+            [
+                [
+                    -209,
+                    133
+                ],
+                0,
+                "C/S"
+            ],
+            [
+                [
+                    -41,
+                    109
+                ],
+                20,
                 "ISO"
             ],
             [
                 [
-                    -217,
-                    117
-                ],
-                0,
-                "PNR SC"
-            ],
-            [
-                [
-                    15,
-                    5
+                    -1,
+                    149
                 ],
                 1,
-                "CUT"
-            ],
-            [
-                [
-                    15,
-                    5
-                ],
-                1,
-                "ISO"
+                "PNR BH"
             ]
         ]
     },
-    "Rim": {
+    "SMZ2": {
         "data": {
             "poa2FGA": {
-                "PNR BH": 0,
+                "PNR BH": 2,
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 2,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
                 "OBS": 0,
-                "CUT": 1,
+                "CUT": 0,
                 "OREB": 0
             },
             "poa2FGM": {
-                "PNR BH": 0,
+                "PNR BH": 1,
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 1,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
                 "OBS": 0,
-                "CUT": 1,
+                "CUT": 0,
                 "OREB": 0
             },
             "poa2FTA": {
@@ -538,7 +538,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 1,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -547,16 +547,16 @@
                 "OREB": 0
             },
             "poaSQ2": {
-                "PNR BH": 0,
+                "PNR BH": 6,
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 6,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
                 "OBS": 0,
-                "CUT": 5,
+                "CUT": 0,
                 "OREB": 0
             },
             "poa3FGA": {
@@ -720,7 +720,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 1,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -733,7 +733,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 1,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -875,27 +875,27 @@
         "shooting_locations": [
             [
                 [
-                    47,
-                    -3
+                    -49,
+                    133
                 ],
                 0,
+                "PNR BH"
+            ],
+            [
+                [
+                    -41,
+                    109
+                ],
+                20,
                 "ISO"
             ],
             [
                 [
-                    15,
-                    5
+                    -1,
+                    149
                 ],
                 1,
-                "CUT"
-            ],
-            [
-                [
-                    15,
-                    5
-                ],
-                1,
-                "ISO"
+                "PNR BH"
             ]
         ]
     },
@@ -1013,7 +1013,7 @@
                 "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
-                "C/S": 0,
+                "C/S": 1,
                 "OBS": 0,
                 "CUT": 0,
                 "OREB": 0
@@ -1104,7 +1104,7 @@
                 "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
-                "C/S": 0,
+                "C/S": 3,
                 "OBS": 0,
                 "CUT": 0,
                 "OREB": 0
@@ -1215,7 +1215,7 @@
             },
             "help3FGA": {
                 "PNR BH": 0,
-                "PNR SC": 1,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
                 "ISO": 0,
@@ -1306,7 +1306,7 @@
             },
             "helpSQ3": {
                 "PNR BH": 0,
-                "PNR SC": 4,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
                 "ISO": 0,
@@ -1321,11 +1321,11 @@
         "shooting_locations": [
             [
                 [
-                    -217,
-                    117
+                    -209,
+                    133
                 ],
                 0,
-                "PNR SC"
+                "C/S"
             ]
         ]
     }

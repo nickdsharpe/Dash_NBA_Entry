@@ -110,7 +110,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 1,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -123,7 +123,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 1,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -201,7 +201,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 3,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -213,8 +213,8 @@
                 "PNR BH": 0,
                 "PNR SC": 0,
                 "DHO BH": 0,
-                "DHO SC": 0,
-                "ISO": 0,
+                "DHO SC": 1,
+                "ISO": 2,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -227,7 +227,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 2,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -304,8 +304,8 @@
                 "PNR BH": 0,
                 "PNR SC": 0,
                 "DHO BH": 0,
-                "DHO SC": 0,
-                "ISO": 0,
+                "DHO SC": 2,
+                "ISO": 7,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -421,15 +421,31 @@
         "shooting_locations": [
             [
                 [
+                    7,
+                    61
+                ],
+                0,
+                "DHO SC"
+            ],
+            [
+                [
                     15,
-                    269
+                    -3
+                ],
+                1,
+                "ISO"
+            ],
+            [
+                [
+                    -25,
+                    53
                 ],
                 1,
                 "ISO"
             ]
         ]
     },
-    "3ptZ3": {
+    "Rim": {
         "data": {
             "poa2FGA": {
                 "PNR BH": 0,
@@ -540,7 +556,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 1,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -553,7 +569,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 1,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -631,7 +647,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 3,
+                "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -643,8 +659,8 @@
                 "PNR BH": 0,
                 "PNR SC": 0,
                 "DHO BH": 0,
-                "DHO SC": 0,
-                "ISO": 0,
+                "DHO SC": 1,
+                "ISO": 2,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -657,7 +673,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 2,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -734,8 +750,8 @@
                 "PNR BH": 0,
                 "PNR SC": 0,
                 "DHO BH": 0,
-                "DHO SC": 0,
-                "ISO": 0,
+                "DHO SC": 2,
+                "ISO": 7,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -851,8 +867,24 @@
         "shooting_locations": [
             [
                 [
+                    7,
+                    61
+                ],
+                0,
+                "DHO SC"
+            ],
+            [
+                [
                     15,
-                    269
+                    -3
+                ],
+                1,
+                "ISO"
+            ],
+            [
+                [
+                    -25,
+                    53
                 ],
                 1,
                 "ISO"

@@ -3,7 +3,7 @@
         "data": {
             "shoot2FGA": {
                 "PNR BH": 0,
-                "PNR SC": 1,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
                 "ISO": 0,
@@ -12,7 +12,7 @@
                 "C/S": 0,
                 "OBS": 0,
                 "CUT": 0,
-                "OREB": 1
+                "OREB": 0
             },
             "shoot2FGM": {
                 "PNR BH": 0,
@@ -25,7 +25,7 @@
                 "C/S": 0,
                 "OBS": 0,
                 "CUT": 0,
-                "OREB": 1
+                "OREB": 0
             },
             "shoot2FTA": {
                 "PNR BH": 0,
@@ -38,7 +38,7 @@
                 "C/S": 0,
                 "OBS": 0,
                 "CUT": 0,
-                "OREB": 2
+                "OREB": 0
             },
             "shoot2FTM": {
                 "PNR BH": 0,
@@ -51,7 +51,7 @@
                 "C/S": 0,
                 "OBS": 0,
                 "CUT": 0,
-                "OREB": 1
+                "OREB": 0
             },
             "shoot2TO": {
                 "PNR BH": 0,
@@ -68,7 +68,7 @@
             },
             "shootSQ2": {
                 "PNR BH": 0,
-                "PNR SC": 2,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
                 "ISO": 0,
@@ -77,7 +77,7 @@
                 "C/S": 0,
                 "OBS": 0,
                 "CUT": 0,
-                "OREB": 5
+                "OREB": 0
             },
             "shoot3FGA": {
                 "PNR BH": 0,
@@ -139,7 +139,7 @@
                 "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
-                "C/S": 0,
+                "C/S": 1,
                 "OBS": 0,
                 "CUT": 0,
                 "OREB": 0
@@ -317,36 +317,20 @@
         "shooting_locations": [
             [
                 [
-                    -1,
-                    5
+                    239,
+                    85
                 ],
-                1,
-                "Offensive Rebounds"
-            ],
-            [
-                [
-                    -25,
-                    21
-                ],
-                0,
-                "PNR Screener"
-            ],
-            [
-                [
-                    23,
-                    37
-                ],
-                11,
-                "Offensive Rebounds"
+                20,
+                "Catch & Shoot"
             ]
         ],
         "created_locations": []
     },
-    "Rim": {
+    "3ptZ5": {
         "data": {
             "shoot2FGA": {
                 "PNR BH": 0,
-                "PNR SC": 1,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
                 "ISO": 0,
@@ -355,7 +339,7 @@
                 "C/S": 0,
                 "OBS": 0,
                 "CUT": 0,
-                "OREB": 1
+                "OREB": 0
             },
             "shoot2FGM": {
                 "PNR BH": 0,
@@ -368,7 +352,7 @@
                 "C/S": 0,
                 "OBS": 0,
                 "CUT": 0,
-                "OREB": 1
+                "OREB": 0
             },
             "shoot2FTA": {
                 "PNR BH": 0,
@@ -381,7 +365,7 @@
                 "C/S": 0,
                 "OBS": 0,
                 "CUT": 0,
-                "OREB": 2
+                "OREB": 0
             },
             "shoot2FTM": {
                 "PNR BH": 0,
@@ -394,7 +378,7 @@
                 "C/S": 0,
                 "OBS": 0,
                 "CUT": 0,
-                "OREB": 1
+                "OREB": 0
             },
             "shoot2TO": {
                 "PNR BH": 0,
@@ -411,7 +395,7 @@
             },
             "shootSQ2": {
                 "PNR BH": 0,
-                "PNR SC": 2,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
                 "ISO": 0,
@@ -420,7 +404,7 @@
                 "C/S": 0,
                 "OBS": 0,
                 "CUT": 0,
-                "OREB": 5
+                "OREB": 0
             },
             "shoot3FGA": {
                 "PNR BH": 0,
@@ -482,7 +466,7 @@
                 "ISO": 0,
                 "TRAN": 0,
                 "ACO": 0,
-                "C/S": 0,
+                "C/S": 1,
                 "OBS": 0,
                 "CUT": 0,
                 "OREB": 0
@@ -660,27 +644,11 @@
         "shooting_locations": [
             [
                 [
-                    -1,
-                    5
+                    239,
+                    85
                 ],
-                1,
-                "Offensive Rebounds"
-            ],
-            [
-                [
-                    -25,
-                    21
-                ],
-                0,
-                "PNR Screener"
-            ],
-            [
-                [
-                    23,
-                    37
-                ],
-                11,
-                "Offensive Rebounds"
+                20,
+                "Catch & Shoot"
             ]
         ],
         "created_locations": []

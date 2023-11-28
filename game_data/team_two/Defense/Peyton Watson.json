@@ -3,10 +3,10 @@
         "data": {
             "poa2FGA": {
                 "PNR BH": 0,
-                "PNR SC": 1,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 1,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -19,7 +19,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 1,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -94,10 +94,10 @@
             },
             "poaSQ2": {
                 "PNR BH": 0,
-                "PNR SC": 3,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 3,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -422,10 +422,10 @@
             [
                 [
                     7,
-                    69
+                    45
                 ],
-                0,
-                "PNR SC"
+                1,
+                "ISO"
             ]
         ]
     },
@@ -433,10 +433,10 @@
         "data": {
             "poa2FGA": {
                 "PNR BH": 0,
-                "PNR SC": 1,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 1,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -449,7 +449,7 @@
                 "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 1,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -524,10 +524,10 @@
             },
             "poaSQ2": {
                 "PNR BH": 0,
-                "PNR SC": 3,
+                "PNR SC": 0,
                 "DHO BH": 0,
                 "DHO SC": 0,
-                "ISO": 0,
+                "ISO": 3,
                 "TRAN": 0,
                 "ACO": 0,
                 "C/S": 0,
@@ -852,10 +852,10 @@
             [
                 [
                     7,
-                    69
+                    45
                 ],
-                0,
-                "PNR SC"
+                1,
+                "ISO"
             ]
         ]
     }
