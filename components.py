@@ -324,3 +324,44 @@ def DefenderChecklist(defense_id):
         )
         ]
     )
+
+def AddGame():
+    return html.Div(
+        children=[
+            html.Div(
+                children=[
+                    html.Button("Add Game", id=f"add-game-button", className='add-game-button',
+                                style={'borderRadius': '5px', 'margin': '10px', 'padding': '0px 7px'}),
+                ],
+                style={'alignItems': 'center'}
+            ),
+            html.P(children=[''], id='add-game-output', className='add-game-output')
+        ],
+        id='add-game-container',
+        style={'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center'}
+    )
+
+def AddGameInput():
+    return html.Div(children=[
+                dcc.Input(
+                    id=f'add-game-input-date',
+                    className='add-game-input',
+                    placeholder='Enter Date (MM/DD/YYYY)',
+                    type='text',
+                ),
+                dcc.Input(
+                    id=f'add-game-input-home',
+                    className='add-game-input',
+                    placeholder='Enter Home Team',
+                    type='text',
+                ),
+                dcc.Input(
+                    id=f'add-game-input-away',
+                    className='add-game-input',
+                    placeholder='Enter Away Team',
+                    type='text',
+                ),
+                html.Button("Create Game", id=f"add-game-input-button", className='add-game-input-button',
+                                style={'borderRadius': '5px', 'marginTop': 20, 'padding': '0px 7px'}),
+            ],
+            style={'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center'})

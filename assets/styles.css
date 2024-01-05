@@ -249,7 +249,7 @@ body {
 }
 
 #update-roster-container {
-  margin-top: 20px;
+  margin-top: 60px;
 }
 
 .update-roster-progress {
@@ -299,4 +299,49 @@ body {
   font-weight: bold;
   align-items: center;
   margin-left: 10px;
+}
+
+#add-game-button {
+  height: 40px;
+  cursor: pointer;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #b079fc;
+  color: black;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+  align-items: center;
+  width: 253px;
+}
+
+.add-game-input {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding-left: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 5px;
+  width: 253px;
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
+  color: #2c2d2d;
+}
+
+.add-game-input-button {
+  height: 40px;
+  cursor: pointer;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #5ee0ac;
+  color: black;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+  align-items: center;
+  width: 253px;
+}
+
+#add-game-container {
+  margin-top: 20px;
 }

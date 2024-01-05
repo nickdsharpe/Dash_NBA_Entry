@@ -2,7 +2,7 @@ from maindash import app
 from dash import html, dcc
 import plotly.graph_objects as go
 from assets.court import draw_plotly_court
-from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown, TeamSelector, DefenderDropdown, ShotQualitySlider, UpdateRosterButton, DefenderTypeToggle, DefenderChecklist, AddPlayerInput
+from components import PlayerDropdown, PlayTypeDropdown, ShooterHeader, RecordShotButton, ShotChecklist, ClearLocationDataButton, FreeThrowInput, PasserHeader, PassingPlayerDropdown, PassingPlayTypeDropdown, TeamSelector, DefenderDropdown, ShotQualitySlider, UpdateRosterButton, DefenderTypeToggle, DefenderChecklist, AddPlayerInput, AddGame, AddGameInput
 
 fig = go.Figure()
 
@@ -58,7 +58,9 @@ def make_layout():
                             html.Div(id='team-one-shot-type')
                         ], style={'width': '33.33%', 'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center'}
                     ),
-                    html.Div(children=[UpdateRosterButton()], style={'width': '33.33%', 'align-items': 'center'}),
+                    html.Div(children=[AddGame(), html.Div(id='add-game-input-container', style={'display': 'none'}, children=[
+                                AddGameInput()]
+                            ), UpdateRosterButton()], style={'width': '33.33%', 'align-items': 'center'}),
                     html.Div(id='team-two-container',
                         children=[
                             TeamSelector('team-two'),
