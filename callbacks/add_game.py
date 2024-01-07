@@ -29,15 +29,21 @@ def AddGame(click):
 @app.callback(
     Output('add-game-input-container', 'style', allow_duplicate=True),
     Output('add-game-output', 'children', allow_duplicate=True),
+    Output('game-id', 'data', allow_duplicate=True),
+    Output('team-ids', 'data', allow_duplicate=True),
     
     Input('add-game-input-button', 'n_clicks'),
     Input('add-game-input-date', 'value'),
     Input('add-game-input-home', 'value'),
     Input('add-game-input-away', 'value'),
+    
+    Input('game-id', 'data'),
+    Input('team-ids', 'data')
 )
-def CreateGame(click, date, home, away):
+def CreateGame(click, date, home, away, game_id_store, team_ids_store):
 
     if click:
+        
         config = configparser.ConfigParser()
         config.read('assets/database.ini')
         
@@ -67,12 +73,26 @@ def CreateGame(click, date, home, away):
             home_id = home_data['id'].values[0]
             away_id = away_data['id'].values[0]
             
-            query = f'insert into "Games" (date, home_team, away_team) values (\'{date}\', {home_id}, {away_id});'
-            engine.execute(query)
+            team_ids_store[0]['home'] = home_id
+            team_ids_store[0]['away'] = away_id
             
-            return {'display': 'none'}, 'Game Created'
+            insert_query = f'insert into "Games" (date, home_team, away_team) values (\'{date}\', {home_id}, {away_id});'
+            #engine.execute(insert_query)
+            
+            game_query = f'select * from "Games" where "date" = \'{date}\''
+            
+            game_result = engine.execute(game_query)
+            game_rows = game_result.fetchall()
+            game_columns = game_result.keys()
+            game = pd.DataFrame(game_rows, columns=game_columns)
+            
+            game_id = game['id'].values[0]
+            
+            game_id_store[0]['id'] = game_id
+            
+            return {'display': 'none'}, 'Game Created', game_id_store, team_ids_store
         
         else:
-            return {'display': 'none'}, 'Incorrect Data'
+            return {'display': 'none'}, 'Incorrect Data', no_update, no_update
     
-    return no_update, no_update
+    return no_update, no_update, no_update, no_update

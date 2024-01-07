@@ -17,6 +17,9 @@ defender = [{'shooter': None}, {'shooter': None}]
 defender_type = [{'shooter': 'POA'}, {'shooter': 'POA'}]
 shot_zone = [{}, {}]
 steals_blocks = [{'shooter': None}, {'shooter': None}]
+game_id = [{}]
+team_ids = [{}]
+player_ids = [{}, {}]
 
 app.config.suppress_callback_exceptions = True
 
@@ -110,6 +113,9 @@ def make_layout():
                     dcc.Store(id='shot-zone', data=shot_zone, storage_type='session'),
                     
                     dcc.Store(id='players', data=[], storage_type='session'),
-                    dcc.Store(id='clear-components-flag', data=False, storage_type='session')
+                    dcc.Store(id='clear-components-flag', data=False, storage_type='session'),
+                    dcc.Store(id='game-id', data=game_id, storage_type='session'),
+                    dcc.Store(id='team-ids', data=team_ids, storage_type='session'),
+                    dcc.Store(id='player-ids', data=player_ids, storage_type='session'),
                 ], style={'display': 'flex'}
             )
