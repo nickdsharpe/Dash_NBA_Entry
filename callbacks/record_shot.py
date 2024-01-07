@@ -75,13 +75,9 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                 'free_throws': free_throws[0]['shooter'],
                                 'shot_zone': shot_zone[0]['shooter'],}
                 
-                UpdateShooterDF(team_one_shooter, 'team_one')
-                
                 try:
                     if defender[0]['shooter'] is not None:
                         team_one_shooter['defender'] = defender[0]['shooter']
-                        
-                        UpdateDefenderDF(team_one_shooter, 'team_two', defender_type[0]['shooter'])
                 except:
                     pass
                 
@@ -95,14 +91,10 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                 'shot_quality': shot_quality[0]['shooter'],
                                 'shot_zone': shot_zone[0]['shooter'],}
 
-                    UpdateShooterDF(team_one_shooter, 'team_one')
-
                     try:
                         if defender[0]['shooter'] is not None:
                             team_one_shooter['defender'] = defender[0]['shooter']
                             team_one_shooter['stl/blk'] = steals_blocks[0]['shooter']
-                            
-                            UpdateDefenderDF(team_one_shooter, 'team_two', defender_type[0]['shooter'])
                             
                     except:
                         pass
@@ -121,13 +113,10 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                 'shot_coordinates': shot_coordinates[0],
                                 'free_throws': free_throws[0]['shooter'],
                                 'shot_zone': shot_zone[0]['shooter'],}
-
-                UpdateShooterDF(team_one_shooter, 'team_one')
                
                 try:
                     if defender[0]['shooter'] is not None:
                         team_one_shooter['defender'] = defender[0]['shooter']
-                        UpdateDefenderDF(team_one_shooter, 'team_two', defender_type[0]['shooter'])
                         
                 except:
                     pass
@@ -141,14 +130,12 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                 'player': player[0]['shooter'],
                                 'shot_coordinates': shot_coordinates[0],
                                 'shot_zone': shot_zone[0]['shooter'],}
-
-                    UpdateShooterDF(team_one_shooter, 'team_one')
       
                     try:
                         if defender[0]['shooter'] is not None:
                             team_one_shooter['defender'] = defender[0]['shooter']
                             team_one_shooter['stl/blk'] = steals_blocks[0]['shooter']
-                            UpdateDefenderDF(team_one_shooter, 'team_two', defender_type[0]['shooter'])
+
                     except:
                         pass
                 except:
@@ -169,8 +156,6 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                         'shot_quality': shot_quality[0]['creator'],
                                         'free_throws': free_throws[0]['creator'],
                                         'shot_zone': shot_zone[0]['creator'],}
-        
-                        UpdateCreatorDF(team_one_creator, 'team_one')
                         
                         team_one_n_clicks = None
                         return 'Shot Recorded', None, cleared, cleared, cleared, cleared, none_cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
@@ -184,8 +169,6 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                         'shot_coordinates': shot_coordinates[0],
                                         'shot_quality': shot_quality[0]['creator'],
                                         'shot_zone': shot_zone[0]['creator'],}
-        
-                            UpdateCreatorDF(team_one_creator, 'team_one')
                             
                             team_one_n_clicks = None
                             return 'Shot Recorded', None, cleared, cleared, cleared, cleared, none_cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
@@ -209,8 +192,6 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                         'shot_coordinates': shot_coordinates[0],
                                         'free_throws': free_throws[0]['creator'],
                                         'shot_zone': shot_zone[0]['creator'],}
-        
-                        UpdateCreatorDF(team_one_creator, 'team_one')
                         
                         team_one_n_clicks = None
                         return 'Shot Recorded', None, cleared, cleared, cleared, cleared, none_cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
@@ -223,8 +204,6 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                         'player': player[0]['creator'],
                                         'shot_coordinates': shot_coordinates[0],
                                         'shot_zone': shot_zone[0]['creator'],}
-        
-                            UpdateCreatorDF(team_one_creator, 'team_one')
                             
                             team_one_n_clicks = None
                             return 'Shot Recorded', None, cleared, cleared, cleared, cleared, none_cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
@@ -254,13 +233,10 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                 'shot_quality': shot_quality[1]['shooter'],
                                 'free_throws': free_throws[1]['shooter'],
                                 'shot_zone': shot_zone[1]['shooter'],}
-
-                UpdateShooterDF(team_two_shooter, 'team_two')
                 
                 try:
                     if defender[1]['shooter'] is not None:
                         team_two_shooter['defender'] = defender[1]['shooter']
-                        UpdateDefenderDF(team_two_shooter, 'team_one', defender_type[1]['shooter'])
                 except:
                     pass
                 
@@ -273,14 +249,11 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                 'shot_coordinates': shot_coordinates[1],
                                 'shot_quality': shot_quality[1]['shooter'],
                                 'shot_zone': shot_zone[1]['shooter'],}
-                    
-                    updated_shooter_df = UpdateShooterDF(team_two_shooter, 'team_two')
                 
                     try:
                         if defender[1]['shooter'] is not None:
                             team_two_shooter['defender'] = defender[1]['shooter']
                             team_two_shooter['stl/blk'] = steals_blocks[1]['shooter']
-                            UpdateDefenderDF(team_two_shooter, 'team_one', defender_type[1]['shooter'])
                     except:
                         pass
                     
@@ -295,13 +268,10 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                 'shot_coordinates': shot_coordinates[1],
                                 'free_throws': free_throws[1]['shooter'],
                                 'shot_zone': shot_zone[1]['shooter'],}
-
-                UpdateShooterDF(team_two_shooter, 'team_two')
                 
                 try:
                     if defender[1]['shooter'] is not None:
                         team_two_shooter['defender'] = defender[1]['shooter']
-                        UpdateDefenderDF(team_two_shooter, 'team_one', defender_type[1]['shooter'])
                 except:
                     pass
                 
@@ -313,14 +283,11 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                 'player': player[1]['shooter'],
                                 'shot_coordinates': shot_coordinates[1],
                                 'shot_zone': shot_zone[1]['shooter'],}
-                    
-                    UpdateShooterDF(team_two_shooter, 'team_two')
                 
                     try:
                         if defender[1]['shooter'] is not None:
                             team_two_shooter['defender'] = defender[1]['shooter']
                             team_two_shooter['stl/blk'] = steals_blocks[1]['shooter']
-                            UpdateDefenderDF(team_two_shooter, 'team_one', defender_type[1]['shooter'])
                     except:
                         pass
                     
@@ -341,8 +308,6 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                         'shot_quality': shot_quality[1]['creator'],
                                         'free_throws': free_throws[1]['creator'],
                                         'shot_zone': shot_zone[1]['shooter'],}
-                   
-                        UpdateCreatorDF(team_two_creator, 'team_two')
                     
                         team_two_n_clicks = None
                         return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
@@ -356,8 +321,6 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                         'shot_coordinates': shot_coordinates[1],
                                         'shot_quality': shot_quality[1]['creator'],
                                         'shot_zone': shot_zone[1]['shooter'],}
-        
-                            UpdateCreatorDF(team_two_creator, 'team_two')
                             
                             team_two_n_clicks = None
                             return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
@@ -381,7 +344,6 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                         'shot_coordinates': shot_coordinates[1],
                                         'free_throws': free_throws[1]['creator'],
                                         'shot_zone': shot_zone[1]['shooter'],}
-                        UpdateCreatorDF(team_two_creator, 'team_two')
                         team_two_n_clicks = None
                         return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
                     
@@ -393,8 +355,6 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, shot_type, shot_res
                                         'player': player[1]['creator'],
                                         'shot_coordinates': shot_coordinates[1],
                                         'shot_zone': shot_zone[1]['shooter'],}
-        
-                            UpdateCreatorDF(team_two_creator, 'team_two')
                             
                             team_two_n_clicks = None
                             return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True

@@ -76,13 +76,3 @@ def CreateGame(click, date, home, away):
             return {'display': 'none'}, 'Incorrect Data'
     
     return no_update, no_update
-
-
-###   NEXT STEPS ###
-'''
-- Get the values from each input box 
-- Store them as variables
-- Cross reference the teams table to make sure the entered teams are valid
-- Get each teams id
-- Write the game to the "Games" table
-'''
