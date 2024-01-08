@@ -3,6 +3,8 @@ import dash
 from dash.dependencies import Input, Output
 from unidecode import unidecode
 
+play_type_ids = {'PNR Ball Handler': 1, "PNR Ball Screener": 2, "DHO Ball Handler": 3, "DHO Ball Screener": 4, "Isolation": 5, "Transition": 6, "Attacking Closeouts": 7, "Catch & Shoot": 8, "Off Ball Screens": 9, "Cutting": 10, "Offensive Rebounds": 11}
+
 # Record Creator player dropdown
 @app.callback(
         Output('player', 'data', allow_duplicate=True),
@@ -83,14 +85,14 @@ def teamOne_UpdateCreatorPlayer(team_one_shooter, team_two_shooter, team_one_cre
     if triggered_input_id == "team-one-play-type-dropdown":
         
         if team_one_shooter:
-            team_one['shooter'] = team_one_shooter
+            team_one['shooter'] = play_type_ids[team_one_shooter]
             
             return updated_data
         
     elif triggered_input_id == "team-two-play-type-dropdown":
         
         if team_two_shooter:
-            team_two['shooter'] = team_two_shooter
+            team_two['shooter'] = play_type_ids[team_two_shooter]
             
             return updated_data
 
@@ -98,14 +100,14 @@ def teamOne_UpdateCreatorPlayer(team_one_shooter, team_two_shooter, team_one_cre
     if triggered_input_id == "team-one-passing-play-type-dropdown":
         
         if team_one_creator:
-            team_one['creator'] = team_one_creator
+            team_one['creator'] = play_type_ids[team_one_creator]
             
             return updated_data
         
     elif triggered_input_id == "team-two-passing-play-type-dropdown":
         
         if team_two_creator:
-            team_two['creator'] = team_two_creator
+            team_two['creator'] = play_type_ids[team_two_creator]
             
             return updated_data
         

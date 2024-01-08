@@ -77,7 +77,10 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
         
         elif team_two_value == ['Turnover']:
             team_two['shooter'] = 20
-            team_two['creator'] = 20
+            return {'display': 'none'}, {'display': 'none'}, updated_data
+        
+        elif team_two_value == ['Passing Turnover']:
+            team_two['creator'] = 99
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         

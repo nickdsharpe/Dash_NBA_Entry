@@ -32,7 +32,7 @@ def ShooterHeader(creation_checklist_id):
 def ShotChecklist(checklist_id):
      return html.Div([
         dcc.Checklist(
-            ['Make', 'Miss', 'Free Throws', 'And-1', 'Turnover'],
+            ['Make', 'Miss', 'Free Throws', 'And-1', 'Turnover', 'Passing Turnover'],
             inline=True,
             id=f'{checklist_id}-shot-checklist',
             inputStyle={"marginRight": 8, 'marginLeft': 20, 'transform': 'scale(1.5)'},

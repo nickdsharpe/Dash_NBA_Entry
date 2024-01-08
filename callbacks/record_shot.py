@@ -65,9 +65,34 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
     
     # Team One
     if triggered_input_id == "team-one-record-shot-button" and team_one_n_clicks is not None:
-        print(len(player[0].keys()))
-        event_list = [game_id[0]['id'], player[0]['shooter']]
+        
+        # Create event list with 12 empty slots
+        event_list = []
+        event_list += [None] * 12
+        event_list[0] = game_id[0]['id']
+        
+        # add the shooter id
+        if 'shooter' in player[0].keys():
+            player_id = player[0]['shooter']
+            event_list[1] = player_id
+            
+        # Add the shooting play type id
+        if 'shooter' in play_type[0].keys():
+            play_type_id = play_type[0]['shooter']
+            event_list[2] = play_type_id
+            
+        # Add the creator id
+        if 'creator' in player[0].keys():
+            creator_id = player[0]['creator']
+            event_list[10] = creator_id
+            
+        # Add the creator play type id
+        if 'creator' in play_type[0].keys():
+            creator_play_type_id = play_type[0]['creator']
+            event_list[11] = creator_play_type_id
+        
         print(event_list)
+
 
         return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, False
     
