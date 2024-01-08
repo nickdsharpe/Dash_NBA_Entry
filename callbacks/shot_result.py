@@ -45,6 +45,10 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
             team_one['shooter'] = 20
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
+        elif team_one_value == ['Passing Turnover']:
+            team_one['shooter'] = 99
+            return {'display': 'none'}, {'display': 'none'}, updated_data
+        
     if triggered_input_id == "team-two-shot-checklist":
         
         if team_two_value == ['Miss']:

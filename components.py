@@ -363,5 +363,7 @@ def AddGameInput():
                 ),
                 html.Button("Create Game", id=f"add-game-input-button", className='add-game-input-button',
                                 style={'borderRadius': '5px', 'marginTop': 20, 'padding': '0px 7px'}),
+                html.Button("Enter Game", id=f"enter-game-input-button", className='enter-game-input-button',
+                                style={'borderRadius': '5px', 'marginTop': 20, 'padding': '0px 7px'}),
             ],
             style={'display': 'flex', 'flexDirection': 'column', 'alignItems': 'center'})

@@ -26,19 +26,19 @@ def UpdateDefender(team_one_defender, team_two_defender, data, team_one_flag, te
         
     if team_one_defender:
     
-        team_one['shooter'] = 'help'
+        team_one['shooter'] = 2
         
     else:
-        team_one['shooter'] = 'poa'
+        team_one['shooter'] = 1
             
     #if triggered_input_id == "team-two-defense-toggle":
         
     if team_two_defender:
     
-        team_two['shooter'] = 'help'
+        team_two['shooter'] = 2
         
     else:
-        team_two['shooter'] = 'poa'
+        team_two['shooter'] = 1
         
     return updated_data
 

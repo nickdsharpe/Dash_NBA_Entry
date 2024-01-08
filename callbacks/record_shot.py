@@ -2,9 +2,7 @@ from maindash import app
 import dash
 from dash import no_update
 from dash.dependencies import Input, Output
-from assets.update_defender_data import UpdateDefenderDF
-from assets.update_shooter_data import UpdateShooterDF
-from assets.update_creator_data import UpdateCreatorDF
+import csv
 
 # Record shot callback
 @app.callback(
@@ -64,12 +62,42 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
     
     # Team One
     if triggered_input_id == "team-one-record-shot-button" and team_one_n_clicks is not None:
-  
-        # Create event list with 12 empty slots
+        
+        # Create event list with 12 empty slots and set game id
         event_list = []
         event_list += [None] * 12
         event_list[0] = game_id[0]['id']
-        event_list[3] = shot_result[0]['shooter']
+        
+        # Handle a Passing Turnover
+        if shot_result[0]['shooter'] == 99:
+            
+            event_list[3] = 99
+            event_list[10] = player[0]['creator']
+            event_list[11] = play_type[0]['creator']
+            
+            # Add shot coordinates
+            if ('x' and 'y') in shot_coordinates[0].keys():
+                event_list[4] = shot_coordinates[0]['x']
+                event_list[5] = shot_coordinates[0]['y']
+            
+            # Add defender and defense type ids
+            if 'shooter' in defender[0].keys():
+                event_list[6] = defender[0]['shooter']
+                event_list[7] = defender_type[0]['shooter']
+            
+            # Add shot zone id
+            if 'shooter' in shot_zone[0].keys():
+                event_list[8] = shot_zone[0]['shooter']
+            
+            print(event_list)
+        
+            return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
+        
+        
+        
+        # Add shooter id if result isnt passing turnover
+        if shot_result != 99:
+            event_list[3] = shot_result[0]['shooter']
         
         # add the shooter id
         if 'shooter' in player[0].keys():
@@ -96,37 +124,111 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
             event_list[4] = shot_coordinates[0]['x']
             event_list[5] = shot_coordinates[0]['y']
             
-        # Add defender id
+        # Add defender and defense type ids
         if 'shooter' in defender[0].keys():
             event_list[6] = defender[0]['shooter']
+            event_list[7] = defender_type[0]['shooter']
             
-            
-            
-            
-            
-       
-       # Handle a Passing Turnover
-        if shot_result[0]['shooter'] == 99:
-            
-            event_list = []
-            event_list += [None] * 12
-            event_list[0] = game_id[0]['id']
+        # Add shot zone id
+        if 'shooter' in shot_zone[0].keys():
+            event_list[8] = shot_zone[0]['shooter']
         
-            creator_play_type_id = play_type[0]['creator']
-            creator_id = player[0]['creator']
+        # Add shot quality ids
+        if 'shooter' in shot_quality[0].keys():
+            event_list[9] = shot_quality[0]['shooter']    
             
-            event_list[3] = 99
-            event_list[10] = creator_id
-            event_list[11] = creator_play_type_id
-       
-        print(event_list)
+        with open('assets/events.csv', mode='r', newline='') as file:
+            reader = csv.reader(file)
 
-        return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, False
+        total_events = list(reader)
+        
+        total_events.append(event_list)
+        
+        with open('assets/events.csv', mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(total_events) 
+        
+        return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
     
     # Team Two
     if triggered_input_id == "team-two-record-shot-button" and team_two_n_clicks is not None:
+        
+        # Create event list with 12 empty slots and set game id
+        event_list = []
+        event_list += [None] * 12
+        event_list[0] = game_id[0]['id']
+        
+        # Handle a Passing Turnover
+        if shot_result[1]['shooter'] == 99:
+            
+            event_list[3] = 99
+            event_list[10] = player[1]['creator']
+            event_list[11] = play_type[1]['creator']
+            
+            # Add shot coordinates
+            if ('x' and 'y') in shot_coordinates[1].keys():
+                event_list[4] = shot_coordinates[1]['x']
+                event_list[5] = shot_coordinates[1]['y']
+            
+            # Add defender and defense type ids
+            if 'shooter' in defender[1].keys():
+                event_list[6] = defender[1]['shooter']
+                event_list[7] = defender_type[1]['shooter']
+            
+            # Add shot zone id
+            if 'shooter' in shot_zone[1].keys():
+                event_list[8] = shot_zone[1]['shooter']
+            
+            print(event_list)
+        
+            return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
+        
+        
+        
+        # Add shooter id if result isnt passing turnover
+        if shot_result != 99:
+            event_list[3] = shot_result[1]['shooter']
+        
+        # add the shooter id
+        if 'shooter' in player[1].keys():
+            player_id = player[1]['shooter']
+            event_list[1] = player_id
+            
+        # Add the shooting play type id
+        if 'shooter' in play_type[1].keys():
+            play_type_id = play_type[1]['shooter']
+            event_list[2] = play_type_id
+            
+        # Add the creator id
+        if 'creator' in player[1].keys():
+            creator_id = player[1]['creator']
+            event_list[10] = creator_id
+            
+        # Add the creator play type id
+        if 'creator' in play_type[1].keys():
+            creator_play_type_id = play_type[1]['creator']
+            event_list[11] = creator_play_type_id
+        
+        # Add shot coordinates
+        if ('x' and 'y') in shot_coordinates[1].keys():
+            event_list[4] = shot_coordinates[1]['x']
+            event_list[5] = shot_coordinates[1]['y']
+            
+        # Add defender and defense type ids
+        if 'shooter' in defender[1].keys():
+            event_list[6] = defender[1]['shooter']
+            event_list[7] = defender_type[1]['shooter']
+            
+        # Add shot zone id
+        if 'shooter' in shot_zone[1].keys():
+            event_list[8] = shot_zone[1]['shooter']
+        
+        # Add shot quality ids
+        if 'shooter' in shot_quality[1].keys():
+            event_list[9] = shot_quality[1]['shooter']    
+            
+        print(event_list)
 
         return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
-    
-    
+     
     return None, '', no_update, no_update, no_update, no_update, no_update, no_update, no_update, no_update, no_update, no_update, no_update, False

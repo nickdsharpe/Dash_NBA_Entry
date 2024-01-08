@@ -342,6 +342,20 @@ body {
   width: 253px;
 }
 
+.enter-game-input-button {
+  height: 40px;
+  cursor: pointer;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #b079fc;
+  color: black;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+  align-items: center;
+  width: 253px;
+}
+
 #add-game-container {
   margin-top: 20px;
 }
