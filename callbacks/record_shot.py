@@ -49,7 +49,6 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
     
     game_id = game_id.copy()
     shot_type = shot_type.copy()
-    shot_result = shot_result.copy()
     play_type = play_type.copy()
     player = player.copy()
     defender = defender.copy()
@@ -65,11 +64,12 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
     
     # Team One
     if triggered_input_id == "team-one-record-shot-button" and team_one_n_clicks is not None:
-        
+  
         # Create event list with 12 empty slots
         event_list = []
         event_list += [None] * 12
         event_list[0] = game_id[0]['id']
+        event_list[3] = shot_result[0]['shooter']
         
         # add the shooter id
         if 'shooter' in player[0].keys():
@@ -91,8 +91,35 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
             creator_play_type_id = play_type[0]['creator']
             event_list[11] = creator_play_type_id
         
+        # Add shot coordinates
+        if ('x' and 'y') in shot_coordinates[0].keys():
+            event_list[4] = shot_coordinates[0]['x']
+            event_list[5] = shot_coordinates[0]['y']
+            
+        # Add defender id
+        if 'shooter' in defender[0].keys():
+            event_list[6] = defender[0]['shooter']
+            
+            
+            
+            
+            
+       
+       # Handle a Passing Turnover
+        if shot_result[0]['shooter'] == 99:
+            
+            event_list = []
+            event_list += [None] * 12
+            event_list[0] = game_id[0]['id']
+        
+            creator_play_type_id = play_type[0]['creator']
+            creator_id = player[0]['creator']
+            
+            event_list[3] = 99
+            event_list[10] = creator_id
+            event_list[11] = creator_play_type_id
+       
         print(event_list)
-
 
         return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, False
     

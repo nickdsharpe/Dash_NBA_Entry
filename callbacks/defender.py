@@ -9,8 +9,10 @@ from dash.dependencies import Input, Output
     Input('team-one-defender-dropdown', 'value'),
     Input('team-two-defender-dropdown', 'value'),
     Input('defender', 'data'),
+    Input('player-ids', 'data')
 )
-def UpdateDefender(team_one_defender, team_two_defender, data):
+def UpdateDefender(team_one_defender, team_two_defender, data, player_ids):
+    
     updated_data = data.copy()
     
     team_one = updated_data[0]
@@ -21,13 +23,13 @@ def UpdateDefender(team_one_defender, team_two_defender, data):
     
     if triggered_input_id == "team-one-defender-dropdown":
         
-        team_one['shooter'] = team_one_defender
+        team_one['shooter'] = player_ids[1]['away'][team_one_defender]
         
         return updated_data
     
     if triggered_input_id == "team-two-defender-dropdown":
         
-        team_two['shooter'] = team_two_defender
+        team_two['shooter'] = player_ids[0]['home'][team_two_defender]
         
         return updated_data
     
