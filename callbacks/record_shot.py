@@ -4,6 +4,11 @@ from dash import no_update
 from dash.dependencies import Input, Output
 import csv
 
+def append_to_csv(file_path, row):
+    with open(file_path, 'a', newline='') as csvfile:
+        csv_writer = csv.writer(csvfile)
+        csv_writer.writerow(row)
+
 # Record shot callback
 @app.callback(
     Output("team-one-record-shot-output", "children"),
@@ -44,6 +49,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
     cleared = [{}, {}]
     none_cleared = [{'shooter': None}, {'shooter': None}]
     poa_reset = [{'shooter': 'POA'}, {'shooter': 'POA'}]
+    file_path = 'assets/events.csv'
     
     game_id = game_id.copy()
     shot_type = shot_type.copy()
@@ -65,8 +71,9 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         
         # Create event list with 12 empty slots and set game id
         event_list = []
-        event_list += [None] * 12
+        event_list += [None] * 13
         event_list[0] = game_id[0]['id']
+        event_list[12] = team_ids[0]['home']
         
         # Handle a Passing Turnover
         if shot_result[0]['shooter'] == 99:
@@ -89,9 +96,9 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
             if 'shooter' in shot_zone[0].keys():
                 event_list[8] = shot_zone[0]['shooter']
             
-            print(event_list)
+            append_to_csv(file_path, event_list)
         
-            return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
+            return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
         
         
         
@@ -136,27 +143,19 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         # Add shot quality ids
         if 'shooter' in shot_quality[0].keys():
             event_list[9] = shot_quality[0]['shooter']    
-            
-        with open('assets/events.csv', mode='r', newline='') as file:
-            reader = csv.reader(file)
-
-        total_events = list(reader)
         
-        total_events.append(event_list)
+        append_to_csv(file_path, event_list)
         
-        with open('assets/events.csv', mode='w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows(total_events) 
-        
-        return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
+        return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
     
     # Team Two
     if triggered_input_id == "team-two-record-shot-button" and team_two_n_clicks is not None:
         
         # Create event list with 12 empty slots and set game id
         event_list = []
-        event_list += [None] * 12
+        event_list += [None] * 13
         event_list[0] = game_id[0]['id']
+        event_list[12] = team_ids[0]['away']
         
         # Handle a Passing Turnover
         if shot_result[1]['shooter'] == 99:

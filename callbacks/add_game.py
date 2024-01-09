@@ -40,29 +40,29 @@ def AddGame(click):
     Input('team-ids', 'data')
 )
 def CreateGame(create_game_click, enter_game_click, date, home, away, game_id_store, team_ids_store):
+    
+    config = configparser.ConfigParser()
+    config.read('assets/database.ini')
+    
+    # Accessing database connection details
+    name = config['Database']['name']
+    host = config['Database']['host']
+    username = config['Database']['username']
+    password = config['Database']['password']
+
+    # Create the connection string
+    connection_str = f'postgresql+psycopg2://{username}:{password}@{host}:5432/{name}'
+
+    # Create the SQLAlchemy engine
+    engine = create_engine(connection_str)
+    
+    # Fetch data from Database
+    result = engine.execute('SELECT * FROM "Teams"')
+    rows = result.fetchall()
+    columns = result.keys()
+    teams = pd.DataFrame(rows, columns=columns)
 
     if create_game_click:
-        
-        config = configparser.ConfigParser()
-        config.read('assets/database.ini')
-        
-        # Accessing database connection details
-        name = config['Database']['name']
-        host = config['Database']['host']
-        username = config['Database']['username']
-        password = config['Database']['password']
-
-        # Create the connection string
-        connection_str = f'postgresql+psycopg2://{username}:{password}@{host}:5432/{name}'
-
-        # Create the SQLAlchemy engine
-        engine = create_engine(connection_str)
-        
-        # Fetch data from Database
-        result = engine.execute('SELECT * FROM "Teams"')
-        rows = result.fetchall()
-        columns = result.keys()
-        teams = pd.DataFrame(rows, columns=columns)
         
         if (teams['name'].isin([home]).any()) and (teams['name'].isin([away]).any()):
             
@@ -94,6 +94,15 @@ def CreateGame(create_game_click, enter_game_click, date, home, away, game_id_st
             return {'display': 'none'}, 'Incorrect Data', no_update, no_update
         
     elif enter_game_click:
+        
+        home_data = teams[teams['name'] == home]
+        away_data = teams[teams['name'] == away]
+        
+        home_id = home_data['id'].values[0]
+        away_id = away_data['id'].values[0]
+        
+        team_ids_store[0]['home'] = home_id
+        team_ids_store[0]['away'] = away_id
         
         config = configparser.ConfigParser()
         config.read('assets/database.ini')

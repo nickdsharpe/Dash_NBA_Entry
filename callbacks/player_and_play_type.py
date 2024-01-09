@@ -3,7 +3,7 @@ import dash
 from dash.dependencies import Input, Output
 from unidecode import unidecode
 
-play_type_ids = {'PNR Ball Handler': 1, "PNR Screener": 2, "DHO Ball Handler": 3, "DHO Ball Screener": 4, "Isolation": 5, "Transition": 6, "Attacking Closeouts": 7, "Catch & Shoot": 8, "Off Ball Screens": 9, "Cutting": 10, "Offensive Rebounds": 11}
+play_type_ids = {'PNR Ball Handler': 1, "PNR Screener": 2, "DHO Ball Handler": 3, "DHO Screener": 4, "Isolation": 5, "Transition": 6, "Attacking Closeouts": 7, "Catch & Shoot": 8, "Off Ball Screens": 9, "Cutting": 10, "Offensive Rebounds": 11}
 
 # Record Creator player dropdown
 @app.callback(

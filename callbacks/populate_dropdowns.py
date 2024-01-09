@@ -33,7 +33,7 @@ with open('assets/rosters.json', 'r') as f:
     Input('player-ids', 'data')
 )
 def PopulateDropdowns(team_one, team_two, team_ids, player_ids):
-    
+ 
     ctx = dash.callback_context
     triggered_input_id = ctx.triggered[0]['prop_id'].split('.')[0]
     
