@@ -330,7 +330,7 @@ def AddGame():
         children=[
             html.Div(
                 children=[
-                    html.Button("Add Game", id=f"add-game-button", className='add-game-button',
+                    html.Button("Set Game", id=f"add-game-button", className='add-game-button',
                                 style={'borderRadius': '5px', 'margin': '10px', 'padding': '0px 7px'}),
                 ],
                 style={'alignItems': 'center'}

@@ -1,6 +1,7 @@
 from maindash import app
 import dash
 from dash.dependencies import Input, Output
+from unidecode import unidecode
 
 # Handle Defender Dropdown
 @app.callback(
@@ -23,12 +24,14 @@ def UpdateDefender(team_one_defender, team_two_defender, data, player_ids):
     
     if triggered_input_id == "team-one-defender-dropdown":
         
+        team_one_defender = unidecode(team_one_defender)
         team_one['shooter'] = player_ids[1]['away'][team_one_defender]
         
         return updated_data
     
     if triggered_input_id == "team-two-defender-dropdown":
         
+        team_two_defender = unidecode(team_two_defender)
         team_two['shooter'] = player_ids[0]['home'][team_two_defender]
         
         return updated_data

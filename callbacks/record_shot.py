@@ -49,7 +49,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
     cleared = [{}, {}]
     none_cleared = [{'shooter': None}, {'shooter': None}]
     poa_reset = [{'shooter': 'POA'}, {'shooter': 'POA'}]
-    file_path = 'assets/events.csv'
+    file_path = 'game_data/events.csv'
     
     game_id = game_id.copy()
     shot_type = shot_type.copy()
@@ -73,7 +73,8 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         event_list = []
         event_list += [None] * 13
         event_list[0] = game_id[0]['id']
-        event_list[12] = team_ids[0]['home']
+        home_team_id = team_ids[0]['home']
+        event_list[12] = f'"{home_team_id}"'
         
         # Handle a Passing Turnover
         if shot_result[0]['shooter'] == 99:
@@ -155,7 +156,8 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         event_list = []
         event_list += [None] * 13
         event_list[0] = game_id[0]['id']
-        event_list[12] = team_ids[0]['away']
+        away_team_id = team_ids[0]['away']
+        event_list[12] = f'"{away_team_id}"'
         
         # Handle a Passing Turnover
         if shot_result[1]['shooter'] == 99:
@@ -178,7 +180,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
             if 'shooter' in shot_zone[1].keys():
                 event_list[8] = shot_zone[1]['shooter']
             
-            print(event_list)
+            append_to_csv(file_path, event_list)
         
             return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
         
@@ -226,7 +228,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         if 'shooter' in shot_quality[1].keys():
             event_list[9] = shot_quality[1]['shooter']    
             
-        print(event_list)
+        append_to_csv(file_path, event_list)
 
         return None, 'Shot Recorded', cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
      

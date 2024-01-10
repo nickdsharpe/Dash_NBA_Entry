@@ -26,7 +26,7 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
     if triggered_input_id == "team-one-shot-checklist":
 
         if team_one_value == ['Miss']:
-            team_one['shooter'] = 0
+            team_one['shooter'] = 2
             return {'display': 'none'}, {'display': 'none'},  updated_data
         
         elif team_one_value == ['Make']:
@@ -34,25 +34,25 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         elif team_one_value == ['Free Throws']:
-            team_one['shooter'] = 11
+            team_one['shooter'] = 3
             return {'display': 'block'}, {'display': 'none'}, updated_data
         
         elif team_one_value == ['And-1']:
-            team_one['shooter'] = 30
+            team_one['shooter'] = 4
             return {'display': 'block'}, {'display': 'none'}, updated_data
         
         elif team_one_value == ['Turnover']:
-            team_one['shooter'] = 20
+            team_one['shooter'] = 5
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         elif team_one_value == ['Passing Turnover']:
-            team_one['shooter'] = 99
+            team_one['shooter'] = 6
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
     if triggered_input_id == "team-two-shot-checklist":
         
         if team_two_value == ['Miss']:
-            team_two['shooter'] = 0
+            team_two['shooter'] = 2
           
             return {'display': 'none'}, {'display': 'none'},  updated_data
         
@@ -63,20 +63,20 @@ def team_one_update_shot_result(team_one_value, team_two_value, data):
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         elif team_two_value == ['Free Throws']:
-            team_two['shooter'] = 11
+            team_two['shooter'] = 3
             return {'display': 'none'}, {'display': 'block'}, updated_data
         
         elif team_two_value == ['And-1']:
-            team_two['shooter'] = 30
+            team_two['shooter'] = 4
 
             return {'display': 'none'}, {'display': 'block'}, updated_data
         
         elif team_two_value == ['Turnover']:
-            team_two['shooter'] = 20
+            team_two['shooter'] = 5
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         elif team_two_value == ['Passing Turnover']:
-            team_two['shooter'] = 99
+            team_two['shooter'] = 6
             return {'display': 'none'}, {'display': 'none'}, updated_data
         
         
