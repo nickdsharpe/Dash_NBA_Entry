@@ -71,15 +71,16 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         
         # Create event list with 12 empty slots and set game id
         event_list = []
-        event_list += [None] * 13
+        event_list += [None] * 15
         event_list[0] = game_id[0]['id']
         home_team_id = team_ids[0]['home']
-        event_list[12] = f'"{home_team_id}"'
+        event_list[14] = f'"{home_team_id}"'
         
         # Handle a Passing Turnover
         if shot_result[0]['shooter'] == 99:
             
             event_list[3] = 99
+            event_list[12] = 0
             event_list[10] = player[0]['creator']
             event_list[11] = play_type[0]['creator']
             
@@ -103,9 +104,11 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         
         
         
-        # Add shooter id if result isnt passing turnover
+        # Add result id if result isnt passing turnover
         if shot_result != 99:
             event_list[3] = shot_result[0]['shooter']
+            if shot_result[0]['shooter'] == 5:
+                event_list[12] = 0
         
         # add the shooter id
         if 'shooter' in player[0].keys():
@@ -145,6 +148,40 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         if 'shooter' in shot_quality[0].keys():
             event_list[9] = shot_quality[0]['shooter']    
         
+        
+    
+        # Handle points scored
+        if shot_result[0]['shooter'] == 2:    ## Misses ##
+            points = 0
+            event_list[12] = points
+        elif shot_result[0]['shooter'] == 1:    ## Makes ##
+            if shot_type[0]['shooter'] == '2pt FG':
+                points = 2
+                event_list[12] = points
+            if shot_type[0]['shooter'] == '3pt FG':
+                points = 3
+                event_list[12] = points
+        elif shot_result[0]['shooter'] == 3:    ## Free Throws ##
+            if shot_type[0]['shooter'] == '2pt FG':
+                fta = 2
+                points = free_throws[0]['shooter']
+                event_list[12] = points
+                event_list[13] = fta
+            if shot_type[0]['shooter'] == '3pt FG':
+                fta = 3
+                points = free_throws[0]['shooter']
+                event_list[12] = points
+                event_list[13] = fta
+        elif shot_result[0]['shooter'] == 4:    ## And-1 ##
+            fta  = 1
+            event_list[13] = fta
+            if shot_type[0]['shooter'] == '2pt FG':
+                points = 2 + free_throws[0]['shooter']
+                event_list[12] = points
+            if shot_type[0]['shooter'] == '3pt FG':
+                points = 3 + free_throws[0]['shooter']
+                event_list[12] = points
+        
         append_to_csv(file_path, event_list)
         
         return 'Shot Recorded', None, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, cleared, poa_reset, none_cleared, True
@@ -154,15 +191,16 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         
         # Create event list with 12 empty slots and set game id
         event_list = []
-        event_list += [None] * 13
+        event_list += [None] * 15
         event_list[0] = game_id[0]['id']
         away_team_id = team_ids[0]['away']
-        event_list[12] = f'"{away_team_id}"'
+        event_list[14] = f'"{away_team_id}"'
         
         # Handle a Passing Turnover
         if shot_result[1]['shooter'] == 99:
             
             event_list[3] = 99
+            event_list[12] = 0
             event_list[10] = player[1]['creator']
             event_list[11] = play_type[1]['creator']
             
@@ -186,9 +224,11 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         
         
         
-        # Add shooter id if result isnt passing turnover
+        # Add result id if result isnt passing turnover
         if shot_result != 99:
             event_list[3] = shot_result[1]['shooter']
+            if shot_result[1]['shooter'] == 5:
+                event_list[12] = 0
         
         # add the shooter id
         if 'shooter' in player[1].keys():
@@ -227,6 +267,38 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         # Add shot quality ids
         if 'shooter' in shot_quality[1].keys():
             event_list[9] = shot_quality[1]['shooter']    
+        
+        # Handle points scored
+        if shot_result[1]['shooter'] == 2:    ## Misses ##
+            points = 0
+            event_list[12] = points
+        elif shot_result[1]['shooter'] == 1:    ## Makes ##
+            if shot_type[1]['shooter'] == '2pt FG':
+                points = 2
+                event_list[12] = points
+            if shot_type[1]['shooter'] == '3pt FG':
+                points = 3
+                event_list[12] = points
+        elif shot_result[1]['shooter'] == 3:    ## Free Throws ##
+            if shot_type[1]['shooter'] == '2pt FG':
+                fta = 2
+                points = free_throws[1]['shooter']
+                event_list[12] = points
+                event_list[13] = fta
+            if shot_type[1]['shooter'] == '3pt FG':
+                fta = 3
+                points = free_throws[1]['shooter']
+                event_list[12] = points
+                event_list[13] = fta
+        elif shot_result[1]['shooter'] == 4:    ## And-1 ##
+            fta  = 1
+            event_list[13] = fta
+            if shot_type[1]['shooter'] == '2pt FG':
+                points = 2 + free_throws[1]['shooter']
+                event_list[12] = points
+            if shot_type[1]['shooter'] == '3pt FG':
+                points = 3 + free_throws[1]['shooter']
+                event_list[12] = points
             
         append_to_csv(file_path, event_list)
 

@@ -27,12 +27,10 @@ def handle_shot_type(team_one_clickData, team_two_clickData, data):
         if is_inside_three_point_line(team_one_clickData):
             
             team_one['shooter'] = '2pt FG'
-            team_one['creator'] = '2pt FG'
             
         else:
     
             team_one['shooter'] = '3pt FG'
-            team_one['creator'] = '3pt FG'
         
         return updated_data
     
@@ -42,12 +40,10 @@ def handle_shot_type(team_one_clickData, team_two_clickData, data):
         if is_inside_three_point_line(team_two_clickData):
             
             team_two['shooter'] = '2pt FG'
-            team_two['creator'] = '2pt FG'
             
         else:
     
             team_two['shooter'] = '3pt FG'
-            team_two['creator'] = '3pt FG'
         
         return updated_data
     

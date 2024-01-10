@@ -34,6 +34,9 @@ def teamOne_CreatorInputs(value):
     Output('team-one-defender-dropdown', 'value'),
     Output('team-one-creation-checklist', 'value'),
     Output('team-one-shot-quality-slider', 'value'),
+    Output('team-one-free-throw-input', 'value'),
+    Output('team-one-defense-toggle', 'value'),
+    Output('team-one-defense-checklist', 'value'),
     Output("clear-components-flag", "data", allow_duplicate=True),
 
     [Input("team-one-record-shot-button", "n_clicks"),
@@ -43,9 +46,9 @@ def teamOne_CreatorInputs(value):
 def teamOne_ClearComponents(n_clicks, flag):
     if flag:
         if n_clicks is not None:
-            return [[], '', '', '', '', '', [], None, False]
+            return [[], '', '', '', '', '', [], None, None, False, [], False]
         else:
-            return [], None, None, None, None, None, [], None, False
+            return [], None, None, None, None, None, [], None, None, False, [], False
     return no_update
 
 '''TEAM-TWO CALLBACKS'''    
@@ -72,6 +75,9 @@ def teamTwo_CreatorInputs(value):
     Output('team-two-defender-dropdown', 'value'),
     Output('team-two-creation-checklist', 'value'),
     Output('team-two-shot-quality-slider', 'value'),
+    Output('team-two-free-throw-input', 'value'),
+    Output('team-two-defense-toggle', 'value'),
+    Output('team-two-defense-checklist', 'value'),
     Output("clear-components-flag", "data", allow_duplicate=True),
 
     [Input("team-two-record-shot-button", "n_clicks"),
@@ -81,9 +87,9 @@ def teamTwo_CreatorInputs(value):
 def teamTwo_ClearComponents(n_clicks, flag):
     if flag:
         if n_clicks is not None:
-            return [[], '', '', '', '', '', [], None, False]
+            return [[], '', '', '', '', '', [], None, None, False, [], False]
         else:
-            return [], None, None, None, None, None, [], None, False
+            return [], None, None, None, None, None, [], None, None, False, [], False
     return no_update
 
 # Run the app
