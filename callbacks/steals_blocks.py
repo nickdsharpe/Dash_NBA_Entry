@@ -25,24 +25,24 @@ def StealsBlocks(team_one_value, team_two_value, data):
 
         if team_one_value == ['Steal']:
 
-            team_one['shooter'] = 'STL'
+            team_one['shooter'] = 1
             return updated_data
             
         if team_one_value == ['Block']:
             
-            team_one['shooter'] = 'BLK'
+            team_one['shooter'] = 2
             return updated_data
         
     if triggered_input_id == "team-two-defense-checklist":
         
         if team_two_value == ['Steal']:
             
-            team_two['shooter'] = 'STL'
+            team_two['shooter'] = 1
             return updated_data
             
         if team_two_value == ['Block']:
             
-            team_two['shooter'] = 'BLK'
+            team_two['shooter'] = 2
             return updated_data
         
     return updated_data

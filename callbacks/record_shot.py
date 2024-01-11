@@ -71,10 +71,10 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         
         # Create event list with 12 empty slots and set game id
         event_list = []
-        event_list += [None] * 15
+        event_list += [None] * 16
         event_list[0] = game_id[0]['id']
         home_team_id = team_ids[0]['home']
-        event_list[14] = f'"{home_team_id}"'
+        event_list[15] = f'"{home_team_id}"'
         
         # Handle a Passing Turnover
         if shot_result[0]['shooter'] == 99:
@@ -97,6 +97,10 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
             # Add shot zone id
             if 'shooter' in shot_zone[0].keys():
                 event_list[8] = shot_zone[0]['shooter']
+            
+            # Add steal if needed
+            if 'shooter' in steals_blocks[0].keys():
+                event_list[14] = steals_blocks[0]['shooter']
             
             append_to_csv(file_path, event_list)
         
@@ -146,7 +150,11 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         
         # Add shot quality ids
         if 'shooter' in shot_quality[0].keys():
-            event_list[9] = shot_quality[0]['shooter']    
+            event_list[9] = shot_quality[0]['shooter']   
+        
+        # Add Steal or Block if needed
+        if 'shooter' in steals_blocks[0].keys():
+            event_list[14] = steals_blocks[0]['shooter'] 
         
         
     
@@ -191,10 +199,10 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         
         # Create event list with 12 empty slots and set game id
         event_list = []
-        event_list += [None] * 15
+        event_list += [None] * 16
         event_list[0] = game_id[0]['id']
         away_team_id = team_ids[0]['away']
-        event_list[14] = f'"{away_team_id}"'
+        event_list[15] = f'"{away_team_id}"'
         
         # Handle a Passing Turnover
         if shot_result[1]['shooter'] == 99:
@@ -217,6 +225,10 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
             # Add shot zone id
             if 'shooter' in shot_zone[1].keys():
                 event_list[8] = shot_zone[1]['shooter']
+            
+            # Add steal if needed
+            if 'shooter' in steals_blocks[1].keys():
+                event_list[14] = steals_blocks[1]['shooter']
             
             append_to_csv(file_path, event_list)
         
@@ -266,7 +278,13 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         
         # Add shot quality ids
         if 'shooter' in shot_quality[1].keys():
-            event_list[9] = shot_quality[1]['shooter']    
+            event_list[9] = shot_quality[1]['shooter']   
+        
+        # Add Steal or Block if needed
+        if 'shooter' in steals_blocks[1].keys():
+            event_list[14] = steals_blocks[1]['shooter'] 
+            
+             
         
         # Handle points scored
         if shot_result[1]['shooter'] == 2:    ## Misses ##

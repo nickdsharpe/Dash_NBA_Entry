@@ -1,1 +1,1 @@
-game_id,player_id,play_type_id,result_id,event_x,event_y,defender_id,defense_type_id,shot_zone_id, shot_quality_id, creator_id, creator_play_type_id, points, fta, team_id
+game_id,player_id,play_type_id,result_id,event_x,event_y,defender_id,defense_type_id,shot_zone_id, shot_quality_id, creator_id, creator_play_type_id, points, fta, stl_blk, team_id
