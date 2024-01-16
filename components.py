@@ -346,7 +346,7 @@ def AddGameInput():
                 dcc.Input(
                     id=f'add-game-input-date',
                     className='add-game-input',
-                    placeholder='Enter Date (MM/DD/YYYY)',
+                    placeholder='Enter Date (YYYY-MM-DD)',
                     type='text',
                 ),
                 dcc.Input(

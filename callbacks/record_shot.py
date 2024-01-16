@@ -6,7 +6,7 @@ import csv
 
 def append_to_csv(file_path, row):
     with open(file_path, 'a', newline='') as csvfile:
-        csv_writer = csv.writer(csvfile)
+        csv_writer = csv.writer(csvfile, quotechar='"')
         csv_writer.writerow(row)
 
 # Record shot callback
@@ -74,7 +74,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         event_list += [None] * 16
         event_list[0] = game_id[0]['id']
         home_team_id = team_ids[0]['home']
-        event_list[15] = f'"{home_team_id}"'
+        event_list[15] = f"'{home_team_id}'"
         
         # Handle a Passing Turnover
         if shot_result[0]['shooter'] == 99:
@@ -202,7 +202,7 @@ def teamOne_RecordShot(team_one_n_clicks, team_two_n_clicks, game_id, team_ids, 
         event_list += [None] * 16
         event_list[0] = game_id[0]['id']
         away_team_id = team_ids[0]['away']
-        event_list[15] = f'"{away_team_id}"'
+        event_list[15] = f"'{away_team_id}'"
         
         # Handle a Passing Turnover
         if shot_result[1]['shooter'] == 99:
