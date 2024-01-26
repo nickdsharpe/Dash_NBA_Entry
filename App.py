@@ -88,13 +88,10 @@ def teamTwo_CreatorInputs(value):
 )
 def teamTwo_ClearComponents(n_clicks, flag):
     if flag:
-        print('1')
         if n_clicks is not None:
-            print('2')
             n_clicks = 0
             return [[], '', '', '', '', '', [], None, None, False, [], False]
         else:
-            print('3')
             n_clicks = 0
             return [], None, None, None, None, None, [], None, None, False, [], False
     return no_update
